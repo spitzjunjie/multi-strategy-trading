@@ -46,7 +46,7 @@ def run_strategy_on_date(strategy, helper, timing, date):
                     should_sell, reason = simulator.check_and_sell(
                         symbol, prices[symbol], helper=helper, date=date)
                     if should_sell:
-                        simulator.execute_sell(symbol, prices[symbol], reason)
+                        simulator.execute_sell(symbol, prices[symbol], reason, sell_date=date)
             except Exception:
                 continue
 
@@ -70,9 +70,9 @@ def run_strategy_on_date(strategy, helper, timing, date):
         # 5. 更新持仓状态
         simulator.update_positions(prices)
 
-        # 6. 记录权益曲线
+        # 6. 记录权益曲线（带日期）
         total_value = strategy.get_total_value(prices)
-        strategy.equity_curve.append(total_value)
+        strategy.equity_curve.append({'date': date, 'value': total_value})
 
         return total_value
     except Exception as e:

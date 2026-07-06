@@ -15,6 +15,7 @@ class TradingSimulator:
         self.timing = timing
         self.max_holdings = 3  # 最多3只持仓
         self.position_value = 10000  # 每只股票分配10000元（3万/3）
+        self.max_hold_days = 20  # 最大持仓天数，超过强制卖出（避免死拿）
 
     def can_buy(self, symbol):
         """检查是否可以买入"""
@@ -35,7 +36,7 @@ class TradingSimulator:
     def execute_buy(self, symbol, name, price, reason, helper=None, date=None):
         """执行买入
         helper: 复用调用方的helper（避免每次new）
-        date: 历史回测日期（None=今天），透传给get_history_kline的end_date
+        date: 历史回测日期（None=今天）
         """
         can_buy, msg = self.can_buy(symbol)
         if not can_buy:
@@ -61,17 +62,23 @@ class TradingSimulator:
         if not has_signal:
             return None, "无买入择时信号"
 
-        # 执行买入
-        holding = self.strategy.add_holding(symbol, name, price, quantity, reason, timing_reason)
+        # 执行买入，传入实际日期（消除datetime.now()未来函数Bug）
+        holding = self.strategy.add_holding(
+            symbol, name, price, quantity, reason, timing_reason, buy_date=date)
         return holding, "买入成功"
 
     def check_and_sell(self, symbol, current_price, helper=None, date=None):
         """检查持仓是否需要卖出
         helper: 复用调用方的helper
         date: 历史回测日期（None=今天）
+        T+1限制：买入当天（hold_days=0）不能卖出
         """
         for holding in self.strategy.holdings:
             if holding['symbol'] == symbol:
+                # T+1限制：当天买不能当天卖
+                if holding.get('hold_days', 0) == 0:
+                    return False, None
+
                 position_price = holding['buy_price']
 
                 # 止损止盈优先（不依赖K线，避免API失败导致无法止损）
@@ -93,15 +100,19 @@ class TradingSimulator:
                     if should_sell:
                         return True, sell_reason
 
+                # 最大持仓天数限制（兜底：避免死拿）
+                if holding.get('hold_days', 0) >= self.max_hold_days:
+                    return True, f"超期持仓({holding['hold_days']}天)"
+
                 return False, None
 
         return False, None
-    
-    def execute_sell(self, symbol, price, reason):
+
+    def execute_sell(self, symbol, price, reason, sell_date=None):
+        """执行卖出
+        sell_date: 卖出日期（用于历史回测），None=今天
         """
-        执行卖出
-        """
-        trade = self.strategy.remove_holding(symbol, price, reason)
+        trade = self.strategy.remove_holding(symbol, price, reason, sell_date=sell_date)
         return trade
     
     def rebalance(self, selected_stocks, prices):

@@ -122,7 +122,7 @@ def run_strategy(strategy, helper, timing, date=None):
                     should_sell, reason = simulator.check_and_sell(
                         symbol, prices[symbol], helper=helper, date=date)
                     if should_sell:
-                        simulator.execute_sell(symbol, prices[symbol], reason)
+                        simulator.execute_sell(symbol, prices[symbol], reason, sell_date=date)
             except:
                 continue
 

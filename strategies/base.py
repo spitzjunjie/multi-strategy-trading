@@ -40,17 +40,23 @@ class BaseStrategy(ABC):
         """获取策略描述"""
         return self.name
     
-    def add_holding(self, symbol, name, price, quantity, reason, timing_reason):
-        """添加持仓"""
+    def add_holding(self, symbol, name, price, quantity, reason, timing_reason, buy_date=None):
+        """添加持仓
+        buy_date: 买入日期，None=今天（用于历史回测）
+        """
         cost = price * quantity
         self.current_capital -= cost
-        
+
+        # 历史回测时buy_date从参数传入，非历史回测用当天日期
+        if buy_date is None:
+            buy_date = datetime.now().strftime("%Y-%m-%d")
+
         holding = {
             'symbol': symbol,
             'name': name,
             'buy_price': price,
             'quantity': quantity,
-            'buy_date': datetime.now().strftime("%Y-%m-%d"),
+            'buy_date': buy_date,
             'cost': cost,
             'stock_reason': reason,  # 选股逻辑
             'timing_reason': timing_reason,  # 择时逻辑
@@ -58,9 +64,11 @@ class BaseStrategy(ABC):
         }
         self.holdings.append(holding)
         return holding
-    
-    def remove_holding(self, symbol, sell_price, sell_reason):
-        """卖出持仓"""
+
+    def remove_holding(self, symbol, sell_price, sell_reason, sell_date=None):
+        """卖出持仓
+        sell_date: 卖出日期，None=今天（用于历史回测）
+        """
         for i, h in enumerate(self.holdings):
             if h['symbol'] == symbol:
                 holding = self.holdings.pop(i)
@@ -72,13 +80,17 @@ class BaseStrategy(ABC):
                 # 累计已实现收益
                 self.realized_pnl += profit
                 self.realized_pnl_pct = self.realized_pnl / self.initial_capital * 100
-                
+
+                # 历史回测时sell_date从参数传入
+                if sell_date is None:
+                    sell_date = datetime.now().strftime("%Y-%m-%d")
+
                 trade = {
                     'symbol': symbol,
                     'name': holding['name'],
                     'buy_date': holding['buy_date'],
                     'buy_price': holding['buy_price'],
-                    'sell_date': datetime.now().strftime("%Y-%m-%d"),
+                    'sell_date': sell_date,
                     'sell_price': sell_price,
                     'quantity': holding['quantity'],
                     'profit': profit,
@@ -143,22 +155,47 @@ class BaseStrategy(ABC):
         """计算最大回撤"""
         if not self.equity_curve:
             return 0
+        # 从字典列表中提取数值
+        values = []
+        for item in self.equity_curve:
+            if isinstance(item, dict):
+                val = item.get('value', 0)
+            else:
+                val = item
+            if val is not None and isinstance(val, (int, float)):
+                values.append(val)
+        
+        if not values:
+            return 0
         peak = self.initial_capital
         max_dd = 0
-        for value in self.equity_curve:
+        for value in values:
             if value > peak:
                 peak = value
-            dd = (peak - value) / peak
-            if dd > max_dd:
-                max_dd = dd
+            if peak > 0:
+                dd = (peak - value) / peak
+                if dd > max_dd:
+                    max_dd = dd
         return max_dd
     
     def get_sharpe_ratio(self):
         """计算夏普比率（简化版）"""
         if len(self.equity_curve) < 2:
             return 0
-        returns = pd.Series(self.equity_curve).pct_change().dropna()
-        if returns.std() == 0:
+        # 从字典列表中提取数值
+        values = []
+        for item in self.equity_curve:
+            if isinstance(item, dict):
+                val = item.get('value', 0)
+            else:
+                val = item
+            if val is not None and isinstance(val, (int, float)):
+                values.append(val)
+        
+        if len(values) < 2:
+            return 0
+        returns = pd.Series(values).pct_change().dropna()
+        if len(returns) == 0 or returns.std() == 0:
             return 0
         return (returns.mean() / returns.std()) * (252 ** 0.5)
     
