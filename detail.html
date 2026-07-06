@@ -244,7 +244,7 @@
             }
             
             try {
-                const response = await fetch('../output/strategy_data.json');
+                const response = await fetch('output/strategy_data.json');
                 if (!response.ok) throw new Error('数据加载失败');
                 const data = await response.json();
                 
