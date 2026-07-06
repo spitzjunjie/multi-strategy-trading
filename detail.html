@@ -265,23 +265,58 @@
         function renderStrategy(strategy) {
             document.title = `${strategy.name} - 多策略模拟交易系统`;
             document.getElementById('strategyName').textContent = `${strategy.name} 详情`;
-            
-            // 概览
-            const ret = strategy.total_return || 0;
-            const monthlyRet = strategy.monthly_return || 0;
-            const retClass = ret >= 0 ? 'positive' : 'negative';
-            const monthlyClass = monthlyRet >= 0 ? 'positive' : 'negative';
-            
+
+            // 双收益分类
+            const totalPnl = strategy.total_pnl || 0;
+            const totalPnlPct = strategy.total_pnl_pct || 0;
+            const realizedPnl = strategy.realized_pnl || 0;
+            const realizedPnlPct = strategy.realized_pnl_pct || 0;
+            const floatingPnl = strategy.floating_pnl || 0;
+            const floatingPnlPct = strategy.floating_pnl_pct || 0;
+
+            const totalClass = totalPnl >= 0 ? 'positive' : 'negative';
+            const realizedClass = realizedPnl >= 0 ? 'positive' : 'negative';
+            const floatingClass = floatingPnl >= 0 ? 'positive' : 'negative';
+
+            const fmtMoney = (v) => {
+                const sign = v >= 0 ? '+' : '-';
+                return sign + '¥' + Math.abs(v).toLocaleString('zh-CN', {maximumFractionDigits: 2});
+            };
+            const fmtPct = (v) => {
+                const sign = v >= 0 ? '+' : '';
+                return sign + v.toFixed(2) + '%';
+            };
+
             document.getElementById('overview').innerHTML = `
                 <h2>策略概览</h2>
                 <div class="overview-grid">
                     <div class="overview-item">
-                        <div class="label">累计收益</div>
-                        <div class="value ${retClass}">${(ret * 100).toFixed(2)}%</div>
+                        <div class="label">初始资金</div>
+                        <div class="value">¥${(strategy.initial_capital || 0).toLocaleString()}</div>
                     </div>
                     <div class="overview-item">
-                        <div class="label">本月收益</div>
-                        <div class="value ${monthlyClass}">${(monthlyRet * 100).toFixed(2)}%</div>
+                        <div class="label">当前现金</div>
+                        <div class="value">¥${(strategy.current_capital || 0).toLocaleString()}</div>
+                    </div>
+                    <div class="overview-item">
+                        <div class="label">持仓市值</div>
+                        <div class="value">¥${((strategy.total_value || 0) - (strategy.current_capital || 0)).toLocaleString()}</div>
+                    </div>
+                    <div class="overview-item">
+                        <div class="label">总权益</div>
+                        <div class="value">¥${(strategy.total_value || 0).toLocaleString()}</div>
+                    </div>
+                    <div class="overview-item">
+                        <div class="label">总收益</div>
+                        <div class="value ${totalClass}">${fmtMoney(totalPnl)} (${fmtPct(totalPnlPct)})</div>
+                    </div>
+                    <div class="overview-item">
+                        <div class="label">已实现收益 🟢</div>
+                        <div class="value ${realizedClass}">${fmtMoney(realizedPnl)} (${fmtPct(realizedPnlPct)})</div>
+                    </div>
+                    <div class="overview-item">
+                        <div class="label">浮动收益 🟡</div>
+                        <div class="value ${floatingClass}">${fmtMoney(floatingPnl)} (${fmtPct(floatingPnlPct)})</div>
                     </div>
                     <div class="overview-item">
                         <div class="label">夏普比率</div>
@@ -294,10 +329,6 @@
                     <div class="overview-item">
                         <div class="label">胜率</div>
                         <div class="value">${((strategy.win_rate || 0) * 100).toFixed(0)}%</div>
-                    </div>
-                    <div class="overview-item">
-                        <div class="label">当前权益</div>
-                        <div class="value">¥${(strategy.total_value || 0).toLocaleString()}</div>
                     </div>
                 </div>
                 <div class="description">

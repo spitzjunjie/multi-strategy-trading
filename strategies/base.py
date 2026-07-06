@@ -20,6 +20,8 @@ class BaseStrategy(ABC):
         self.holdings = []  # 当前持仓
         self.trades = []  # 历史交易记录
         self.equity_curve = []  # 权益曲线
+        self.realized_pnl = 0.0  # 累计已实现收益
+        self.realized_pnl_pct = 0.0  # 已实现收益率
         
     @abstractmethod
     def select_stocks(self, helper, date=None):
@@ -64,8 +66,11 @@ class BaseStrategy(ABC):
                 revenue = sell_price * holding['quantity']
                 profit = revenue - holding['cost']
                 profit_pct = profit / holding['cost'] * 100
-                
+
                 self.current_capital += revenue
+                # 累计已实现收益
+                self.realized_pnl += profit
+                self.realized_pnl_pct = self.realized_pnl / self.initial_capital * 100
                 
                 trade = {
                     'symbol': symbol,
@@ -104,6 +109,27 @@ class BaseStrategy(ABC):
         return (self.current_capital + sum(
             h['buy_price'] * h['quantity'] for h in self.holdings
         ) - self.initial_capital) / self.initial_capital
+
+    def get_floating_pnl(self, prices=None):
+        """计算浮动收益（未实现盈亏）"""
+        prices = prices or {}
+        floating = 0.0
+        for h in self.holdings:
+            current_price = prices.get(h['symbol'], h['buy_price'])
+            floating += (current_price - h['buy_price']) * h['quantity']
+        return floating
+
+    def get_floating_pnl_pct(self, prices=None):
+        """浮动收益率"""
+        return self.get_floating_pnl(prices) / self.initial_capital * 100
+
+    def get_total_pnl(self, prices=None):
+        """总收益 = 已实现 + 浮动"""
+        return self.realized_pnl + self.get_floating_pnl(prices)
+
+    def get_total_pnl_pct(self, prices=None):
+        """总收益率"""
+        return self.get_total_pnl(prices) / self.initial_capital * 100
     
     def get_win_rate(self):
         """计算胜率"""
@@ -137,8 +163,13 @@ class BaseStrategy(ABC):
     
     def to_dict(self, prices=None):
         """转换为字典格式（用于JSON输出）"""
-        total_value = self.get_total_value(prices or {})
-        
+        prices = prices or {}
+        total_value = self.get_total_value(prices)
+        floating_pnl = self.get_floating_pnl(prices)
+        floating_pnl_pct = self.get_floating_pnl_pct(prices)
+        total_pnl = self.realized_pnl + floating_pnl
+        total_pnl_pct = total_pnl / self.initial_capital * 100
+
         return {
             'name': self.name,
             'category': self.category,
@@ -151,6 +182,13 @@ class BaseStrategy(ABC):
             'sharpe_ratio': self.get_sharpe_ratio(),
             'max_drawdown': self.get_max_drawdown(),
             'win_rate': self.get_win_rate(),
+            # 双收益分类
+            'realized_pnl': round(self.realized_pnl, 2),
+            'realized_pnl_pct': round(self.realized_pnl_pct, 2),
+            'floating_pnl': round(floating_pnl, 2),
+            'floating_pnl_pct': round(floating_pnl_pct, 2),
+            'total_pnl': round(total_pnl, 2),
+            'total_pnl_pct': round(total_pnl_pct, 2),
             'holdings': self.holdings,
             'trades': self.trades[-10:],  # 最近10笔交易
             'equity_curve': self.equity_curve[-30:]  # 最近30天曲线

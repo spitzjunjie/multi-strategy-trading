@@ -270,18 +270,32 @@
             
             strategies.forEach((strategy, index) => {
                 const rank = index + 1;
-                const ret = strategy.total_return || 0;
-                const monthlyRet = strategy.monthly_return || 0;
-                const retClass = ret >= 0 ? 'positive' : 'negative';
-                const monthlyClass = monthlyRet >= 0 ? 'positive' : 'negative';
+                const totalPnl = strategy.total_pnl || 0;
+                const totalPnlPct = strategy.total_pnl_pct || 0;
+                const realizedPnl = strategy.realized_pnl || 0;
+                const realizedPnlPct = strategy.realized_pnl_pct || 0;
+                const floatingPnl = strategy.floating_pnl || 0;
+                const floatingPnlPct = strategy.floating_pnl_pct || 0;
+
+                const totalClass = totalPnl >= 0 ? 'positive' : 'negative';
+                const realizedClass = realizedPnl >= 0 ? 'positive' : 'negative';
+                const floatingClass = floatingPnl >= 0 ? 'positive' : 'negative';
                 const rankClass = rank <= 3 ? 'top' : '';
                 const holdings = strategy.holdings || [];
-                const trades = strategy.trades || [];
-                
+
+                const fmtMoney = (v) => {
+                    const sign = v >= 0 ? '+' : '';
+                    return sign + '¥' + Math.abs(v).toLocaleString('zh-CN', {maximumFractionDigits: 0});
+                };
+                const fmtPct = (v) => {
+                    const sign = v >= 0 ? '+' : '';
+                    return sign + v.toFixed(2) + '%';
+                };
+
                 const card = document.createElement('div');
                 card.className = 'strategy-card';
                 card.onclick = () => window.location.href = `detail.html?id=${encodeURIComponent(strategy.name)}`;
-                
+
                 card.innerHTML = `
                     <div>
                         <span class="rank ${rankClass}">${rank}</span>
@@ -290,16 +304,16 @@
                     </div>
                     <div class="returns">
                         <div class="return-item">
-                            <div class="label">累计收益</div>
-                            <div class="value ${retClass}">${(ret * 100).toFixed(2)}%</div>
+                            <div class="label">总收益</div>
+                            <div class="value ${totalClass}">${fmtMoney(totalPnl)} (${fmtPct(totalPnlPct)})</div>
                         </div>
                         <div class="return-item">
-                            <div class="label">本月收益</div>
-                            <div class="value ${monthlyClass}">${(monthlyRet * 100).toFixed(2)}%</div>
+                            <div class="label">已实现 🟢</div>
+                            <div class="value ${realizedClass}">${fmtMoney(realizedPnl)} (${fmtPct(realizedPnlPct)})</div>
                         </div>
                         <div class="return-item">
-                            <div class="label">夏普比率</div>
-                            <div class="value">${(strategy.sharpe_ratio || 0).toFixed(2)}</div>
+                            <div class="label">浮动 🟡</div>
+                            <div class="value ${floatingClass}">${fmtMoney(floatingPnl)} (${fmtPct(floatingPnlPct)})</div>
                         </div>
                     </div>
                     <div class="chart-container">
@@ -311,9 +325,9 @@
                         <span>📉 回撤: ${((strategy.max_drawdown || 0) * 100).toFixed(1)}%</span>
                     </div>
                 `;
-                
+
                 grid.appendChild(card);
-                
+
                 // 绘制迷你图表
                 setTimeout(() => renderMiniChart(index, strategy.equity_curve || [], strategy.initial_capital), 50);
             });
