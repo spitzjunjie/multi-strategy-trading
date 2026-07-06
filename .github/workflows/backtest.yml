@@ -7,6 +7,9 @@ on:
   # 也支持手动触发
   workflow_dispatch:
 
+permissions:
+  contents: write  # 允许推送数据回仓库
+
 jobs:
   backtest:
     runs-on: ubuntu-latest
@@ -31,27 +34,19 @@ jobs:
       - name: 运行回测
         run: python backtest.py
       
-      - name: 上传数据
-        uses: actions/upload-artifact@v4
-        with:
-          name: strategy-data
-          path: output/strategy_data.json
-          retention-days: 30
-      
-      - name: 部署Dashboard
-        if: success()
+      - name: 验证数据生成
         run: |
-          # 复制Dashboard文件到根目录
-          cp dashboard/index.html ./
-          cp dashboard/detail.html ./
-          
-          # 创建CNAME文件(可选)
-          # echo "your-domain.com" > CNAME
+          if [ ! -f output/strategy_data.json ]; then
+            echo "错误：数据文件未生成"
+            exit 1
+          fi
+          echo "数据文件大小："
+          ls -lh output/strategy_data.json
       
-      - name: 推送更新
+      - name: 推送数据到仓库
         run: |
           git config --local user.email "github-actions[bot]@users.noreply.github.com"
           git config --local user.name "github-actions[bot]"
-          git add output/strategy_data.json dashboard/*.html
-          git commit -m "更新策略数据 $(date +'%Y-%m-%d %H:%M')" || echo "No changes to commit"
-          git push || echo "Push skipped"
+          git add output/strategy_data.json
+          git commit -m "更新策略数据 $(date +'%Y-%m-%d %H:%M')" || echo "无更改"
+          git push
