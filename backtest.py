@@ -19,13 +19,16 @@ from strategies.factor_strategies import (
     ROEStrategy, ProfitGrowthStrategy, RevenueGrowthStrategy,
     LowPEStrategy, LowPBStrategy, PSRStrategy, LowValuationStrategy,
     CashFlowQualityStrategy, HighROICStrategy, LowDebtStrategy,
-    HighDividendStrategy, DividendLowVolStrategy
+    HighDividendStrategy, DividendLowVolStrategy,
+    NorthHeavyStrategy, InstitutionHoldingStrategy,
+    MomentumReversalStrategy as FactorMomentumReversal,
+    TrendMomentumStrategy as FactorTrendMomentum
 )
 from strategies.event_strategies import (
     MomentumReversalStrategy, TrendMomentumStrategy, NorthFlowStrategy,
-    InstitutionHoldingStrategy, NorthHeavyStrategy,
     LimitUpCallbackStrategy, STRemoveStrategy,
-    ExecutiveBuyStrategy, EarningsSurpriseStrategy, AnalystUpgradeStrategy
+    ExecutiveBuyStrategy, EarningsSurpriseStrategy, AnalystUpgradeStrategy,
+    MultiFactorStrategy as EventMultiFactor
 )
 from strategies.special_strategies import (
     AISupplyChainStrategy, LocalizationStrategy,
@@ -87,51 +90,56 @@ def get_all_strategies():
     return strategies
 
 
-def run_strategy(strategy, helper, timing):
-    """运行单个策略"""
+def run_strategy(strategy, helper, timing, date=None):
+    """运行单个策略
+    date: 指定运行日期(YYYY-MM-DD)，None=今天（用于历史回测）
+    """
     try:
-        print(f"运行策略: {strategy.name}")
+        print(f"运行策略: {strategy.name}" + (f" 日期:{date}" if date else ""))
         simulator = TradingSimulator(strategy, timing)
-        
-        # 1. 选股
-        selected = strategy.select_stocks(helper)
-        
+
+        # 1. 选股（传入date用于历史回测）
+        selected = strategy.select_stocks(helper, date)
+
         # 2. 获取股票价格
         prices = {}
-        for stock in selected[:10]:  # 最多检查10只
+        for stock in selected[:30]:  # 扩大到前30只（原10只太少）
             try:
-                df = helper.get_history_kline(stock['symbol'], days=5)
+                df = helper.get_history_kline(stock['symbol'], days=5, end_date=date)
                 if not df.empty:
                     prices[stock['symbol']] = df['close'].iloc[-1]
             except:
                 continue
-        
+
         # 3. 检查现有持仓
         for holding in strategy.holdings:
             symbol = holding['symbol']
             try:
-                df = helper.get_history_kline(symbol, days=5)
+                df = helper.get_history_kline(symbol, days=5, end_date=date)
                 if not df.empty:
                     prices[symbol] = df['close'].iloc[-1]
-                    # 检查是否需要卖出
-                    should_sell, reason = simulator.check_and_sell(symbol, prices[symbol])
+                    # 检查是否需要卖出（传helper+date，消除未来函数Bug）
+                    should_sell, reason = simulator.check_and_sell(
+                        symbol, prices[symbol], helper=helper, date=date)
                     if should_sell:
                         simulator.execute_sell(symbol, prices[symbol], reason)
             except:
                 continue
-        
+
         # 4. 尝试买入新股票
         for stock in selected:
             if len(strategy.holdings) >= simulator.max_holdings:
                 break
-            
+
             symbol = stock['symbol']
             if symbol in prices:
                 result, msg = simulator.execute_buy(
                     symbol,
                     stock.get('name', symbol),
                     prices[symbol],
-                    stock.get('reason', '')
+                    stock.get('reason', ''),
+                    helper=helper,
+                    date=date
                 )
                 if result:
                     print(f"  买入 {stock['name']}: {msg}")
@@ -195,37 +203,53 @@ def main():
             except Exception as e:
                 print(f"策略 {strategy.name} 执行异常: {e}")
     
-    # 按累计收益排序
-    results.sort(key=lambda x: x.get('total_return', 0), reverse=True)
-    
+    # 用综合评分排序（夏普30%+收益25%+回撤20%+胜率15%+稳定性10%）
+    from evaluation import StrategyEvaluator
+    evaluator = StrategyEvaluator()
+    evaluations = evaluator.evaluate_batch(results)
+    # 把评估结果合并到每个strategy result中（供Dashboard展示等级徽章）
+    for r, e in zip(results, evaluations):
+        r['composite_score'] = e['composite_score']
+        r['grade'] = e['grade']
+        r['profit_loss_ratio'] = e['profit_loss_ratio']
+        r['return_stability'] = e['return_stability']
+        r['calmar_ratio'] = e['calmar_ratio']
+    # 按综合分排序（不再是单一total_return）
+    results.sort(key=lambda x: x.get('composite_score', 0), reverse=True)
+
     # 生成输出数据
     output = {
         'update_time': datetime.now().strftime('%Y-%m-%d %H:%M:%S'),
         'strategy_count': len(results),
+        'grade_stats': evaluator.grade_stats(evaluations),
         'strategies': results
     }
-    
+
     # 保存结果
     output_dir = 'output'
     os.makedirs(output_dir, exist_ok=True)
-    
+
     output_file = os.path.join(output_dir, 'strategy_data.json')
     with open(output_file, 'w', encoding='utf-8') as f:
         json.dump(output, f, ensure_ascii=False, indent=2, default=str)
-    
+
     print("\n" + "=" * 60)
-    print("策略排名")
+    print("策略排名（按综合分）")
     print("=" * 60)
-    
+
+    grade_emoji = {'S': '🏆', 'A': '🥇', 'B': '🥈', 'C': '🥉', 'D': '⚠️'}
     for i, r in enumerate(results, 1):
         name = r.get('name', 'Unknown')
         ret = r.get('total_return', 0) * 100
         value = r.get('total_value', 0)
-        print(f"{i:2}. {name:<20} 收益: {ret:>+7.2f}%  权益: ¥{value:,.0f}")
-    
+        score = r.get('composite_score', 0)
+        grade = r.get('grade', 'D')
+        sharpe = r.get('sharpe_ratio', 0)
+        print(f"{i:2}. {grade_emoji.get(grade,'')} {name:<18} 分数:{score:>5.1f} 收益:{ret:>+7.2f}% 夏普:{sharpe:>5.2f} 权益:¥{value:,.0f}")
+
     print(f"\n结果已保存到: {output_file}")
     print("=" * 60)
-    
+
     return output
 
 

@@ -15,17 +15,10 @@ class TechnicalBreakoutStrategy(EventStrategy):
     def __init__(self, name, category="技术突破"):
         super().__init__(name, category)
 
-    def get_universe(self, helper):
-        """获取股票池（沪深300成分股）"""
-        try:
-            import akshare as ak
-            df = ak.index_stock_cons(symbol="000300")
-            if df.empty:
-                return []
-            return df['品种代码'].tolist()
-        except Exception as e:
-            print(f"获取股票池失败: {e}")
-            return []
+    def get_universe(self, helper, sample=80):
+        """获取股票池（沪深300，按市值降序抽样）"""
+        stocks = helper.get_stock_pool("hs300", sorted_by_market_value=True)
+        return stocks[:sample] if len(stocks) > sample else stocks
 
     def calculate_indicators(self, df):
         """计算技术指标"""

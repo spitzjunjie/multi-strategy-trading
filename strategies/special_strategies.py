@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 """
-特殊策略：紫苏叶策略、趋势策略
+特殊策略：紫苏叶策略、趋势策略（真实数据驱动）
 """
 
 import pandas as pd
@@ -9,157 +9,208 @@ from strategies.base import EventStrategy, FactorStrategy
 
 
 class AISupplyChainStrategy(EventStrategy):
-    """AI供应链紫苏叶策略"""
-    
+    """AI供应链紫苏叶策略 - 真实股票池 + 趋势确认"""
+
     def __init__(self):
         super().__init__("AI供应链紫苏叶", "紫苏叶")
-    
+
+    def get_description(self):
+        return "找AI产业链卡脖子环节：磷化铟/谐波减速器/MLCC/半导体设备"
+
     def detect_events(self, helper, date=None):
-        """
-        检测AI供应链瓶颈环节的A股标的
-        按照紫苏叶理论：找"不起眼却不可或缺"的上游环节
-        """
-        try:
-            # AI供应链关键环节的A股标的（示例）
-            supply_chain_stocks = [
-                {'symbol': '002371', 'name': '北方华创', 'reason': '半导体设备-刻蚀机'},
-                {'symbol': '688012', 'name': '中微公司', 'reason': '半导体设备-MOCVD'},
-                {'symbol': '688521', 'name': '芯原股份', 'reason': 'RISC-V IP核'},
-                {'symbol': '688396', 'name': '华润微', 'reason': '半导体功率器件'},
-                {'symbol': '002428', 'name': '云南锗业', 'reason': '磷化铟衬底'},
-                {'symbol': '300408', 'name': '三环集团', 'reason': 'MLCC电子元件'},
-                {'symbol': '688187', 'name': '时代电气', 'reason': '功率半导体'},
-                {'symbol': '688256', 'name': '寒武纪', 'reason': 'AI芯片'},
-                {'symbol': '688008', 'name': '澜起科技', 'reason': '内存接口芯片'},
-                {'symbol': '688099', 'name': '晶晨股份', 'reason': '多媒体芯片'},
-            ]
-            return supply_chain_stocks
-        except Exception as e:
-            print(f"AI供应链策略检测失败: {e}")
-            return []
+        # AI供应链关键环节的真实A股标的
+        supply_chain_stocks = [
+            {'symbol': '002371', 'name': '北方华创', 'segment': '半导体设备-刻蚀机'},
+            {'symbol': '688012', 'name': '中微公司', 'segment': '半导体设备-MOCVD'},
+            {'symbol': '002428', 'name': '云南锗业', 'segment': '磷化铟衬底'},
+            {'symbol': '300408', 'name': '三环集团', 'segment': 'MLCC电子元件'},
+            {'symbol': '688187', 'name': '时代电气', 'segment': '功率半导体'},
+            {'symbol': '688256', 'name': '寒武纪', 'segment': 'AI芯片'},
+            {'symbol': '688008', 'name': '澜起科技', 'segment': '内存接口芯片'},
+            {'symbol': '688099', 'name': '晶晨股份', 'segment': '多媒体芯片'},
+            {'symbol': '688521', 'name': '芯原股份', 'segment': 'RISC-V IP核'},
+            {'symbol': '688396', 'name': '华润微', 'segment': '半导体功率器件'},
+        ]
+        results = []
+        for stock in supply_chain_stocks:
+            try:
+                # 用趋势确认：20日均线向上
+                kline = helper.get_history_kline(stock['symbol'], days=30)
+                if not kline.empty and len(kline) > 20:
+                    ma20 = kline['close'].rolling(20).mean()
+                    if ma20.iloc[-1] > ma20.iloc[-5]:  # 20日均线上行
+                        results.append({
+                            'symbol': stock['symbol'],
+                            'name': stock['name'],
+                            'reason': f"{stock['segment']}，20日均线上行"
+                        })
+                if len(results) >= 5:
+                    break
+            except:
+                continue
+        return results
 
 
 class LocalizationStrategy(EventStrategy):
-    """国产替代紫苏叶策略"""
-    
+    """国产替代紫苏叶策略 - 真实股票池 + 基本面确认"""
+
     def __init__(self):
         super().__init__("国产替代", "紫苏叶")
-    
+
+    def get_description(self):
+        return "半导体设备/材料国产替代，真实龙头股+基本面确认"
+
     def detect_events(self, helper, date=None):
-        """
-        检测国产替代机会的A股标的
-        """
-        try:
-            localization_stocks = [
-                {'symbol': '688012', 'name': '中微公司', 'reason': '半导体设备国产替代'},
-                {'symbol': '002371', 'name': '北方华创', 'reason': '半导体设备国产替代'},
-                {'symbol': '688981', 'name': '中芯国际', 'reason': '晶圆代工国产替代'},
-                {'symbol': '688396', 'name': '华润微', 'reason': '功率半导体国产替代'},
-                {'symbol': '688008', 'name': '澜起科技', 'reason': '内存接口芯片国产替代'},
-                {'symbol': '688256', 'name': '寒武纪', 'reason': 'AI芯片国产替代'},
-                {'symbol': '300751', 'name': '迈为股份', 'reason': '光伏设备国产替代'},
-                {'symbol': '688116', 'name': '天奈科技', 'reason': '碳纳米管国产替代'},
-                {'symbol': '688005', 'name': '容百科技', 'reason': '正极材料国产替代'},
-                {'symbol': '002049', 'name': '紫光国微', 'reason': '特种芯片国产替代'},
-            ]
-            return localization_stocks
-        except Exception as e:
-            print(f"国产替代策略检测失败: {e}")
-            return []
+        localization_stocks = [
+            {'symbol': '688012', 'name': '中微公司', 'segment': '半导体设备'},
+            {'symbol': '002371', 'name': '北方华创', 'segment': '半导体设备'},
+            {'symbol': '688981', 'name': '中芯国际', 'segment': '晶圆代工'},
+            {'symbol': '688396', 'name': '华润微', 'segment': '功率半导体'},
+            {'symbol': '688008', 'name': '澜起科技', 'segment': '内存接口芯片'},
+            {'symbol': '688256', 'name': '寒武纪', 'segment': 'AI芯片'},
+            {'symbol': '300751', 'name': '迈为股份', 'segment': '光伏设备'},
+            {'symbol': '688116', 'name': '天奈科技', 'segment': '碳纳米管'},
+            {'symbol': '688005', 'name': '容百科技', 'segment': '正极材料'},
+            {'symbol': '002049', 'name': '紫光国微', 'segment': '特种芯片'},
+        ]
+        results = []
+        for stock in localization_stocks:
+            try:
+                # 基本面确认：营收增速 > 10%
+                growth = helper.get_growth_data(stock['symbol'])
+                revenue_growth = growth.get('revenue_growth', 0)
+                if revenue_growth > 10:
+                    results.append({
+                        'symbol': stock['symbol'],
+                        'name': stock['name'],
+                        'reason': f"{stock['segment']}国产替代，营收增速={revenue_growth:.1f}%"
+                    })
+                if len(results) >= 5:
+                    break
+            except:
+                continue
+        return results
 
 
-class TrendStrategy(FactorStrategy):
-    """趋势策略基类"""
-    
-    def __init__(self, name, category):
-        super().__init__(name, category, "趋势因子")
-    
+class MaBreakStrategy(FactorStrategy):
+    """均线多头排列策略 - 真实5MA>10MA>20MA"""
+
+    def __init__(self):
+        super().__init__("均线多头排列", "趋势策略", "均线多头")
+
+    def get_description(self):
+        return "5MA>10MA>20MA，均线多头排列时买入"
+
     def calculate_factor(self, helper, date=None):
-        """计算趋势因子"""
-        try:
-            import akshare as ak
-            df = ak.stock_board_industry_name_em()
-            all_stocks = []
-            
-            for _, row in df.head(5).iterrows():
-                try:
-                    industry_stocks = ak.stock_board_industry_cons_em(symbol=row['板块名称'])
-                    if not industry_stocks.empty:
-                        all_stocks.append(industry_stocks)
-                except:
+        stocks = helper.get_stock_pool("hs300")[:80]
+        data = []
+        for sym in stocks:
+            try:
+                kline = helper.get_history_kline(sym, days=30)
+                if kline.empty or len(kline) < 20:
                     continue
-            
-            if not all_stocks:
-                return pd.DataFrame()
-            
-            result = pd.concat(all_stocks, ignore_index=True)
-            result['factor_value'] = np.random.uniform(0, 1, len(result))
-            result = result.head(50)
-            
-            return result[['代码', '名称', 'factor_value']].rename(
-                columns={'代码': 'symbol', '名称': 'name'}
-            )
-        except Exception as e:
-            print(f"趋势策略计算失败: {e}")
-            return pd.DataFrame()
+                ma5 = kline['close'].rolling(5).mean().iloc[-1]
+                ma10 = kline['close'].rolling(10).mean().iloc[-1]
+                ma20 = kline['close'].rolling(20).mean().iloc[-1]
+                # 均线多头排列：ma5 > ma10 > ma20
+                if ma5 > ma10 > ma20:
+                    # 因子值 = 收盘价相对MA20的偏离度
+                    score = (kline['close'].iloc[-1] / ma20 - 1) * 100
+                    data.append({'symbol': sym, 'name': sym, 'factor_value': score})
+            except:
+                continue
+        df = pd.DataFrame(data)
+        if not df.empty:
+            df = df.sort_values('factor_value', ascending=False).head(30)
+            df['reason'] = df.apply(lambda r: f"均线多头，偏离MA20={r['factor_value']:.2f}%", axis=1)
+        return df
 
 
-class MaBreakStrategy(TrendStrategy):
-    """均线多头排列策略"""
-    
+class MultiPeriodStrategy(FactorStrategy):
+    """多周期共振策略 - 日线+周线趋势同向"""
+
     def __init__(self):
-        super().__init__("均线多头排列", "趋势策略")
-    
-    def get_description(self):
-        return "5MA>10MA>20MA时买入"
+        super().__init__("多周期共振", "趋势策略", "多周期共振")
 
-
-class MultiPeriodStrategy(TrendStrategy):
-    """多周期共振策略"""
-    
-    def __init__(self):
-        super().__init__("多周期共振", "趋势策略")
-    
     def get_description(self):
-        return "日周月线同向上时买入"
+        return "日线和周线趋势同向上时买入"
+
+    def calculate_factor(self, helper, date=None):
+        stocks = helper.get_stock_pool("hs300")[:60]
+        data = []
+        for sym in stocks:
+            try:
+                # 日线
+                daily = helper.get_history_kline(sym, days=60)
+                if daily.empty or len(daily) < 30:
+                    continue
+                # 周线（简化：用20日和5日均线模拟）
+                ma5 = daily['close'].rolling(5).mean().iloc[-1]
+                ma20 = daily['close'].rolling(20).mean().iloc[-1]
+                ma10 = daily['close'].rolling(10).mean().iloc[-1]
+
+                # 日线趋势：ma5 > ma10
+                daily_bull = ma5 > ma10
+                # 周线趋势：ma10 > ma20（近似周线）
+                weekly_bull = ma10 > ma20
+
+                if daily_bull and weekly_bull:
+                    # 共振强度
+                    score = (ma5 / ma20 - 1) * 100
+                    data.append({'symbol': sym, 'name': sym, 'factor_value': score})
+            except:
+                continue
+        df = pd.DataFrame(data)
+        if not df.empty:
+            df = df.sort_values('factor_value', ascending=False).head(30)
+            df['reason'] = df.apply(lambda r: f"多周期共振，趋势强度={r['factor_value']:.2f}%", axis=1)
+        return df
 
 
 class MultiFactorStrategy(FactorStrategy):
-    """多因子综合策略"""
-    
+    """多因子综合策略 - 真实因子等权组合"""
+
     def __init__(self):
         super().__init__("多因子综合", "综合", "多因子综合得分")
         self.factor_name = "多因子"
-    
-    def calculate_factor(self, helper, date=None):
-        """计算多因子综合得分"""
-        try:
-            import akshare as ak
-            df = ak.stock_board_industry_name_em()
-            all_stocks = []
-            
-            for _, row in df.head(5).iterrows():
-                try:
-                    industry_stocks = ak.stock_board_industry_cons_em(symbol=row['板块名称'])
-                    if not industry_stocks.empty:
-                        all_stocks.append(industry_stocks)
-                except:
-                    continue
-            
-            if not all_stocks:
-                return pd.DataFrame()
-            
-            result = pd.concat(all_stocks, ignore_index=True)
-            # 多因子综合得分
-            result['factor_value'] = np.random.uniform(0.5, 1.5, len(result))
-            result = result.head(50)
-            
-            return result[['代码', '名称', 'factor_value']].rename(
-                columns={'代码': 'symbol', '名称': 'name'}
-            )
-        except Exception as e:
-            print(f"多因子综合策略计算失败: {e}")
-            return pd.DataFrame()
-    
+
     def get_description(self):
-        return "多因子等权/加权组合"
+        return "等权组合ROE+低PE+动量+北向，综合评分"
+
+    def calculate_factor(self, helper, date=None):
+        stocks = helper.get_stock_pool("hs300")[:50]
+        data = []
+        for sym in stocks:
+            try:
+                # 综合评分：ROE + 低PE + 60日动量 + 北向持股
+                fin = helper.get_financial_indicator(sym)
+                val = helper.get_valuation_data(sym)
+                north = helper.get_north_holding(sym)
+                kline = helper.get_history_kline(sym, days=90)
+
+                roe = fin.get('roe', 0)
+                pe = val.get('pe_ttm', 100)
+                north_ratio = north.get('hold_ratio', 0)
+
+                if kline is not None and not kline.empty and len(kline) > 60:
+                    ret_60d = (kline['close'].iloc[-1] / kline['close'].iloc[-60] - 1) * 100
+                else:
+                    ret_60d = 0
+
+                # 综合得分（归一化）
+                score = 0
+                score += min(roe / 20, 1) * 25  # ROE贡献25分
+                score += min(20 / max(pe, 1), 1) * 25  # 低PE贡献25分
+                score += min(ret_60d / 20, 1) * 25  # 动量贡献25分
+                score += min(north_ratio / 5, 1) * 25  # 北向贡献25分
+
+                if score > 40:
+                    data.append({'symbol': sym, 'name': sym, 'factor_value': score})
+            except:
+                continue
+        df = pd.DataFrame(data)
+        if not df.empty:
+            df = df.sort_values('factor_value', ascending=False).head(30)
+            df['reason'] = df.apply(
+                lambda r: f"综合评分={r['factor_value']:.1f}", axis=1)
+        return df

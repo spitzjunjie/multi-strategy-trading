@@ -15,6 +15,7 @@ class BaseStrategy(ABC):
     def __init__(self, name, category, initial_capital=30000):
         self.name = name
         self.category = category
+        self.version = "1.0.0"  # 策略版本号（参数调优后+1）
         self.initial_capital = initial_capital  # 初始资金3万
         self.current_capital = initial_capital  # 当前资金
         self.holdings = []  # 当前持仓
@@ -173,6 +174,7 @@ class BaseStrategy(ABC):
         return {
             'name': self.name,
             'category': self.category,
+            'version': self.version,
             'description': self.get_description(),
             'initial_capital': self.initial_capital,
             'current_capital': self.current_capital,

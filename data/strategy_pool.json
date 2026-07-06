@@ -1,0 +1,461 @@
+{
+  "active": [
+    {
+      "name": "AI供应链紫苏叶",
+      "version": "1.0.0",
+      "added_date": "2026-07-06",
+      "consecutive_d_days": 1,
+      "last_grade": "D",
+      "best_score": 26.6,
+      "last_score": 26.6
+    },
+    {
+      "name": "国产替代",
+      "version": "1.0.0",
+      "added_date": "2026-07-06",
+      "consecutive_d_days": 1,
+      "last_grade": "D",
+      "best_score": 20.0,
+      "last_score": 20.0
+    },
+    {
+      "name": "ROE选股",
+      "version": "1.0.0",
+      "added_date": "2026-07-06",
+      "consecutive_d_days": 1,
+      "last_grade": "D",
+      "best_score": 20.0,
+      "last_score": 20.0
+    },
+    {
+      "name": "净利润增速",
+      "version": "1.0.0",
+      "added_date": "2026-07-06",
+      "consecutive_d_days": 1,
+      "last_grade": "D",
+      "best_score": 20.0,
+      "last_score": 20.0
+    },
+    {
+      "name": "营收增长",
+      "version": "1.0.0",
+      "added_date": "2026-07-06",
+      "consecutive_d_days": 1,
+      "last_grade": "D",
+      "best_score": 20.0,
+      "last_score": 20.0
+    },
+    {
+      "name": "低PE",
+      "version": "1.0.0",
+      "added_date": "2026-07-06",
+      "consecutive_d_days": 0,
+      "last_grade": "A",
+      "best_score": 68.0,
+      "last_score": 68.0
+    },
+    {
+      "name": "低PB",
+      "version": "1.0.0",
+      "added_date": "2026-07-06",
+      "consecutive_d_days": 0,
+      "last_grade": "A",
+      "best_score": 68.0,
+      "last_score": 68.0
+    },
+    {
+      "name": "PSR低估值",
+      "version": "1.0.0",
+      "added_date": "2026-07-06",
+      "consecutive_d_days": 0,
+      "last_grade": "A",
+      "best_score": 68.0,
+      "last_score": 68.0
+    },
+    {
+      "name": "低估值修复",
+      "version": "1.0.0",
+      "added_date": "2026-07-06",
+      "consecutive_d_days": 0,
+      "last_grade": "A",
+      "best_score": 68.0,
+      "last_score": 68.0
+    },
+    {
+      "name": "现金流质量",
+      "version": "1.0.0",
+      "added_date": "2026-07-06",
+      "consecutive_d_days": 1,
+      "last_grade": "D",
+      "best_score": 20.0,
+      "last_score": 20.0
+    },
+    {
+      "name": "高ROIC",
+      "version": "1.0.0",
+      "added_date": "2026-07-06",
+      "consecutive_d_days": 1,
+      "last_grade": "D",
+      "best_score": 20.0,
+      "last_score": 20.0
+    },
+    {
+      "name": "低负债率",
+      "version": "1.0.0",
+      "added_date": "2026-07-06",
+      "consecutive_d_days": 0,
+      "last_grade": "A",
+      "best_score": 68.0,
+      "last_score": 68.0
+    },
+    {
+      "name": "高股息",
+      "version": "1.0.0",
+      "added_date": "2026-07-06",
+      "consecutive_d_days": 1,
+      "last_grade": "D",
+      "best_score": 20.0,
+      "last_score": 20.0
+    },
+    {
+      "name": "红利低波",
+      "version": "1.0.0",
+      "added_date": "2026-07-06",
+      "consecutive_d_days": 1,
+      "last_grade": "D",
+      "best_score": 20.0,
+      "last_score": 20.0
+    },
+    {
+      "name": "动量反转",
+      "version": "1.0.0",
+      "added_date": "2026-07-06",
+      "consecutive_d_days": 1,
+      "last_grade": "D",
+      "best_score": 20.0,
+      "last_score": 20.0
+    },
+    {
+      "name": "趋势动量",
+      "version": "1.0.0",
+      "added_date": "2026-07-06",
+      "consecutive_d_days": 0,
+      "last_grade": "A",
+      "best_score": 73.0,
+      "last_score": 73.0
+    },
+    {
+      "name": "均线多头排列",
+      "version": "1.0.0",
+      "added_date": "2026-07-06",
+      "consecutive_d_days": 0,
+      "last_grade": "A",
+      "best_score": 79.7,
+      "last_score": 79.7
+    },
+    {
+      "name": "多周期共振",
+      "version": "1.0.0",
+      "added_date": "2026-07-06",
+      "consecutive_d_days": 1,
+      "last_grade": "D",
+      "best_score": 24.5,
+      "last_score": 24.5
+    },
+    {
+      "name": "北向重仓",
+      "version": "1.0.0",
+      "added_date": "2026-07-06",
+      "consecutive_d_days": 1,
+      "last_grade": "D",
+      "best_score": 20.0,
+      "last_score": 20.0
+    },
+    {
+      "name": "机构持仓",
+      "version": "1.0.0",
+      "added_date": "2026-07-06",
+      "consecutive_d_days": 1,
+      "last_grade": "D",
+      "best_score": 20.0,
+      "last_score": 20.0
+    },
+    {
+      "name": "北向资金跟投",
+      "version": "1.0.0",
+      "added_date": "2026-07-06",
+      "consecutive_d_days": 1,
+      "last_grade": "D",
+      "best_score": 20.0,
+      "last_score": 20.0
+    },
+    {
+      "name": "首板回调",
+      "version": "1.0.0",
+      "added_date": "2026-07-06",
+      "consecutive_d_days": 1,
+      "last_grade": "D",
+      "best_score": 29.7,
+      "last_score": 29.7
+    },
+    {
+      "name": "ST摘帽潜伏",
+      "version": "1.0.0",
+      "added_date": "2026-07-06",
+      "consecutive_d_days": 1,
+      "last_grade": "D",
+      "best_score": 20.0,
+      "last_score": 20.0
+    },
+    {
+      "name": "高管增持",
+      "version": "1.0.0",
+      "added_date": "2026-07-06",
+      "consecutive_d_days": 0,
+      "last_grade": "A",
+      "best_score": 77.9,
+      "last_score": 77.9
+    },
+    {
+      "name": "业绩超预期",
+      "version": "1.0.0",
+      "added_date": "2026-07-06",
+      "consecutive_d_days": 1,
+      "last_grade": "D",
+      "best_score": 20.0,
+      "last_score": 20.0
+    },
+    {
+      "name": "分析师上调",
+      "version": "1.0.0",
+      "added_date": "2026-07-06",
+      "consecutive_d_days": 1,
+      "last_grade": "D",
+      "best_score": 20.0,
+      "last_score": 20.0
+    },
+    {
+      "name": "量价突破",
+      "version": "1.0.0",
+      "added_date": "2026-07-06",
+      "consecutive_d_days": 0,
+      "last_grade": "A",
+      "best_score": 79.0,
+      "last_score": 79.0
+    },
+    {
+      "name": "MACD金叉",
+      "version": "1.0.0",
+      "added_date": "2026-07-06",
+      "consecutive_d_days": 1,
+      "last_grade": "D",
+      "best_score": 20.0,
+      "last_score": 20.0
+    },
+    {
+      "name": "KDJ超卖金叉",
+      "version": "1.0.0",
+      "added_date": "2026-07-06",
+      "consecutive_d_days": 1,
+      "last_grade": "D",
+      "best_score": 20.0,
+      "last_score": 20.0
+    },
+    {
+      "name": "RSI超卖反转",
+      "version": "1.0.0",
+      "added_date": "2026-07-06",
+      "consecutive_d_days": 0,
+      "last_grade": "A",
+      "best_score": 74.1,
+      "last_score": 74.1
+    },
+    {
+      "name": "动量突破",
+      "version": "1.0.0",
+      "added_date": "2026-07-06",
+      "consecutive_d_days": 1,
+      "last_grade": "D",
+      "best_score": 20.0,
+      "last_score": 20.0
+    },
+    {
+      "name": "多因子综合",
+      "version": "1.0.0",
+      "added_date": "2026-07-06",
+      "consecutive_d_days": 1,
+      "last_grade": "D",
+      "best_score": 20.0,
+      "last_score": 20.0
+    }
+  ],
+  "candidate": [],
+  "retired": [],
+  "history": [
+    {
+      "date": "2026-07-06",
+      "rankings": [
+        {
+          "name": "均线多头排列",
+          "score": 79.7,
+          "grade": "A"
+        },
+        {
+          "name": "量价突破",
+          "score": 79.0,
+          "grade": "A"
+        },
+        {
+          "name": "高管增持",
+          "score": 77.9,
+          "grade": "A"
+        },
+        {
+          "name": "RSI超卖反转",
+          "score": 74.1,
+          "grade": "A"
+        },
+        {
+          "name": "趋势动量",
+          "score": 73.0,
+          "grade": "A"
+        },
+        {
+          "name": "低PE",
+          "score": 68.0,
+          "grade": "A"
+        },
+        {
+          "name": "低PB",
+          "score": 68.0,
+          "grade": "A"
+        },
+        {
+          "name": "PSR低估值",
+          "score": 68.0,
+          "grade": "A"
+        },
+        {
+          "name": "低估值修复",
+          "score": 68.0,
+          "grade": "A"
+        },
+        {
+          "name": "低负债率",
+          "score": 68.0,
+          "grade": "A"
+        },
+        {
+          "name": "首板回调",
+          "score": 29.7,
+          "grade": "D"
+        },
+        {
+          "name": "AI供应链紫苏叶",
+          "score": 26.6,
+          "grade": "D"
+        },
+        {
+          "name": "多周期共振",
+          "score": 24.5,
+          "grade": "D"
+        },
+        {
+          "name": "国产替代",
+          "score": 20.0,
+          "grade": "D"
+        },
+        {
+          "name": "净利润增速",
+          "score": 20.0,
+          "grade": "D"
+        },
+        {
+          "name": "营收增长",
+          "score": 20.0,
+          "grade": "D"
+        },
+        {
+          "name": "ROE选股",
+          "score": 20.0,
+          "grade": "D"
+        },
+        {
+          "name": "现金流质量",
+          "score": 20.0,
+          "grade": "D"
+        },
+        {
+          "name": "高ROIC",
+          "score": 20.0,
+          "grade": "D"
+        },
+        {
+          "name": "高股息",
+          "score": 20.0,
+          "grade": "D"
+        },
+        {
+          "name": "红利低波",
+          "score": 20.0,
+          "grade": "D"
+        },
+        {
+          "name": "动量反转",
+          "score": 20.0,
+          "grade": "D"
+        },
+        {
+          "name": "北向重仓",
+          "score": 20.0,
+          "grade": "D"
+        },
+        {
+          "name": "机构持仓",
+          "score": 20.0,
+          "grade": "D"
+        },
+        {
+          "name": "北向资金跟投",
+          "score": 20.0,
+          "grade": "D"
+        },
+        {
+          "name": "ST摘帽潜伏",
+          "score": 20.0,
+          "grade": "D"
+        },
+        {
+          "name": "业绩超预期",
+          "score": 20.0,
+          "grade": "D"
+        },
+        {
+          "name": "分析师上调",
+          "score": 20.0,
+          "grade": "D"
+        },
+        {
+          "name": "MACD金叉",
+          "score": 20.0,
+          "grade": "D"
+        },
+        {
+          "name": "KDJ超卖金叉",
+          "score": 20.0,
+          "grade": "D"
+        },
+        {
+          "name": "动量突破",
+          "score": 20.0,
+          "grade": "D"
+        },
+        {
+          "name": "多因子综合",
+          "score": 20.0,
+          "grade": "D"
+        }
+      ]
+    }
+  ]
+}

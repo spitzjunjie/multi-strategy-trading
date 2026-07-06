@@ -90,22 +90,28 @@ class TimingEngine:
             if df['kdj_k'].iloc[-2] < df['kdj_d'].iloc[-2] and curr_k > row['kdj_d']:
                 signals.append("KDJ金叉")
         
-        # 4. RSI超卖
-        if row['rsi'] < 40:
+        # 4. RSI超卖（放宽到50）
+        if row['rsi'] < 50:
             signals.append(f"RSI超卖({row['rsi']:.1f})")
-        
-        # 5. 缩量整理后温和放量
+
+        # 5. 温和放量上涨（放宽条件：只要不是缩量即可）
         if len(df) >= 10:
             avg_vol = df['volume'].iloc[-10:-1].mean()
-            if row['volume'] > avg_vol * 0.8 and row['volume'] < avg_vol * 1.5:
+            if avg_vol > 0 and row['volume'] > avg_vol * 0.7:
                 if row['close'] > df['close'].iloc[-2]:
                     signals.append("温和放量上涨")
-        
+
         # 6. 均线多头排列（买入信号确认）
         if row['ma5'] and row['ma10'] and row['ma20']:
             if row['ma5'] > row['ma10'] > row['ma20']:
                 signals.append("均线多头排列")
-        
+
+        # 7. 兜底信号：趋势向上且无极端情况 → 允许买入（避免完全空仓）
+        if not signals and row['ma5'] and row['ma20']:
+            if row['close'] > row['ma20'] and row['ma5'] > row['ma20']:
+                if 30 < row['rsi'] < 70:  # 非超买非超卖
+                    signals.append("趋势向上(默认)")
+
         # 返回最强信号
         if signals:
             return True, "; ".join(signals)
