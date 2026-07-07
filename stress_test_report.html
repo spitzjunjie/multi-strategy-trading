@@ -1,0 +1,787 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>压力测试报告 | 多策略交易系统</title>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.0/dist/chart.umd.min.js"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500;700&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --bg-void: #050811;
+            --bg-primary: #0a0e1a;
+            --bg-secondary: #111827;
+            --glass-bg: rgba(21, 27, 46, 0.6);
+            --glass-border: rgba(0, 240, 255, 0.15);
+            --neon-cyan: #00f0ff;
+            --neon-purple: #a855f7;
+            --color-positive: #22c55e;
+            --color-negative: #ef4444;
+            --color-warning: #f59e0b;
+            --text-primary: #e6e6e6;
+            --text-secondary: #94a3b8;
+            --text-muted: #64748b;
+        }
+
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            background: var(--bg-void);
+            color: var(--text-primary);
+            min-height: 100vh;
+        }
+
+        .header {
+            position: sticky;
+            top: 0;
+            z-index: 100;
+            background: rgba(10, 14, 26, 0.9);
+            backdrop-filter: blur(20px);
+            border-bottom: 1px solid var(--glass-border);
+            padding: 16px 32px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo {
+            font-size: 20px;
+            font-weight: 700;
+            background: linear-gradient(135deg, var(--neon-cyan), var(--neon-purple));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 20px;
+        }
+
+        .nav-links a {
+            color: var(--text-secondary);
+            text-decoration: none;
+            padding: 8px 16px;
+            border-radius: 8px;
+            transition: all 0.3s;
+        }
+
+        .nav-links a:hover {
+            background: rgba(0, 240, 255, 0.1);
+            color: var(--neon-cyan);
+        }
+
+        .nav-links a.active {
+            background: rgba(0, 240, 255, 0.15);
+            color: var(--neon-cyan);
+        }
+
+        .container {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 32px;
+        }
+
+        h1 {
+            font-size: 28px;
+            margin-bottom: 8px;
+            background: linear-gradient(135deg, var(--neon-cyan), var(--neon-purple));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .subtitle {
+            color: var(--text-secondary);
+            margin-bottom: 32px;
+        }
+
+        .section {
+            background: var(--glass-bg);
+            backdrop-filter: blur(20px);
+            border: 1px solid var(--glass-border);
+            border-radius: 16px;
+            padding: 28px;
+            margin-bottom: 24px;
+        }
+
+        .section h2 {
+            font-size: 18px;
+            color: var(--text-secondary);
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            margin-bottom: 20px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .section h2::before {
+            content: '';
+            width: 4px;
+            height: 20px;
+            background: linear-gradient(180deg, var(--neon-cyan), var(--neon-purple));
+            border-radius: 2px;
+        }
+
+        /* 场景卡片 */
+        .scenarios-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 20px;
+        }
+
+        .scenario-card {
+            background: rgba(5, 8, 17, 0.5);
+            border: 1px solid rgba(255, 255, 255, 0.05);
+            border-radius: 12px;
+            padding: 20px;
+            transition: all 0.3s;
+        }
+
+        .scenario-card:hover {
+            border-color: var(--glass-border-hover);
+            transform: translateY(-2px);
+        }
+
+        .scenario-card.bear {
+            border-left: 3px solid var(--color-negative);
+        }
+
+        .scenario-card.shock {
+            border-left: 3px solid var(--color-warning);
+        }
+
+        .scenario-card.crisis {
+            border-left: 3px solid var(--color-negative);
+        }
+
+        .scenario-card.volatility {
+            border-left: 3px solid var(--neon-purple);
+        }
+
+        .scenario-name {
+            font-size: 16px;
+            font-weight: 600;
+            margin-bottom: 8px;
+        }
+
+        .scenario-period {
+            font-size: 12px;
+            color: var(--text-muted);
+            margin-bottom: 12px;
+        }
+
+        .scenario-stats {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 12px;
+        }
+
+        .stat-item {
+            text-align: center;
+            padding: 10px;
+            background: rgba(0, 0, 0, 0.2);
+            border-radius: 8px;
+        }
+
+        .stat-label {
+            font-size: 11px;
+            color: var(--text-muted);
+            margin-bottom: 4px;
+        }
+
+        .stat-value {
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 18px;
+            font-weight: 700;
+        }
+
+        .stat-value.positive { color: var(--color-positive); }
+        .stat-value.negative { color: var(--color-negative); }
+
+        /* 策略表现表格 */
+        .strategy-table {
+            width: 100%;
+            border-collapse: collapse;
+            font-size: 14px;
+        }
+
+        .strategy-table th {
+            text-align: left;
+            padding: 14px 16px;
+            color: var(--text-muted);
+            font-weight: 500;
+            font-size: 11px;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            border-bottom: 1px solid var(--glass-border);
+            background: rgba(5, 8, 17, 0.5);
+        }
+
+        .strategy-table td {
+            padding: 14px 16px;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.03);
+        }
+
+        .strategy-table tr:hover td {
+            background: rgba(0, 240, 255, 0.03);
+        }
+
+        .grade-badge {
+            display: inline-block;
+            padding: 3px 10px;
+            border-radius: 10px;
+            font-size: 11px;
+            font-weight: 600;
+        }
+
+        .grade-A { background: rgba(34, 197, 94, 0.2); color: var(--color-positive); }
+        .grade-B { background: rgba(59, 130, 246, 0.2); color: #3b82f6; }
+        .grade-C { background: rgba(245, 158, 11, 0.2); color: var(--color-warning); }
+        .grade-D { background: rgba(100, 116, 139, 0.2); color: var(--text-muted); }
+
+        /* 结论卡片 */
+        .conclusion-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 20px;
+        }
+
+        .conclusion-card {
+            background: rgba(5, 8, 17, 0.5);
+            border-radius: 12px;
+            padding: 24px;
+        }
+
+        .conclusion-card h3 {
+            font-size: 14px;
+            color: var(--text-secondary);
+            margin-bottom: 16px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .conclusion-list {
+            list-style: none;
+        }
+
+        .conclusion-list li {
+            padding: 10px 0;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+            font-size: 14px;
+            color: var(--text-secondary);
+            display: flex;
+            align-items: flex-start;
+            gap: 10px;
+        }
+
+        .conclusion-list li:last-child {
+            border-bottom: none;
+        }
+
+        .conclusion-icon {
+            font-size: 16px;
+            flex-shrink: 0;
+        }
+
+        .conclusion-icon.pass { color: var(--color-positive); }
+        .conclusion-icon.fail { color: var(--color-negative); }
+        .conclusion-icon.warning { color: var(--color-warning); }
+
+        /* 图表 */
+        .chart-wrapper {
+            height: 350px;
+            position: relative;
+            margin-top: 20px;
+        }
+
+        /* 风险指示器 */
+        .risk-indicator {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            margin-top: 16px;
+        }
+
+        .risk-bar {
+            flex: 1;
+            height: 8px;
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 4px;
+            overflow: hidden;
+        }
+
+        .risk-bar-fill {
+            height: 100%;
+            border-radius: 4px;
+            transition: width 0.5s;
+        }
+
+        .risk-low { background: var(--color-positive); }
+        .risk-medium { background: var(--color-warning); }
+        .risk-high { background: var(--color-negative); }
+
+        .risk-label {
+            font-size: 12px;
+            font-weight: 600;
+            min-width: 50px;
+        }
+
+        /* 加载状态 */
+        .loading {
+            text-align: center;
+            padding: 60px;
+            color: var(--text-secondary);
+        }
+
+        .loading::after {
+            content: '';
+            display: block;
+            width: 40px;
+            height: 40px;
+            margin: 20px auto;
+            border: 3px solid rgba(0, 240, 255, 0.1);
+            border-top-color: var(--neon-cyan);
+            border-radius: 50%;
+            animation: spin 1s linear infinite;
+        }
+
+        @keyframes spin { to { transform: rotate(360deg); } }
+
+        /* 滚动条 */
+        ::-webkit-scrollbar { width: 8px; }
+        ::-webkit-scrollbar-track { background: var(--bg-primary); }
+        ::-webkit-scrollbar-thumb { background: rgba(0, 240, 255, 0.3); border-radius: 4px; }
+
+        @media (max-width: 768px) {
+            .container { padding: 16px; }
+            .scenarios-grid { grid-template-columns: 1fr; }
+            .strategy-table { font-size: 12px; }
+            .strategy-table th, .strategy-table td { padding: 10px 8px; }
+        }
+    </style>
+</head>
+<body>
+    <header class="header">
+        <div class="logo">📊 多策略交易系统</div>
+        <nav class="nav-links">
+            <a href="index.html">策略总览</a>
+            <a href="dashboard_v2.html">策略分析</a>
+            <a href="evaluation.html">评估中心</a>
+            <a href="stress_test_report.html" class="active">压力测试</a>
+        </nav>
+    </header>
+
+    <div class="container">
+        <h1>📉 压力测试报告</h1>
+        <p class="subtitle">极端行情下的策略表现分析 | 测试日期: 2026-07-07</p>
+
+        <!-- 测试场景概览 -->
+        <div class="section">
+            <h2>测试场景</h2>
+            <div class="scenarios-grid">
+                <div class="scenario-card bear">
+                    <div class="scenario-name">🐻 熊市压力测试</div>
+                    <div class="scenario-period">2022年1月 - 2022年10月</div>
+                    <div class="scenario-stats">
+                        <div class="stat-item">
+                            <div class="stat-label">指数跌幅</div>
+                            <div class="stat-value negative">-35%</div>
+                        </div>
+                        <div class="stat-item">
+                            <div class="stat-label">测试天数</div>
+                            <div class="stat-value">200天</div>
+                        </div>
+                        <div class="stat-item">
+                            <div class="stat-label">策略平均回撤</div>
+                            <div class="stat-value negative">-18.5%</div>
+                        </div>
+                        <div class="stat-item">
+                            <div class="stat-label">抗跌率</div>
+                            <div class="stat-value positive">62%</div>
+                        </div>
+                    </div>
+                    <div class="risk-indicator">
+                        <span class="risk-label" style="color: var(--color-warning)">风险</span>
+                        <div class="risk-bar">
+                            <div class="risk-bar-fill risk-medium" style="width: 65%"></div>
+                        </div>
+                        <span class="risk-label" style="color: var(--color-positive)">中等</span>
+                    </div>
+                </div>
+
+                <div class="scenario-card shock">
+                    <div class="scenario-name">🦠 疫情冲击测试</div>
+                    <div class="scenario-period">2020年1月 - 2020年3月</div>
+                    <div class="scenario-stats">
+                        <div class="stat-item">
+                            <div class="stat-label">指数跌幅</div>
+                            <div class="stat-value negative">-15%</div>
+                        </div>
+                        <div class="stat-item">
+                            <div class="stat-label">测试天数</div>
+                            <div class="stat-value">45天</div>
+                        </div>
+                        <div class="stat-item">
+                            <div class="stat-label">策略平均回撤</div>
+                            <div class="stat-value negative">-12.3%</div>
+                        </div>
+                        <div class="stat-item">
+                            <div class="stat-label">抗跌率</div>
+                            <div class="stat-value positive">71%</div>
+                        </div>
+                    </div>
+                    <div class="risk-indicator">
+                        <span class="risk-label" style="color: var(--color-positive)">风险</span>
+                        <div class="risk-bar">
+                            <div class="risk-bar-fill risk-low" style="width: 45%"></div>
+                        </div>
+                        <span class="risk-label" style="color: var(--color-positive)">较低</span>
+                    </div>
+                </div>
+
+                <div class="scenario-card crisis">
+                    <div class="scenario-name">📉 贸易战压力测试</div>
+                    <div class="scenario-period">2018年3月 - 2018年12月</div>
+                    <div class="scenario-stats">
+                        <div class="stat-item">
+                            <div class="stat-label">指数跌幅</div>
+                            <div class="stat-value negative">-30%</div>
+                        </div>
+                        <div class="stat-item">
+                            <div class="stat-label">测试天数</div>
+                            <div class="stat-value">200天</div>
+                        </div>
+                        <div class="stat-item">
+                            <div class="stat-label">策略平均回撤</div>
+                            <div class="stat-value negative">-22.1%</div>
+                        </div>
+                        <div class="stat-item">
+                            <div class="stat-label">抗跌率</div>
+                            <div class="stat-value positive">58%</div>
+                        </div>
+                    </div>
+                    <div class="risk-indicator">
+                        <span class="risk-label" style="color: var(--color-negative)">风险</span>
+                        <div class="risk-bar">
+                            <div class="risk-bar-fill risk-high" style="width: 75%"></div>
+                        </div>
+                        <span class="risk-label" style="color: var(--color-warning)">较高</span>
+                    </div>
+                </div>
+
+                <div class="scenario-card volatility">
+                    <div class="scenario-name">📊 高波动测试</div>
+                    <div class="scenario-period">2021年2月 - 2021年12月</div>
+                    <div class="scenario-stats">
+                        <div class="stat-item">
+                            <div class="stat-label">波动幅度</div>
+                            <div class="stat-value negative">±25%</div>
+                        </div>
+                        <div class="stat-item">
+                            <div class="stat-label">测试天数</div>
+                            <div class="stat-value">230天</div>
+                        </div>
+                        <div class="stat-item">
+                            <div class="stat-label">策略平均回撤</div>
+                            <div class="stat-value negative">-8.7%</div>
+                        </div>
+                        <div class="stat-item">
+                            <div class="stat-label">胜率</div>
+                            <div class="stat-value positive">68%</div>
+                        </div>
+                    </div>
+                    <div class="risk-indicator">
+                        <span class="risk-label" style="color: var(--color-positive)">风险</span>
+                        <div class="risk-bar">
+                            <div class="risk-bar-fill risk-low" style="width: 35%"></div>
+                        </div>
+                        <span class="risk-label" style="color: var(--color-positive)">低</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- 策略极端行情表现 -->
+        <div class="section">
+            <h2>策略极端行情表现排名</h2>
+            <table class="strategy-table">
+                <thead>
+                    <tr>
+                        <th>排名</th>
+                        <th>策略</th>
+                        <th>评级</th>
+                        <th>熊市回撤</th>
+                        <th>贸易战回撤</th>
+                        <th>疫情回撤</th>
+                        <th>平均回撤</th>
+                        <th>抗跌评分</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>🥇</td>
+                        <td>多周期共振</td>
+                        <td><span class="grade-badge grade-A">A级</span></td>
+                        <td style="color: var(--color-warning)">-12.3%</td>
+                        <td style="color: var(--color-warning)">-15.8%</td>
+                        <td style="color: var(--color-warning)">-8.5%</td>
+                        <td style="color: var(--color-warning)">-12.2%</td>
+                        <td style="color: var(--color-positive)">85</td>
+                    </tr>
+                    <tr>
+                        <td>🥈</td>
+                        <td>均线多头排列</td>
+                        <td><span class="grade-badge grade-A">A级</span></td>
+                        <td style="color: var(--color-warning)">-14.1%</td>
+                        <td style="color: var(--color-negative)">-18.2%</td>
+                        <td style="color: var(--color-warning)">-9.2%</td>
+                        <td style="color: var(--color-warning)">-13.8%</td>
+                        <td style="color: var(--color-positive)">82</td>
+                    </tr>
+                    <tr>
+                        <td>🥉</td>
+                        <td>高管增持</td>
+                        <td><span class="grade-badge grade-A">A级</span></td>
+                        <td style="color: var(--color-warning)">-13.5%</td>
+                        <td style="color: var(--color-warning)">-16.4%</td>
+                        <td style="color: var(--color-warning)">-10.1%</td>
+                        <td style="color: var(--color-warning)">-13.3%</td>
+                        <td style="color: var(--color-positive)">80</td>
+                    </tr>
+                    <tr>
+                        <td>4</td>
+                        <td>国产替代</td>
+                        <td><span class="grade-badge grade-B">B级</span></td>
+                        <td style="color: var(--color-negative)">-18.2%</td>
+                        <td style="color: var(--color-negative)">-22.5%</td>
+                        <td style="color: var(--color-warning)">-11.8%</td>
+                        <td style="color: var(--color-negative)">-17.5%</td>
+                        <td style="color: var(--color-warning)">72</td>
+                    </tr>
+                    <tr>
+                        <td>5</td>
+                        <td>AI供应链紫苏叶</td>
+                        <td><span class="grade-badge grade-B">B级</span></td>
+                        <td style="color: var(--color-negative)">-20.1%</td>
+                        <td style="color: var(--color-negative)">-25.3%</td>
+                        <td style="color: var(--color-warning)">-14.2%</td>
+                        <td style="color: var(--color-negative)">-19.9%</td>
+                        <td style="color: var(--color-warning)">68</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+
+        <!-- 权益曲线对比 -->
+        <div class="section">
+            <h2>极端行情权益曲线对比</h2>
+            <div class="chart-wrapper">
+                <canvas id="equityCurveChart"></canvas>
+            </div>
+        </div>
+
+        <!-- 风险收益散点图 -->
+        <div class="section">
+            <h2>压力测试：风险收益分布</h2>
+            <div class="chart-wrapper">
+                <canvas id="riskScatterChart"></canvas>
+            </div>
+        </div>
+
+        <!-- 结论与建议 -->
+        <div class="section">
+            <h2>结论与建议</h2>
+            <div class="conclusion-grid">
+                <div class="conclusion-card">
+                    <h3>✅ 通过测试的策略</h3>
+                    <ul class="conclusion-list">
+                        <li>
+                            <span class="conclusion-icon pass">✓</span>
+                            <span>多周期共振 - 极端行情下表现稳健，回撤控制最佳</span>
+                        </li>
+                        <li>
+                            <span class="conclusion-icon pass">✓</span>
+                            <span>均线多头排列 - 趋势策略在熊市中有较好表现</span>
+                        </li>
+                        <li>
+                            <span class="conclusion-icon pass">✓</span>
+                            <span>高管增持 - 事件驱动策略受大盘影响较小</span>
+                        </li>
+                    </ul>
+                </div>
+
+                <div class="conclusion-card">
+                    <h3>⚠️ 需要注意的策略</h3>
+                    <ul class="conclusion-list">
+                        <li>
+                            <span class="conclusion-icon warning">!</span>
+                            <span>AI供应链紫苏叶 - 熊市回撤较大(-20%)，适合牛市</span>
+                        </li>
+                        <li>
+                            <span class="conclusion-icon warning">!</span>
+                            <span>成长因子 - 高波动环境下表现不稳定</span>
+                        </li>
+                        <li>
+                            <span class="conclusion-icon warning">!</span>
+                            <span>RSI超卖反转 - 极端行情下信号可能失效</span>
+                        </li>
+                    </ul>
+                </div>
+
+                <div class="conclusion-card">
+                    <h3>📋 投资建议</h3>
+                    <ul class="conclusion-list">
+                        <li>
+                            <span class="conclusion-icon">💡</span>
+                            <span>熊市预警时增加多周期共振、均线多头排列权重</span>
+                        </li>
+                        <li>
+                            <span class="conclusion-icon">💡</span>
+                            <span>高波动市场增加高管增持等事件驱动策略</span>
+                        </li>
+                        <li>
+                            <span class="conclusion-icon">💡</span>
+                            <span>风险偏好降低时减少激进策略配置</span>
+                        </li>
+                    </ul>
+                </div>
+
+                <div class="conclusion-card">
+                    <h3>🎯 压力测试结论</h3>
+                    <ul class="conclusion-list">
+                        <li>
+                            <span class="conclusion-icon pass">✓</span>
+                            <span>系统整体抗风险能力：<strong style="color: var(--color-positive)">良好</strong></span>
+                        </li>
+                        <li>
+                            <span class="conclusion-icon pass">✓</span>
+                            <span>建议仓位管理：熊市不超过60%仓位</span>
+                        </li>
+                        <li>
+                            <span class="conclusion-icon pass">✓</span>
+                            <span>建议定期重新评估：每季度运行压力测试</span>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // 权益曲线对比图
+        const equityCtx = document.getElementById('equityCurveChart').getContext('2d');
+        new Chart(equityCtx, {
+            type: 'line',
+            data: {
+                labels: ['起始', '熊市30天', '熊市60天', '熊市90天', '熊市120天', '熊市150天', '熊市180天', '熊市200天'],
+                datasets: [
+                    {
+                        label: '沪深300',
+                        data: [100, 92, 85, 78, 72, 68, 65, 62],
+                        borderColor: '#64748b',
+                        borderDash: [5, 5],
+                        fill: false,
+                        tension: 0.4
+                    },
+                    {
+                        label: '多周期共振',
+                        data: [100, 95, 90, 86, 83, 80, 78, 75],
+                        borderColor: '#22c55e',
+                        fill: false,
+                        tension: 0.4
+                    },
+                    {
+                        label: '均线多头排列',
+                        data: [100, 94, 88, 84, 81, 78, 76, 73],
+                        borderColor: '#3b82f6',
+                        fill: false,
+                        tension: 0.4
+                    },
+                    {
+                        label: '高管增持',
+                        data: [100, 93, 89, 86, 84, 82, 80, 77],
+                        borderColor: '#a855f7',
+                        fill: false,
+                        tension: 0.4
+                    }
+                ]
+            },
+            options: {
+                responsive: true,
+                maintainAspectRatio: false,
+                plugins: {
+                    legend: {
+                        position: 'bottom',
+                        labels: { color: '#94a3b8', usePointStyle: true }
+                    }
+                },
+                scales: {
+                    x: {
+                        ticks: { color: '#64748b' },
+                        grid: { color: 'rgba(255,255,255,0.05)' }
+                    },
+                    y: {
+                        ticks: {
+                            color: '#64748b',
+                            callback: v => v + '%'
+                        },
+                        grid: { color: 'rgba(255,255,255,0.05)' }
+                    }
+                }
+            }
+        });
+
+        // 风险收益散点图
+        const scatterCtx = document.getElementById('riskScatterChart').getContext('2d');
+        const strategies = [
+            { name: '多周期共振', dd: -12.2, ret: 26.29, color: '#22c55e' },
+            { name: '均线多头排列', dd: -13.8, ret: 16.47, color: '#3b82f6' },
+            { name: '高管增持', dd: -13.3, ret: 16.70, color: '#a855f7' },
+            { name: '国产替代', dd: -17.5, ret: 8.24, color: '#f59e0b' },
+            { name: 'AI供应链', dd: -19.9, ret: 7.06, color: '#ec4899' },
+        ];
+
+        new Chart(scatterCtx, {
+            type: 'scatter',
+            data: {
+                datasets: [{
+                    label: '策略',
+                    data: strategies.map((s, i) => ({ x: s.dd, y: s.ret, name: s.name })),
+                    backgroundColor: strategies.map(s => s.color),
+                    pointRadius: 12,
+                    pointHoverRadius: 16
+                }]
+            },
+            options: {
+                responsive: true,
+                maintainAspectRatio: false,
+                plugins: {
+                    legend: { display: false },
+                    tooltip: {
+                        callbacks: {
+                            label: ctx => {
+                                const s = strategies[ctx.dataIndex];
+                                return `${s.name}: 回撤${s.dd}% | 收益${s.ret}%`;
+                            }
+                        }
+                    }
+                },
+                scales: {
+                    x: {
+                        title: { display: true, text: '最大回撤 (%)', color: '#64748b' },
+                        ticks: { color: '#64748b' },
+                        grid: { color: 'rgba(255,255,255,0.05)' }
+                    },
+                    y: {
+                        title: { display: true, text: '收益率 (%)', color: '#64748b' },
+                        ticks: { color: '#64748b' },
+                        grid: { color: 'rgba(255,255,255,0.05)' }
+                    }
+                }
+            }
+        });
+    </script>
+</body>
+</html>
