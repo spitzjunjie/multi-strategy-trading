@@ -1,0 +1,2894 @@
+{
+  "update_time": "2026-07-07 06:09:51",
+  "backtest_type": "historical",
+  "backtest_start": "2026-07-03",
+  "backtest_end": "2026-07-07",
+  "backtest_days": 3,
+  "strategy_count": 32,
+  "strategies": [
+    {
+      "name": "低PE",
+      "category": "价值因子",
+      "version": "1.0.0",
+      "description": "低PE",
+      "initial_capital": 30000,
+      "current_capital": 4035.0,
+      "total_value": 30475.0,
+      "total_return": 0.015833333333333335,
+      "monthly_return": 0.015833333333333335,
+      "sharpe_ratio": 11.224972160321826,
+      "max_drawdown": 0,
+      "win_rate": 0.75,
+      "realized_pnl": 475.0,
+      "realized_pnl_pct": 1.58,
+      "floating_pnl": 0.0,
+      "floating_pnl_pct": 0.0,
+      "total_pnl": 475.0,
+      "total_pnl_pct": 1.58,
+      "holdings": [
+        {
+          "symbol": "000001",
+          "name": "000001",
+          "buy_price": 10.5,
+          "quantity": 900,
+          "buy_date": "2026-07-06",
+          "cost": 9450.0,
+          "stock_reason": "市盈率:-15.6716",
+          "timing_reason": "回踩MA5; MACD绿柱缩脚; RSI超卖(34.9); 温和放量上涨",
+          "hold_days": 2,
+          "current_price": 10.5,
+          "profit": 0.0,
+          "profit_pct": 0.0
+        },
+        {
+          "symbol": "000807",
+          "name": "000807",
+          "buy_price": 22.88,
+          "quantity": 400,
+          "buy_date": "2026-07-07",
+          "cost": 9152.0,
+          "stock_reason": "市盈率:-22.0424",
+          "timing_reason": "MACD绿柱缩脚; KDJ金叉; RSI超卖(34.1); 温和放量上涨",
+          "hold_days": 1,
+          "current_price": 22.88,
+          "profit": 0.0,
+          "profit_pct": 0.0
+        },
+        {
+          "symbol": "002304",
+          "name": "002304",
+          "buy_price": 39.19,
+          "quantity": 200,
+          "buy_date": "2026-07-07",
+          "cost": 7838.0,
+          "stock_reason": "市盈率:-24.1303",
+          "timing_reason": "回踩MA5; KDJ超卖金叉; RSI超卖(34.0); 温和放量上涨",
+          "hold_days": 1,
+          "current_price": 39.19,
+          "profit": 0.0,
+          "profit_pct": 0.0
+        }
+      ],
+      "trades": [
+        {
+          "symbol": "000001",
+          "name": "000001",
+          "buy_date": "2026-07-03",
+          "buy_price": 10.29,
+          "sell_date": "2026-07-06",
+          "sell_price": 10.5,
+          "quantity": 900,
+          "profit": 189.0,
+          "profit_pct": 2.0408163265306123,
+          "hold_days": 1,
+          "stock_reason": "市盈率:-15.6716",
+          "timing_reason": "回踩MA5; MACD绿柱缩脚; KDJ金叉; RSI超卖(24.0); 温和放量上涨",
+          "sell_reason": "跌破MA20"
+        },
+        {
+          "symbol": "002304",
+          "name": "002304",
+          "buy_date": "2026-07-03",
+          "buy_price": 38.68,
+          "sell_date": "2026-07-06",
+          "sell_price": 39.19,
+          "quantity": 200,
+          "profit": 102.0,
+          "profit_pct": 1.3185108583247156,
+          "hold_days": 1,
+          "stock_reason": "市盈率:-24.1303",
+          "timing_reason": "回踩MA5; MACD金叉; RSI超卖(29.9); 温和放量上涨",
+          "sell_reason": "跌破MA20"
+        },
+        {
+          "symbol": "000807",
+          "name": "000807",
+          "buy_date": "2026-07-03",
+          "buy_price": 22.42,
+          "sell_date": "2026-07-07",
+          "sell_price": 22.88,
+          "quantity": 400,
+          "profit": 184.0,
+          "profit_pct": 2.0517395182872438,
+          "hold_days": 2,
+          "stock_reason": "市盈率:-22.0424",
+          "timing_reason": "回踩MA5; MACD绿柱缩脚; RSI超卖(28.8); 温和放量上涨",
+          "sell_reason": "跌破MA20"
+        },
+        {
+          "symbol": "002304",
+          "name": "002304",
+          "buy_date": "2026-07-06",
+          "buy_price": 39.19,
+          "sell_date": "2026-07-07",
+          "sell_price": 39.19,
+          "quantity": 200,
+          "profit": 0.0,
+          "profit_pct": 0.0,
+          "hold_days": 1,
+          "stock_reason": "市盈率:-24.1303",
+          "timing_reason": "回踩MA5; KDJ超卖金叉; RSI超卖(34.0); 温和放量上涨",
+          "sell_reason": "跌破MA20"
+        }
+      ],
+      "equity_curve": [
+        {
+          "date": "2026-07-03",
+          "value": 30000.0
+        },
+        {
+          "date": "2026-07-06",
+          "value": 30475.0
+        },
+        {
+          "date": "2026-07-07",
+          "value": 30475.0
+        }
+      ],
+      "backtest_start": "2026-07-03",
+      "backtest_end": "2026-07-07",
+      "backtest_days": 3
+    },
+    {
+      "name": "RSI超卖反转",
+      "category": "技术突破",
+      "version": "1.0.0",
+      "description": "RSI超卖区域回升，捕捉反弹机会",
+      "initial_capital": 30000,
+      "current_capital": 3247.0,
+      "total_value": 30376.0,
+      "total_return": 0.009733333333333333,
+      "monthly_return": 0.009733333333333333,
+      "sharpe_ratio": 11.224972160321826,
+      "max_drawdown": 0,
+      "win_rate": 0.6666666666666666,
+      "realized_pnl": 292.0,
+      "realized_pnl_pct": 0.97,
+      "floating_pnl": 84.0,
+      "floating_pnl_pct": 0.28,
+      "total_pnl": 376.0,
+      "total_pnl_pct": 1.25,
+      "holdings": [
+        {
+          "symbol": "000538",
+          "name": "000538",
+          "buy_price": 48.86,
+          "quantity": 200,
+          "buy_date": "2026-07-03",
+          "cost": 9772.0,
+          "stock_reason": "RSI超卖回升，RSI=44.7",
+          "timing_reason": "回踩MA20; RSI超卖(39.4); 温和放量上涨",
+          "hold_days": 3,
+          "current_price": 49.28,
+          "profit": 84.00000000000034,
+          "profit_pct": 0.8595988538681983
+        },
+        {
+          "symbol": "000568",
+          "name": "000568",
+          "buy_price": 78.23,
+          "quantity": 100,
+          "buy_date": "2026-07-06",
+          "cost": 7823.0,
+          "stock_reason": "RSI超卖回升，RSI=31.9",
+          "timing_reason": "回踩MA5; KDJ超卖金叉; RSI超卖(31.9); 温和放量上涨",
+          "hold_days": 2,
+          "current_price": 78.23,
+          "profit": 0.0,
+          "profit_pct": 0.0
+        },
+        {
+          "symbol": "000001",
+          "name": "000001",
+          "buy_price": 10.5,
+          "quantity": 900,
+          "buy_date": "2026-07-07",
+          "cost": 9450.0,
+          "stock_reason": "RSI超卖回升，RSI=34.9",
+          "timing_reason": "回踩MA5; MACD绿柱缩脚; RSI超卖(34.9); 温和放量上涨",
+          "hold_days": 1,
+          "current_price": 10.5,
+          "profit": 0.0,
+          "profit_pct": 0.0
+        }
+      ],
+      "trades": [
+        {
+          "symbol": "000001",
+          "name": "000001",
+          "buy_date": "2026-07-03",
+          "buy_price": 10.29,
+          "sell_date": "2026-07-06",
+          "sell_price": 10.5,
+          "quantity": 900,
+          "profit": 189.0,
+          "profit_pct": 2.0408163265306123,
+          "hold_days": 1,
+          "stock_reason": "RSI超卖回升，RSI=34.9",
+          "timing_reason": "回踩MA5; MACD绿柱缩脚; KDJ金叉; RSI超卖(24.0); 温和放量上涨",
+          "sell_reason": "跌破MA20"
+        },
+        {
+          "symbol": "000568",
+          "name": "000568",
+          "buy_date": "2026-07-03",
+          "buy_price": 77.2,
+          "sell_date": "2026-07-06",
+          "sell_price": 78.23,
+          "quantity": 100,
+          "profit": 103.0,
+          "profit_pct": 1.33419689119171,
+          "hold_days": 1,
+          "stock_reason": "RSI超卖回升，RSI=31.9",
+          "timing_reason": "MACD金叉; RSI超卖(27.2)",
+          "sell_reason": "跌破MA20"
+        },
+        {
+          "symbol": "000001",
+          "name": "000001",
+          "buy_date": "2026-07-06",
+          "buy_price": 10.5,
+          "sell_date": "2026-07-07",
+          "sell_price": 10.5,
+          "quantity": 900,
+          "profit": 0.0,
+          "profit_pct": 0.0,
+          "hold_days": 1,
+          "stock_reason": "RSI超卖回升，RSI=34.9",
+          "timing_reason": "回踩MA5; MACD绿柱缩脚; RSI超卖(34.9); 温和放量上涨",
+          "sell_reason": "跌破MA20"
+        }
+      ],
+      "equity_curve": [
+        {
+          "date": "2026-07-03",
+          "value": 30000.0
+        },
+        {
+          "date": "2026-07-06",
+          "value": 30376.0
+        },
+        {
+          "date": "2026-07-07",
+          "value": 30376.0
+        }
+      ],
+      "backtest_start": "2026-07-03",
+      "backtest_end": "2026-07-07",
+      "backtest_days": 3
+    },
+    {
+      "name": "国产替代",
+      "category": "紫苏叶",
+      "version": "1.0.0",
+      "description": "半导体设备/材料国产替代，真实龙头股+基本面确认",
+      "initial_capital": 30000,
+      "current_capital": 21640.0,
+      "total_value": 30243.0,
+      "total_return": 0.0081,
+      "monthly_return": 0.0081,
+      "sharpe_ratio": 11.224972160321824,
+      "max_drawdown": 0,
+      "win_rate": 0.5,
+      "realized_pnl": 243.0,
+      "realized_pnl_pct": 0.81,
+      "floating_pnl": 0.0,
+      "floating_pnl_pct": 0.0,
+      "total_pnl": 243.0,
+      "total_pnl_pct": 0.81,
+      "holdings": [
+        {
+          "symbol": "688396",
+          "name": "华润微",
+          "buy_price": 86.03,
+          "quantity": 100,
+          "buy_date": "2026-07-07",
+          "cost": 8603.0,
+          "stock_reason": "功率半导体国产替代，营收增速=21.3%",
+          "timing_reason": "温和放量上涨; 均线多头排列",
+          "hold_days": 1,
+          "current_price": 86.03,
+          "profit": 0.0,
+          "profit_pct": 0.0
+        }
+      ],
+      "trades": [
+        {
+          "symbol": "688396",
+          "name": "华润微",
+          "buy_date": "2026-07-03",
+          "buy_price": 83.6,
+          "sell_date": "2026-07-06",
+          "sell_price": 86.03,
+          "quantity": 100,
+          "profit": 243.0,
+          "profit_pct": 2.9066985645933014,
+          "hold_days": 1,
+          "stock_reason": "功率半导体国产替代，营收增速=21.3%",
+          "timing_reason": "均线多头排列",
+          "sell_reason": "MACD红柱缩短; KDJ高位死叉; 跌破MA5"
+        },
+        {
+          "symbol": "688396",
+          "name": "华润微",
+          "buy_date": "2026-07-06",
+          "buy_price": 86.03,
+          "sell_date": "2026-07-07",
+          "sell_price": 86.03,
+          "quantity": 100,
+          "profit": 0.0,
+          "profit_pct": 0.0,
+          "hold_days": 1,
+          "stock_reason": "功率半导体国产替代，营收增速=21.3%",
+          "timing_reason": "温和放量上涨; 均线多头排列",
+          "sell_reason": "MACD红柱缩短; KDJ高位死叉; 跌破MA5"
+        }
+      ],
+      "equity_curve": [
+        {
+          "date": "2026-07-03",
+          "value": 30000.0
+        },
+        {
+          "date": "2026-07-06",
+          "value": 30243.0
+        },
+        {
+          "date": "2026-07-07",
+          "value": 30243.0
+        }
+      ],
+      "backtest_start": "2026-07-03",
+      "backtest_end": "2026-07-07",
+      "backtest_days": 3
+    },
+    {
+      "name": "低PB",
+      "category": "价值因子",
+      "version": "1.0.0",
+      "description": "低PB",
+      "initial_capital": 30000,
+      "current_capital": 1548.0,
+      "total_value": 30230.0,
+      "total_return": 0.007666666666666666,
+      "monthly_return": 0.007666666666666666,
+      "sharpe_ratio": 11.224972160321824,
+      "max_drawdown": 0,
+      "win_rate": 0.5,
+      "realized_pnl": 230.0,
+      "realized_pnl_pct": 0.77,
+      "floating_pnl": 0.0,
+      "floating_pnl_pct": 0.0,
+      "total_pnl": 230.0,
+      "total_pnl_pct": 0.77,
+      "holdings": [
+        {
+          "symbol": "000002",
+          "name": "000002",
+          "buy_price": 3.07,
+          "quantity": 3200,
+          "buy_date": "2026-07-06",
+          "cost": 9824.0,
+          "stock_reason": "市净率:-0.3315",
+          "timing_reason": "回踩MA5; RSI超卖(45.6)",
+          "hold_days": 2,
+          "current_price": 3.07,
+          "profit": 0.0,
+          "profit_pct": 0.0
+        },
+        {
+          "symbol": "000001",
+          "name": "000001",
+          "buy_price": 10.5,
+          "quantity": 900,
+          "buy_date": "2026-07-07",
+          "cost": 9450.0,
+          "stock_reason": "市净率:-0.4391",
+          "timing_reason": "回踩MA5; MACD绿柱缩脚; RSI超卖(34.9); 温和放量上涨",
+          "hold_days": 1,
+          "current_price": 10.5,
+          "profit": 0.0,
+          "profit_pct": 0.0
+        },
+        {
+          "symbol": "001979",
+          "name": "001979",
+          "buy_price": 6.72,
+          "quantity": 1400,
+          "buy_date": "2026-07-07",
+          "cost": 9408.0,
+          "stock_reason": "市净率:-0.6211",
+          "timing_reason": "回踩MA5; MACD绿柱缩脚; RSI超卖(15.5); 温和放量上涨",
+          "hold_days": 1,
+          "current_price": 6.72,
+          "profit": 0.0,
+          "profit_pct": 0.0
+        }
+      ],
+      "trades": [
+        {
+          "symbol": "000002",
+          "name": "000002",
+          "buy_date": "2026-07-03",
+          "buy_price": 3.09,
+          "sell_date": "2026-07-06",
+          "sell_price": 3.07,
+          "quantity": 3200,
+          "profit": -64.0,
+          "profit_pct": -0.6472491909385114,
+          "hold_days": 1,
+          "stock_reason": "市净率:-0.3315",
+          "timing_reason": "回踩MA20; RSI超卖(44.9); 温和放量上涨",
+          "sell_reason": "跌破MA20"
+        },
+        {
+          "symbol": "001979",
+          "name": "001979",
+          "buy_date": "2026-07-03",
+          "buy_price": 6.65,
+          "sell_date": "2026-07-06",
+          "sell_price": 6.72,
+          "quantity": 1500,
+          "profit": 105.0,
+          "profit_pct": 1.0526315789473684,
+          "hold_days": 1,
+          "stock_reason": "市净率:-0.6211",
+          "timing_reason": "回踩MA5; MACD绿柱缩脚; RSI超卖(11.3); 温和放量上涨",
+          "sell_reason": "跌破MA20"
+        },
+        {
+          "symbol": "000001",
+          "name": "000001",
+          "buy_date": "2026-07-03",
+          "buy_price": 10.29,
+          "sell_date": "2026-07-07",
+          "sell_price": 10.5,
+          "quantity": 900,
+          "profit": 189.0,
+          "profit_pct": 2.0408163265306123,
+          "hold_days": 2,
+          "stock_reason": "市净率:-0.4391",
+          "timing_reason": "回踩MA5; MACD绿柱缩脚; KDJ金叉; RSI超卖(24.0); 温和放量上涨",
+          "sell_reason": "跌破MA20"
+        },
+        {
+          "symbol": "001979",
+          "name": "001979",
+          "buy_date": "2026-07-06",
+          "buy_price": 6.72,
+          "sell_date": "2026-07-07",
+          "sell_price": 6.72,
+          "quantity": 1400,
+          "profit": 0.0,
+          "profit_pct": 0.0,
+          "hold_days": 1,
+          "stock_reason": "市净率:-0.6211",
+          "timing_reason": "回踩MA5; MACD绿柱缩脚; RSI超卖(15.5); 温和放量上涨",
+          "sell_reason": "跌破MA20"
+        }
+      ],
+      "equity_curve": [
+        {
+          "date": "2026-07-03",
+          "value": 30000.0
+        },
+        {
+          "date": "2026-07-06",
+          "value": 30230.0
+        },
+        {
+          "date": "2026-07-07",
+          "value": 30230.0
+        }
+      ],
+      "backtest_start": "2026-07-03",
+      "backtest_end": "2026-07-07",
+      "backtest_days": 3
+    },
+    {
+      "name": "低估值修复",
+      "category": "价值因子",
+      "version": "1.0.0",
+      "description": "低估值修复",
+      "initial_capital": 30000,
+      "current_capital": 1548.0,
+      "total_value": 30230.0,
+      "total_return": 0.007666666666666666,
+      "monthly_return": 0.007666666666666666,
+      "sharpe_ratio": 11.224972160321824,
+      "max_drawdown": 0,
+      "win_rate": 0.5,
+      "realized_pnl": 230.0,
+      "realized_pnl_pct": 0.77,
+      "floating_pnl": 0.0,
+      "floating_pnl_pct": 0.0,
+      "total_pnl": 230.0,
+      "total_pnl_pct": 0.77,
+      "holdings": [
+        {
+          "symbol": "000002",
+          "name": "000002",
+          "buy_price": 3.07,
+          "quantity": 3200,
+          "buy_date": "2026-07-06",
+          "cost": 9824.0,
+          "stock_reason": "PB分位数:-0.3315",
+          "timing_reason": "回踩MA5; RSI超卖(45.6)",
+          "hold_days": 2,
+          "current_price": 3.07,
+          "profit": 0.0,
+          "profit_pct": 0.0
+        },
+        {
+          "symbol": "000001",
+          "name": "000001",
+          "buy_price": 10.5,
+          "quantity": 900,
+          "buy_date": "2026-07-07",
+          "cost": 9450.0,
+          "stock_reason": "PB分位数:-0.4391",
+          "timing_reason": "回踩MA5; MACD绿柱缩脚; RSI超卖(34.9); 温和放量上涨",
+          "hold_days": 1,
+          "current_price": 10.5,
+          "profit": 0.0,
+          "profit_pct": 0.0
+        },
+        {
+          "symbol": "001979",
+          "name": "001979",
+          "buy_price": 6.72,
+          "quantity": 1400,
+          "buy_date": "2026-07-07",
+          "cost": 9408.0,
+          "stock_reason": "PB分位数:-0.6211",
+          "timing_reason": "回踩MA5; MACD绿柱缩脚; RSI超卖(15.5); 温和放量上涨",
+          "hold_days": 1,
+          "current_price": 6.72,
+          "profit": 0.0,
+          "profit_pct": 0.0
+        }
+      ],
+      "trades": [
+        {
+          "symbol": "000002",
+          "name": "000002",
+          "buy_date": "2026-07-03",
+          "buy_price": 3.09,
+          "sell_date": "2026-07-06",
+          "sell_price": 3.07,
+          "quantity": 3200,
+          "profit": -64.0,
+          "profit_pct": -0.6472491909385114,
+          "hold_days": 1,
+          "stock_reason": "PB分位数:-0.3315",
+          "timing_reason": "回踩MA20; RSI超卖(44.9); 温和放量上涨",
+          "sell_reason": "跌破MA20"
+        },
+        {
+          "symbol": "001979",
+          "name": "001979",
+          "buy_date": "2026-07-03",
+          "buy_price": 6.65,
+          "sell_date": "2026-07-06",
+          "sell_price": 6.72,
+          "quantity": 1500,
+          "profit": 105.0,
+          "profit_pct": 1.0526315789473684,
+          "hold_days": 1,
+          "stock_reason": "PB分位数:-0.6211",
+          "timing_reason": "回踩MA5; MACD绿柱缩脚; RSI超卖(11.3); 温和放量上涨",
+          "sell_reason": "跌破MA20"
+        },
+        {
+          "symbol": "000001",
+          "name": "000001",
+          "buy_date": "2026-07-03",
+          "buy_price": 10.29,
+          "sell_date": "2026-07-07",
+          "sell_price": 10.5,
+          "quantity": 900,
+          "profit": 189.0,
+          "profit_pct": 2.0408163265306123,
+          "hold_days": 2,
+          "stock_reason": "PB分位数:-0.4391",
+          "timing_reason": "回踩MA5; MACD绿柱缩脚; KDJ金叉; RSI超卖(24.0); 温和放量上涨",
+          "sell_reason": "跌破MA20"
+        },
+        {
+          "symbol": "001979",
+          "name": "001979",
+          "buy_date": "2026-07-06",
+          "buy_price": 6.72,
+          "sell_date": "2026-07-07",
+          "sell_price": 6.72,
+          "quantity": 1400,
+          "profit": 0.0,
+          "profit_pct": 0.0,
+          "hold_days": 1,
+          "stock_reason": "PB分位数:-0.6211",
+          "timing_reason": "回踩MA5; MACD绿柱缩脚; RSI超卖(15.5); 温和放量上涨",
+          "sell_reason": "跌破MA20"
+        }
+      ],
+      "equity_curve": [
+        {
+          "date": "2026-07-03",
+          "value": 30000.0
+        },
+        {
+          "date": "2026-07-06",
+          "value": 30230.0
+        },
+        {
+          "date": "2026-07-07",
+          "value": 30230.0
+        }
+      ],
+      "backtest_start": "2026-07-03",
+      "backtest_end": "2026-07-07",
+      "backtest_days": 3
+    },
+    {
+      "name": "PSR低估值",
+      "category": "价值因子",
+      "version": "1.0.0",
+      "description": "PSR低估值",
+      "initial_capital": 30000,
+      "current_capital": 3575.0,
+      "total_value": 30105.0,
+      "total_return": 0.0035,
+      "monthly_return": 0.0035,
+      "sharpe_ratio": 11.224972160321824,
+      "max_drawdown": 0,
+      "win_rate": 0.25,
+      "realized_pnl": 105.0,
+      "realized_pnl_pct": 0.35,
+      "floating_pnl": 0.0,
+      "floating_pnl_pct": 0.0,
+      "total_pnl": 105.0,
+      "total_pnl_pct": 0.35,
+      "holdings": [
+        {
+          "symbol": "000001",
+          "name": "000001",
+          "buy_price": 10.5,
+          "quantity": 900,
+          "buy_date": "2026-07-06",
+          "cost": 9450.0,
+          "stock_reason": "市销率:-9999.0000",
+          "timing_reason": "回踩MA5; MACD绿柱缩脚; RSI超卖(34.9); 温和放量上涨",
+          "hold_days": 2,
+          "current_price": 10.5,
+          "profit": 0.0,
+          "profit_pct": 0.0
+        },
+        {
+          "symbol": "000002",
+          "name": "000002",
+          "buy_price": 3.07,
+          "quantity": 3200,
+          "buy_date": "2026-07-07",
+          "cost": 9824.0,
+          "stock_reason": "市销率:-9999.0000",
+          "timing_reason": "回踩MA5; RSI超卖(45.6)",
+          "hold_days": 1,
+          "current_price": 3.07,
+          "profit": 0.0,
+          "profit_pct": 0.0
+        },
+        {
+          "symbol": "000063",
+          "name": "000063",
+          "buy_price": 36.28,
+          "quantity": 200,
+          "buy_date": "2026-07-07",
+          "cost": 7256.0,
+          "stock_reason": "市销率:-9999.0000",
+          "timing_reason": "回踩MA5; MACD绿柱缩脚; KDJ金叉; RSI超卖(46.7)",
+          "hold_days": 1,
+          "current_price": 36.28,
+          "profit": 0.0,
+          "profit_pct": 0.0
+        }
+      ],
+      "trades": [
+        {
+          "symbol": "000001",
+          "name": "000001",
+          "buy_date": "2026-07-03",
+          "buy_price": 10.29,
+          "sell_date": "2026-07-06",
+          "sell_price": 10.5,
+          "quantity": 900,
+          "profit": 189.0,
+          "profit_pct": 2.0408163265306123,
+          "hold_days": 1,
+          "stock_reason": "市销率:-9999.0000",
+          "timing_reason": "回踩MA5; MACD绿柱缩脚; KDJ金叉; RSI超卖(24.0); 温和放量上涨",
+          "sell_reason": "跌破MA20"
+        },
+        {
+          "symbol": "000063",
+          "name": "000063",
+          "buy_date": "2026-07-03",
+          "buy_price": 36.38,
+          "sell_date": "2026-07-06",
+          "sell_price": 36.28,
+          "quantity": 200,
+          "profit": -20.00000000000091,
+          "profit_pct": -0.27487630566246435,
+          "hold_days": 1,
+          "stock_reason": "市销率:-9999.0000",
+          "timing_reason": "回踩MA5; MACD绿柱缩脚; 温和放量上涨",
+          "sell_reason": "跌破MA20"
+        },
+        {
+          "symbol": "000002",
+          "name": "000002",
+          "buy_date": "2026-07-03",
+          "buy_price": 3.09,
+          "sell_date": "2026-07-07",
+          "sell_price": 3.07,
+          "quantity": 3200,
+          "profit": -64.0,
+          "profit_pct": -0.6472491909385114,
+          "hold_days": 2,
+          "stock_reason": "市销率:-9999.0000",
+          "timing_reason": "回踩MA20; RSI超卖(44.9); 温和放量上涨",
+          "sell_reason": "跌破MA20"
+        },
+        {
+          "symbol": "000063",
+          "name": "000063",
+          "buy_date": "2026-07-06",
+          "buy_price": 36.28,
+          "sell_date": "2026-07-07",
+          "sell_price": 36.28,
+          "quantity": 200,
+          "profit": 0.0,
+          "profit_pct": 0.0,
+          "hold_days": 1,
+          "stock_reason": "市销率:-9999.0000",
+          "timing_reason": "回踩MA5; MACD绿柱缩脚; KDJ金叉; RSI超卖(46.7)",
+          "sell_reason": "跌破MA20"
+        }
+      ],
+      "equity_curve": [
+        {
+          "date": "2026-07-03",
+          "value": 30000.0
+        },
+        {
+          "date": "2026-07-06",
+          "value": 30105.0
+        },
+        {
+          "date": "2026-07-07",
+          "value": 30105.0
+        }
+      ],
+      "backtest_start": "2026-07-03",
+      "backtest_end": "2026-07-07",
+      "backtest_days": 3
+    },
+    {
+      "name": "低负债率",
+      "category": "质量因子",
+      "version": "1.0.0",
+      "description": "低负债率",
+      "initial_capital": 30000,
+      "current_capital": 3575.0,
+      "total_value": 30105.0,
+      "total_return": 0.0035,
+      "monthly_return": 0.0035,
+      "sharpe_ratio": 11.224972160321824,
+      "max_drawdown": 0,
+      "win_rate": 0.25,
+      "realized_pnl": 105.0,
+      "realized_pnl_pct": 0.35,
+      "floating_pnl": 0.0,
+      "floating_pnl_pct": 0.0,
+      "total_pnl": 105.0,
+      "total_pnl_pct": 0.35,
+      "holdings": [
+        {
+          "symbol": "000001",
+          "name": "000001",
+          "buy_price": 10.5,
+          "quantity": 900,
+          "buy_date": "2026-07-06",
+          "cost": 9450.0,
+          "stock_reason": "资产负债率:-100.0000",
+          "timing_reason": "回踩MA5; MACD绿柱缩脚; RSI超卖(34.9); 温和放量上涨",
+          "hold_days": 2,
+          "current_price": 10.5,
+          "profit": 0.0,
+          "profit_pct": 0.0
+        },
+        {
+          "symbol": "000002",
+          "name": "000002",
+          "buy_price": 3.07,
+          "quantity": 3200,
+          "buy_date": "2026-07-07",
+          "cost": 9824.0,
+          "stock_reason": "资产负债率:-100.0000",
+          "timing_reason": "回踩MA5; RSI超卖(45.6)",
+          "hold_days": 1,
+          "current_price": 3.07,
+          "profit": 0.0,
+          "profit_pct": 0.0
+        },
+        {
+          "symbol": "000063",
+          "name": "000063",
+          "buy_price": 36.28,
+          "quantity": 200,
+          "buy_date": "2026-07-07",
+          "cost": 7256.0,
+          "stock_reason": "资产负债率:-100.0000",
+          "timing_reason": "回踩MA5; MACD绿柱缩脚; KDJ金叉; RSI超卖(46.7)",
+          "hold_days": 1,
+          "current_price": 36.28,
+          "profit": 0.0,
+          "profit_pct": 0.0
+        }
+      ],
+      "trades": [
+        {
+          "symbol": "000001",
+          "name": "000001",
+          "buy_date": "2026-07-03",
+          "buy_price": 10.29,
+          "sell_date": "2026-07-06",
+          "sell_price": 10.5,
+          "quantity": 900,
+          "profit": 189.0,
+          "profit_pct": 2.0408163265306123,
+          "hold_days": 1,
+          "stock_reason": "资产负债率:-100.0000",
+          "timing_reason": "回踩MA5; MACD绿柱缩脚; KDJ金叉; RSI超卖(24.0); 温和放量上涨",
+          "sell_reason": "跌破MA20"
+        },
+        {
+          "symbol": "000063",
+          "name": "000063",
+          "buy_date": "2026-07-03",
+          "buy_price": 36.38,
+          "sell_date": "2026-07-06",
+          "sell_price": 36.28,
+          "quantity": 200,
+          "profit": -20.00000000000091,
+          "profit_pct": -0.27487630566246435,
+          "hold_days": 1,
+          "stock_reason": "资产负债率:-100.0000",
+          "timing_reason": "回踩MA5; MACD绿柱缩脚; 温和放量上涨",
+          "sell_reason": "跌破MA20"
+        },
+        {
+          "symbol": "000002",
+          "name": "000002",
+          "buy_date": "2026-07-03",
+          "buy_price": 3.09,
+          "sell_date": "2026-07-07",
+          "sell_price": 3.07,
+          "quantity": 3200,
+          "profit": -64.0,
+          "profit_pct": -0.6472491909385114,
+          "hold_days": 2,
+          "stock_reason": "资产负债率:-100.0000",
+          "timing_reason": "回踩MA20; RSI超卖(44.9); 温和放量上涨",
+          "sell_reason": "跌破MA20"
+        },
+        {
+          "symbol": "000063",
+          "name": "000063",
+          "buy_date": "2026-07-06",
+          "buy_price": 36.28,
+          "sell_date": "2026-07-07",
+          "sell_price": 36.28,
+          "quantity": 200,
+          "profit": 0.0,
+          "profit_pct": 0.0,
+          "hold_days": 1,
+          "stock_reason": "资产负债率:-100.0000",
+          "timing_reason": "回踩MA5; MACD绿柱缩脚; KDJ金叉; RSI超卖(46.7)",
+          "sell_reason": "跌破MA20"
+        }
+      ],
+      "equity_curve": [
+        {
+          "date": "2026-07-03",
+          "value": 30000.0
+        },
+        {
+          "date": "2026-07-06",
+          "value": 30105.0
+        },
+        {
+          "date": "2026-07-07",
+          "value": 30105.0
+        }
+      ],
+      "backtest_start": "2026-07-03",
+      "backtest_end": "2026-07-07",
+      "backtest_days": 3
+    },
+    {
+      "name": "首板回调",
+      "category": "事件驱动",
+      "version": "1.0.0",
+      "description": "涨停后回踩MA10均线，捕捉二次启动",
+      "initial_capital": 30000,
+      "current_capital": 21855.0,
+      "total_value": 30087.0,
+      "total_return": 0.0029,
+      "monthly_return": 0.0029,
+      "sharpe_ratio": 11.224972160321824,
+      "max_drawdown": 0,
+      "win_rate": 0.5,
+      "realized_pnl": 87.0,
+      "realized_pnl_pct": 0.29,
+      "floating_pnl": 0.0,
+      "floating_pnl_pct": 0.0,
+      "total_pnl": 87.0,
+      "total_pnl_pct": 0.29,
+      "holdings": [
+        {
+          "symbol": "002558",
+          "name": "002558",
+          "buy_price": 27.44,
+          "quantity": 300,
+          "buy_date": "2026-07-07",
+          "cost": 8232.0,
+          "stock_reason": "涨停后回踩MA10，MA10=27.08",
+          "timing_reason": "均线多头排列",
+          "hold_days": 1,
+          "current_price": 27.44,
+          "profit": 0.0,
+          "profit_pct": 0.0
+        }
+      ],
+      "trades": [
+        {
+          "symbol": "002558",
+          "name": "002558",
+          "buy_date": "2026-07-03",
+          "buy_price": 27.15,
+          "sell_date": "2026-07-06",
+          "sell_price": 27.44,
+          "quantity": 300,
+          "profit": 87.0,
+          "profit_pct": 1.0681399631675874,
+          "hold_days": 1,
+          "stock_reason": "涨停后回踩MA10，MA10=27.08",
+          "timing_reason": "均线多头排列",
+          "sell_reason": "MACD红柱缩短; 跌破MA5"
+        },
+        {
+          "symbol": "002558",
+          "name": "002558",
+          "buy_date": "2026-07-06",
+          "buy_price": 27.44,
+          "sell_date": "2026-07-07",
+          "sell_price": 27.44,
+          "quantity": 300,
+          "profit": 0.0,
+          "profit_pct": 0.0,
+          "hold_days": 1,
+          "stock_reason": "涨停后回踩MA10，MA10=27.08",
+          "timing_reason": "均线多头排列",
+          "sell_reason": "MACD红柱缩短; 跌破MA5"
+        }
+      ],
+      "equity_curve": [
+        {
+          "date": "2026-07-03",
+          "value": 30000.0
+        },
+        {
+          "date": "2026-07-06",
+          "value": 30087.0
+        },
+        {
+          "date": "2026-07-07",
+          "value": 30087.0
+        }
+      ],
+      "backtest_start": "2026-07-03",
+      "backtest_end": "2026-07-07",
+      "backtest_days": 3
+    },
+    {
+      "name": "净利润增速",
+      "category": "盈利因子",
+      "version": "1.0.0",
+      "description": "净利润增速",
+      "initial_capital": 30000,
+      "current_capital": 9052.0,
+      "total_value": 30893.0,
+      "total_return": 0.00036666666666666667,
+      "monthly_return": 0.00036666666666666667,
+      "sharpe_ratio": 11.224972160321824,
+      "max_drawdown": 0,
+      "win_rate": 0.3333333333333333,
+      "realized_pnl": 11.0,
+      "realized_pnl_pct": 0.04,
+      "floating_pnl": 882.0,
+      "floating_pnl_pct": 2.94,
+      "total_pnl": 893.0,
+      "total_pnl_pct": 2.98,
+      "holdings": [
+        {
+          "symbol": "000301",
+          "name": "000301",
+          "buy_price": 12.55,
+          "quantity": 700,
+          "buy_date": "2026-07-03",
+          "cost": 8785.0,
+          "stock_reason": "净利润增速:319.8600",
+          "timing_reason": "温和放量上涨",
+          "hold_days": 3,
+          "current_price": 13.81,
+          "profit": 881.9999999999999,
+          "profit_pct": 10.039840637450197
+        },
+        {
+          "symbol": "002466",
+          "name": "002466",
+          "buy_price": 58.91,
+          "quantity": 100,
+          "buy_date": "2026-07-07",
+          "cost": 5891.0,
+          "stock_reason": "净利润增速:1699.1200",
+          "timing_reason": "RSI超卖(41.4); 温和放量上涨",
+          "hold_days": 1,
+          "current_price": 58.91,
+          "profit": 0.0,
+          "profit_pct": 0.0
+        },
+        {
+          "symbol": "002460",
+          "name": "002460",
+          "buy_price": 62.83,
+          "quantity": 100,
+          "buy_date": "2026-07-07",
+          "cost": 6283.0,
+          "stock_reason": "净利润增速:616.3400",
+          "timing_reason": "RSI超卖(34.0)",
+          "hold_days": 1,
+          "current_price": 62.83,
+          "profit": 0.0,
+          "profit_pct": 0.0
+        }
+      ],
+      "trades": [
+        {
+          "symbol": "002466",
+          "name": "002466",
+          "buy_date": "2026-07-03",
+          "buy_price": 58.66,
+          "sell_date": "2026-07-06",
+          "sell_price": 58.91,
+          "quantity": 100,
+          "profit": 25.0,
+          "profit_pct": 0.4261847937265599,
+          "hold_days": 1,
+          "stock_reason": "净利润增速:1699.1200",
+          "timing_reason": "RSI超卖(43.3)",
+          "sell_reason": "跌破MA5; 跌破MA20"
+        },
+        {
+          "symbol": "002460",
+          "name": "002460",
+          "buy_date": "2026-07-03",
+          "buy_price": 62.97,
+          "sell_date": "2026-07-07",
+          "sell_price": 62.83,
+          "quantity": 100,
+          "profit": -14.0,
+          "profit_pct": -0.22232809274257584,
+          "hold_days": 2,
+          "stock_reason": "净利润增速:616.3400",
+          "timing_reason": "RSI超卖(34.5)",
+          "sell_reason": "跌破MA5; 跌破MA20"
+        },
+        {
+          "symbol": "002466",
+          "name": "002466",
+          "buy_date": "2026-07-06",
+          "buy_price": 58.91,
+          "sell_date": "2026-07-07",
+          "sell_price": 58.91,
+          "quantity": 100,
+          "profit": 0.0,
+          "profit_pct": 0.0,
+          "hold_days": 1,
+          "stock_reason": "净利润增速:1699.1200",
+          "timing_reason": "RSI超卖(41.4); 温和放量上涨",
+          "sell_reason": "跌破MA5; 跌破MA20"
+        }
+      ],
+      "equity_curve": [
+        {
+          "date": "2026-07-03",
+          "value": 30000.0
+        },
+        {
+          "date": "2026-07-06",
+          "value": 30893.0
+        },
+        {
+          "date": "2026-07-07",
+          "value": 30893.0
+        }
+      ],
+      "backtest_start": "2026-07-03",
+      "backtest_end": "2026-07-07",
+      "backtest_days": 3
+    },
+    {
+      "name": "ROE选股",
+      "category": "盈利因子",
+      "version": "1.0.0",
+      "description": "ROE选股",
+      "initial_capital": 30000,
+      "current_capital": 30000,
+      "total_value": 30000,
+      "total_return": 0.0,
+      "monthly_return": 0.0,
+      "sharpe_ratio": 0,
+      "max_drawdown": 0,
+      "win_rate": 0,
+      "realized_pnl": 0.0,
+      "realized_pnl_pct": 0.0,
+      "floating_pnl": 0.0,
+      "floating_pnl_pct": 0.0,
+      "total_pnl": 0.0,
+      "total_pnl_pct": 0.0,
+      "holdings": [],
+      "trades": [],
+      "equity_curve": [
+        {
+          "date": "2026-07-03",
+          "value": 30000
+        },
+        {
+          "date": "2026-07-06",
+          "value": 30000
+        },
+        {
+          "date": "2026-07-07",
+          "value": 30000
+        }
+      ],
+      "backtest_start": "2026-07-03",
+      "backtest_end": "2026-07-07",
+      "backtest_days": 3
+    },
+    {
+      "name": "高ROIC",
+      "category": "质量因子",
+      "version": "1.0.0",
+      "description": "高ROIC",
+      "initial_capital": 30000,
+      "current_capital": 30000,
+      "total_value": 30000,
+      "total_return": 0.0,
+      "monthly_return": 0.0,
+      "sharpe_ratio": 0,
+      "max_drawdown": 0,
+      "win_rate": 0,
+      "realized_pnl": 0.0,
+      "realized_pnl_pct": 0.0,
+      "floating_pnl": 0.0,
+      "floating_pnl_pct": 0.0,
+      "total_pnl": 0.0,
+      "total_pnl_pct": 0.0,
+      "holdings": [],
+      "trades": [],
+      "equity_curve": [
+        {
+          "date": "2026-07-03",
+          "value": 30000
+        },
+        {
+          "date": "2026-07-06",
+          "value": 30000
+        },
+        {
+          "date": "2026-07-07",
+          "value": 30000
+        }
+      ],
+      "backtest_start": "2026-07-03",
+      "backtest_end": "2026-07-07",
+      "backtest_days": 3
+    },
+    {
+      "name": "红利低波",
+      "category": "红利因子",
+      "version": "1.0.0",
+      "description": "红利低波",
+      "initial_capital": 30000,
+      "current_capital": 30000,
+      "total_value": 30000,
+      "total_return": 0.0,
+      "monthly_return": 0.0,
+      "sharpe_ratio": 0,
+      "max_drawdown": 0,
+      "win_rate": 0,
+      "realized_pnl": 0.0,
+      "realized_pnl_pct": 0.0,
+      "floating_pnl": 0.0,
+      "floating_pnl_pct": 0.0,
+      "total_pnl": 0.0,
+      "total_pnl_pct": 0.0,
+      "holdings": [],
+      "trades": [],
+      "equity_curve": [
+        {
+          "date": "2026-07-03",
+          "value": 30000
+        },
+        {
+          "date": "2026-07-06",
+          "value": 30000
+        },
+        {
+          "date": "2026-07-07",
+          "value": 30000
+        }
+      ],
+      "backtest_start": "2026-07-03",
+      "backtest_end": "2026-07-07",
+      "backtest_days": 3
+    },
+    {
+      "name": "高股息",
+      "category": "红利因子",
+      "version": "1.0.0",
+      "description": "高股息",
+      "initial_capital": 30000,
+      "current_capital": 30000,
+      "total_value": 30000,
+      "total_return": 0.0,
+      "monthly_return": 0.0,
+      "sharpe_ratio": 0,
+      "max_drawdown": 0,
+      "win_rate": 0,
+      "realized_pnl": 0.0,
+      "realized_pnl_pct": 0.0,
+      "floating_pnl": 0.0,
+      "floating_pnl_pct": 0.0,
+      "total_pnl": 0.0,
+      "total_pnl_pct": 0.0,
+      "holdings": [],
+      "trades": [],
+      "equity_curve": [
+        {
+          "date": "2026-07-03",
+          "value": 30000
+        },
+        {
+          "date": "2026-07-06",
+          "value": 30000
+        },
+        {
+          "date": "2026-07-07",
+          "value": 30000
+        }
+      ],
+      "backtest_start": "2026-07-03",
+      "backtest_end": "2026-07-07",
+      "backtest_days": 3
+    },
+    {
+      "name": "动量反转",
+      "category": "事件驱动",
+      "version": "1.0.0",
+      "description": "前期跌幅大但基本面好，捕捉反弹",
+      "initial_capital": 30000,
+      "current_capital": 30000,
+      "total_value": 30000,
+      "total_return": 0.0,
+      "monthly_return": 0.0,
+      "sharpe_ratio": 0,
+      "max_drawdown": 0,
+      "win_rate": 0,
+      "realized_pnl": 0.0,
+      "realized_pnl_pct": 0.0,
+      "floating_pnl": 0.0,
+      "floating_pnl_pct": 0.0,
+      "total_pnl": 0.0,
+      "total_pnl_pct": 0.0,
+      "holdings": [],
+      "trades": [],
+      "equity_curve": [
+        {
+          "date": "2026-07-03",
+          "value": 30000
+        },
+        {
+          "date": "2026-07-06",
+          "value": 30000
+        },
+        {
+          "date": "2026-07-07",
+          "value": 30000
+        }
+      ],
+      "backtest_start": "2026-07-03",
+      "backtest_end": "2026-07-07",
+      "backtest_days": 3
+    },
+    {
+      "name": "北向重仓",
+      "category": "资金因子",
+      "version": "1.0.0",
+      "description": "北向重仓",
+      "initial_capital": 30000,
+      "current_capital": 4740.0,
+      "total_value": 29770.0,
+      "total_return": 0.0,
+      "monthly_return": 0.0,
+      "sharpe_ratio": -11.224972160321824,
+      "max_drawdown": 0.007666666666666666,
+      "win_rate": 0,
+      "realized_pnl": 0.0,
+      "realized_pnl_pct": 0.0,
+      "floating_pnl": -230.0,
+      "floating_pnl_pct": -0.77,
+      "total_pnl": -230.0,
+      "total_pnl_pct": -0.77,
+      "holdings": [
+        {
+          "symbol": "000333",
+          "name": "000333",
+          "buy_price": 77.96,
+          "quantity": 100,
+          "buy_date": "2026-07-03",
+          "cost": 7795.999999999999,
+          "stock_reason": "北向持股比例:17.6300",
+          "timing_reason": "RSI超卖(46.0); 温和放量上涨",
+          "hold_days": 3,
+          "current_price": 80.0,
+          "profit": 204.00000000000063,
+          "profit_pct": 2.6167265264238155
+        },
+        {
+          "symbol": "000651",
+          "name": "000651",
+          "buy_price": 38.33,
+          "quantity": 200,
+          "buy_date": "2026-07-03",
+          "cost": 7666.0,
+          "stock_reason": "北向持股比例:9.4900",
+          "timing_reason": "RSI超卖(48.0); 温和放量上涨",
+          "hold_days": 3,
+          "current_price": 39.0,
+          "profit": 134.00000000000034,
+          "profit_pct": 1.7479780850508786
+        },
+        {
+          "symbol": "002050",
+          "name": "002050",
+          "buy_price": 48.99,
+          "quantity": 200,
+          "buy_date": "2026-07-03",
+          "cost": 9798.0,
+          "stock_reason": "北向持股比例:9.0100",
+          "timing_reason": "回踩MA5; 回踩MA20; 温和放量上涨",
+          "hold_days": 3,
+          "current_price": 46.15,
+          "profit": -568.0000000000007,
+          "profit_pct": -5.797101449275369
+        }
+      ],
+      "trades": [],
+      "equity_curve": [
+        {
+          "date": "2026-07-03",
+          "value": 30000.0
+        },
+        {
+          "date": "2026-07-06",
+          "value": 29770.0
+        },
+        {
+          "date": "2026-07-07",
+          "value": 29770.0
+        }
+      ],
+      "backtest_start": "2026-07-03",
+      "backtest_end": "2026-07-07",
+      "backtest_days": 3
+    },
+    {
+      "name": "高管增持",
+      "category": "事件驱动",
+      "version": "1.0.0",
+      "description": "高管增持信号（变动比例>0），捕捉内部人看好",
+      "initial_capital": 30000,
+      "current_capital": 30000,
+      "total_value": 30000,
+      "total_return": 0.0,
+      "monthly_return": 0.0,
+      "sharpe_ratio": 0,
+      "max_drawdown": 0,
+      "win_rate": 0,
+      "realized_pnl": 0.0,
+      "realized_pnl_pct": 0.0,
+      "floating_pnl": 0.0,
+      "floating_pnl_pct": 0.0,
+      "total_pnl": 0.0,
+      "total_pnl_pct": 0.0,
+      "holdings": [],
+      "trades": [],
+      "equity_curve": [
+        {
+          "date": "2026-07-03",
+          "value": 30000
+        },
+        {
+          "date": "2026-07-06",
+          "value": 30000
+        },
+        {
+          "date": "2026-07-07",
+          "value": 30000
+        }
+      ],
+      "backtest_start": "2026-07-03",
+      "backtest_end": "2026-07-07",
+      "backtest_days": 3
+    },
+    {
+      "name": "分析师上调",
+      "category": "事件驱动",
+      "version": "1.0.0",
+      "description": "分析师评级上调，捕捉机构看好",
+      "initial_capital": 30000,
+      "current_capital": 30000,
+      "total_value": 30000,
+      "total_return": 0.0,
+      "monthly_return": 0.0,
+      "sharpe_ratio": 0,
+      "max_drawdown": 0,
+      "win_rate": 0,
+      "realized_pnl": 0.0,
+      "realized_pnl_pct": 0.0,
+      "floating_pnl": 0.0,
+      "floating_pnl_pct": 0.0,
+      "total_pnl": 0.0,
+      "total_pnl_pct": 0.0,
+      "holdings": [],
+      "trades": [],
+      "equity_curve": [
+        {
+          "date": "2026-07-03",
+          "value": 30000
+        },
+        {
+          "date": "2026-07-06",
+          "value": 30000
+        },
+        {
+          "date": "2026-07-07",
+          "value": 30000
+        }
+      ],
+      "backtest_start": "2026-07-03",
+      "backtest_end": "2026-07-07",
+      "backtest_days": 3
+    },
+    {
+      "name": "机构持仓",
+      "category": "资金因子",
+      "version": "1.0.0",
+      "description": "机构持仓",
+      "initial_capital": 30000,
+      "current_capital": 4740.0,
+      "total_value": 29770.0,
+      "total_return": 0.0,
+      "monthly_return": 0.0,
+      "sharpe_ratio": -11.224972160321824,
+      "max_drawdown": 0.007666666666666666,
+      "win_rate": 0,
+      "realized_pnl": 0.0,
+      "realized_pnl_pct": 0.0,
+      "floating_pnl": -230.0,
+      "floating_pnl_pct": -0.77,
+      "total_pnl": -230.0,
+      "total_pnl_pct": -0.77,
+      "holdings": [
+        {
+          "symbol": "000333",
+          "name": "000333",
+          "buy_price": 77.96,
+          "quantity": 100,
+          "buy_date": "2026-07-03",
+          "cost": 7795.999999999999,
+          "stock_reason": "机构持股:17.6300",
+          "timing_reason": "RSI超卖(46.0); 温和放量上涨",
+          "hold_days": 3,
+          "current_price": 80.0,
+          "profit": 204.00000000000063,
+          "profit_pct": 2.6167265264238155
+        },
+        {
+          "symbol": "000651",
+          "name": "000651",
+          "buy_price": 38.33,
+          "quantity": 200,
+          "buy_date": "2026-07-03",
+          "cost": 7666.0,
+          "stock_reason": "机构持股:9.4900",
+          "timing_reason": "RSI超卖(48.0); 温和放量上涨",
+          "hold_days": 3,
+          "current_price": 39.0,
+          "profit": 134.00000000000034,
+          "profit_pct": 1.7479780850508786
+        },
+        {
+          "symbol": "002050",
+          "name": "002050",
+          "buy_price": 48.99,
+          "quantity": 200,
+          "buy_date": "2026-07-03",
+          "cost": 9798.0,
+          "stock_reason": "机构持股:9.0100",
+          "timing_reason": "回踩MA5; 回踩MA20; 温和放量上涨",
+          "hold_days": 3,
+          "current_price": 46.15,
+          "profit": -568.0000000000007,
+          "profit_pct": -5.797101449275369
+        }
+      ],
+      "trades": [],
+      "equity_curve": [
+        {
+          "date": "2026-07-03",
+          "value": 30000.0
+        },
+        {
+          "date": "2026-07-06",
+          "value": 29770.0
+        },
+        {
+          "date": "2026-07-07",
+          "value": 29770.0
+        }
+      ],
+      "backtest_start": "2026-07-03",
+      "backtest_end": "2026-07-07",
+      "backtest_days": 3
+    },
+    {
+      "name": "量价突破",
+      "category": "技术突破",
+      "version": "1.0.0",
+      "description": "放量突破前期高点，捕捉动能启动",
+      "initial_capital": 30000,
+      "current_capital": 21215.0,
+      "total_value": 30882.0,
+      "total_return": 0.0,
+      "monthly_return": 0.0,
+      "sharpe_ratio": 11.224972160321824,
+      "max_drawdown": 0,
+      "win_rate": 0,
+      "realized_pnl": 0.0,
+      "realized_pnl_pct": 0.0,
+      "floating_pnl": 882.0,
+      "floating_pnl_pct": 2.94,
+      "total_pnl": 882.0,
+      "total_pnl_pct": 2.94,
+      "holdings": [
+        {
+          "symbol": "000301",
+          "name": "000301",
+          "buy_price": 12.55,
+          "quantity": 700,
+          "buy_date": "2026-07-03",
+          "cost": 8785.0,
+          "stock_reason": "放量突破20日高点，量比2.55",
+          "timing_reason": "温和放量上涨",
+          "hold_days": 3,
+          "current_price": 13.81,
+          "profit": 881.9999999999999,
+          "profit_pct": 10.039840637450197
+        }
+      ],
+      "trades": [],
+      "equity_curve": [
+        {
+          "date": "2026-07-03",
+          "value": 30000.0
+        },
+        {
+          "date": "2026-07-06",
+          "value": 30882.0
+        },
+        {
+          "date": "2026-07-07",
+          "value": 30882.0
+        }
+      ],
+      "backtest_start": "2026-07-03",
+      "backtest_end": "2026-07-07",
+      "backtest_days": 3
+    },
+    {
+      "name": "MACD金叉",
+      "category": "技术突破",
+      "version": "1.0.0",
+      "description": "MACD零轴上方金叉，捕捉动能转强",
+      "initial_capital": 30000,
+      "current_capital": 30000,
+      "total_value": 30000,
+      "total_return": 0.0,
+      "monthly_return": 0.0,
+      "sharpe_ratio": 0,
+      "max_drawdown": 0,
+      "win_rate": 0,
+      "realized_pnl": 0.0,
+      "realized_pnl_pct": 0.0,
+      "floating_pnl": 0.0,
+      "floating_pnl_pct": 0.0,
+      "total_pnl": 0.0,
+      "total_pnl_pct": 0.0,
+      "holdings": [],
+      "trades": [],
+      "equity_curve": [
+        {
+          "date": "2026-07-03",
+          "value": 30000
+        },
+        {
+          "date": "2026-07-06",
+          "value": 30000
+        },
+        {
+          "date": "2026-07-07",
+          "value": 30000
+        }
+      ],
+      "backtest_start": "2026-07-03",
+      "backtest_end": "2026-07-07",
+      "backtest_days": 3
+    },
+    {
+      "name": "KDJ超卖金叉",
+      "category": "技术突破",
+      "version": "1.0.0",
+      "description": "KDJ低位金叉，捕捉超卖反转",
+      "initial_capital": 30000,
+      "current_capital": 30000,
+      "total_value": 30000,
+      "total_return": 0.0,
+      "monthly_return": 0.0,
+      "sharpe_ratio": 0,
+      "max_drawdown": 0,
+      "win_rate": 0,
+      "realized_pnl": 0.0,
+      "realized_pnl_pct": 0.0,
+      "floating_pnl": 0.0,
+      "floating_pnl_pct": 0.0,
+      "total_pnl": 0.0,
+      "total_pnl_pct": 0.0,
+      "holdings": [],
+      "trades": [],
+      "equity_curve": [
+        {
+          "date": "2026-07-03",
+          "value": 30000
+        },
+        {
+          "date": "2026-07-06",
+          "value": 30000
+        },
+        {
+          "date": "2026-07-07",
+          "value": 30000
+        }
+      ],
+      "backtest_start": "2026-07-03",
+      "backtest_end": "2026-07-07",
+      "backtest_days": 3
+    },
+    {
+      "name": "动量突破",
+      "category": "技术突破",
+      "version": "1.0.0",
+      "description": "突破60日高点+放量+均线多头，捕捉主升浪启动",
+      "initial_capital": 30000,
+      "current_capital": 30000,
+      "total_value": 30000,
+      "total_return": 0.0,
+      "monthly_return": 0.0,
+      "sharpe_ratio": 0,
+      "max_drawdown": 0,
+      "win_rate": 0,
+      "realized_pnl": 0.0,
+      "realized_pnl_pct": 0.0,
+      "floating_pnl": 0.0,
+      "floating_pnl_pct": 0.0,
+      "total_pnl": 0.0,
+      "total_pnl_pct": 0.0,
+      "holdings": [],
+      "trades": [],
+      "equity_curve": [
+        {
+          "date": "2026-07-03",
+          "value": 30000
+        },
+        {
+          "date": "2026-07-06",
+          "value": 30000
+        },
+        {
+          "date": "2026-07-07",
+          "value": 30000
+        }
+      ],
+      "backtest_start": "2026-07-03",
+      "backtest_end": "2026-07-07",
+      "backtest_days": 3
+    },
+    {
+      "name": "均线多头排列",
+      "category": "趋势策略",
+      "version": "1.0.0",
+      "description": "5MA>10MA>20MA>MA60，趋势更强时买入",
+      "initial_capital": 30000,
+      "current_capital": 30000,
+      "total_value": 30000,
+      "total_return": 0.0,
+      "monthly_return": 0.0,
+      "sharpe_ratio": 0,
+      "max_drawdown": 0,
+      "win_rate": 0,
+      "realized_pnl": 0.0,
+      "realized_pnl_pct": 0.0,
+      "floating_pnl": 0.0,
+      "floating_pnl_pct": 0.0,
+      "total_pnl": 0.0,
+      "total_pnl_pct": 0.0,
+      "holdings": [],
+      "trades": [],
+      "equity_curve": [
+        {
+          "date": "2026-07-03",
+          "value": 30000
+        },
+        {
+          "date": "2026-07-06",
+          "value": 30000
+        },
+        {
+          "date": "2026-07-07",
+          "value": 30000
+        }
+      ],
+      "backtest_start": "2026-07-03",
+      "backtest_end": "2026-07-07",
+      "backtest_days": 3
+    },
+    {
+      "name": "营收增长",
+      "category": "盈利因子",
+      "version": "1.0.0",
+      "description": "营收增长",
+      "initial_capital": 30000,
+      "current_capital": 9743.0,
+      "total_value": 29963.0,
+      "total_return": -0.0012333333333333332,
+      "monthly_return": -0.0012333333333333332,
+      "sharpe_ratio": -11.224972160321824,
+      "max_drawdown": 0.0012333333333333332,
+      "win_rate": 0.25,
+      "realized_pnl": -37.0,
+      "realized_pnl_pct": -0.12,
+      "floating_pnl": 0.0,
+      "floating_pnl_pct": 0.0,
+      "total_pnl": -37.0,
+      "total_pnl_pct": -0.12,
+      "holdings": [
+        {
+          "symbol": "002460",
+          "name": "002460",
+          "buy_price": 62.83,
+          "quantity": 100,
+          "buy_date": "2026-07-06",
+          "cost": 6283.0,
+          "stock_reason": "营收增速:143.8100",
+          "timing_reason": "RSI超卖(34.0)",
+          "hold_days": 2,
+          "current_price": 62.83,
+          "profit": 0.0,
+          "profit_pct": 0.0
+        },
+        {
+          "symbol": "000657",
+          "name": "000657",
+          "buy_price": 80.46,
+          "quantity": 100,
+          "buy_date": "2026-07-07",
+          "cost": 8045.999999999999,
+          "stock_reason": "营收增速:106.4700",
+          "timing_reason": "RSI超卖(45.5)",
+          "hold_days": 1,
+          "current_price": 80.46,
+          "profit": 0.0,
+          "profit_pct": 0.0
+        },
+        {
+          "symbol": "002466",
+          "name": "002466",
+          "buy_price": 58.91,
+          "quantity": 100,
+          "buy_date": "2026-07-07",
+          "cost": 5891.0,
+          "stock_reason": "营收增速:98.4400",
+          "timing_reason": "RSI超卖(41.4); 温和放量上涨",
+          "hold_days": 1,
+          "current_price": 58.91,
+          "profit": 0.0,
+          "profit_pct": 0.0
+        }
+      ],
+      "trades": [
+        {
+          "symbol": "002460",
+          "name": "002460",
+          "buy_date": "2026-07-03",
+          "buy_price": 62.97,
+          "sell_date": "2026-07-06",
+          "sell_price": 62.83,
+          "quantity": 100,
+          "profit": -14.0,
+          "profit_pct": -0.22232809274257584,
+          "hold_days": 1,
+          "stock_reason": "营收增速:143.8100",
+          "timing_reason": "RSI超卖(34.5)",
+          "sell_reason": "跌破MA5; 跌破MA20"
+        },
+        {
+          "symbol": "000792",
+          "name": "000792",
+          "buy_date": "2026-07-03",
+          "buy_price": 29.41,
+          "sell_date": "2026-07-06",
+          "sell_price": 29.25,
+          "quantity": 300,
+          "profit": -48.0,
+          "profit_pct": -0.5440326419585175,
+          "hold_days": 1,
+          "stock_reason": "营收增速:94.8900",
+          "timing_reason": "RSI超卖(40.8)",
+          "sell_reason": "MACD红柱缩短; 跌破MA5; 跌破MA20"
+        },
+        {
+          "symbol": "002466",
+          "name": "002466",
+          "buy_date": "2026-07-03",
+          "buy_price": 58.66,
+          "sell_date": "2026-07-07",
+          "sell_price": 58.91,
+          "quantity": 100,
+          "profit": 25.0,
+          "profit_pct": 0.4261847937265599,
+          "hold_days": 2,
+          "stock_reason": "营收增速:98.4400",
+          "timing_reason": "RSI超卖(43.3)",
+          "sell_reason": "跌破MA5; 跌破MA20"
+        },
+        {
+          "symbol": "000657",
+          "name": "000657",
+          "buy_date": "2026-07-06",
+          "buy_price": 80.46,
+          "sell_date": "2026-07-07",
+          "sell_price": 80.46,
+          "quantity": 100,
+          "profit": 0.0,
+          "profit_pct": 0.0,
+          "hold_days": 1,
+          "stock_reason": "营收增速:106.4700",
+          "timing_reason": "RSI超卖(45.5)",
+          "sell_reason": "跌破MA5; 跌破MA20"
+        }
+      ],
+      "equity_curve": [
+        {
+          "date": "2026-07-03",
+          "value": 30000.0
+        },
+        {
+          "date": "2026-07-06",
+          "value": 29963.0
+        },
+        {
+          "date": "2026-07-07",
+          "value": 29963.0
+        }
+      ],
+      "backtest_start": "2026-07-03",
+      "backtest_end": "2026-07-07",
+      "backtest_days": 3
+    },
+    {
+      "name": "AI供应链紫苏叶",
+      "category": "紫苏叶",
+      "version": "1.0.0",
+      "description": "找AI产业链卡脖子环节：磷化铟/谐波减速器/MLCC/半导体设备",
+      "initial_capital": 30000,
+      "current_capital": 24251.0,
+      "total_value": 29955.0,
+      "total_return": -0.0015,
+      "monthly_return": -0.0015,
+      "sharpe_ratio": -11.224972160321824,
+      "max_drawdown": 0.0015,
+      "win_rate": 0.0,
+      "realized_pnl": -45.0,
+      "realized_pnl_pct": -0.15,
+      "floating_pnl": 0.0,
+      "floating_pnl_pct": 0.0,
+      "total_pnl": -45.0,
+      "total_pnl_pct": -0.15,
+      "holdings": [
+        {
+          "symbol": "688187",
+          "name": "时代电气",
+          "buy_price": 57.04,
+          "quantity": 100,
+          "buy_date": "2026-07-07",
+          "cost": 5704.0,
+          "stock_reason": "功率半导体，20日均线上行",
+          "timing_reason": "均线多头排列",
+          "hold_days": 1,
+          "current_price": 57.04,
+          "profit": 0.0,
+          "profit_pct": 0.0
+        }
+      ],
+      "trades": [
+        {
+          "symbol": "688187",
+          "name": "时代电气",
+          "buy_date": "2026-07-03",
+          "buy_price": 57.49,
+          "sell_date": "2026-07-06",
+          "sell_price": 57.04,
+          "quantity": 100,
+          "profit": -45.0,
+          "profit_pct": -0.7827448251869891,
+          "hold_days": 1,
+          "stock_reason": "功率半导体，20日均线上行",
+          "timing_reason": "均线多头排列",
+          "sell_reason": "跌破MA5; 跌破MA20"
+        },
+        {
+          "symbol": "688187",
+          "name": "时代电气",
+          "buy_date": "2026-07-06",
+          "buy_price": 57.04,
+          "sell_date": "2026-07-07",
+          "sell_price": 57.04,
+          "quantity": 100,
+          "profit": 0.0,
+          "profit_pct": 0.0,
+          "hold_days": 1,
+          "stock_reason": "功率半导体，20日均线上行",
+          "timing_reason": "均线多头排列",
+          "sell_reason": "跌破MA5; 跌破MA20"
+        }
+      ],
+      "equity_curve": [
+        {
+          "date": "2026-07-03",
+          "value": 30000.0
+        },
+        {
+          "date": "2026-07-06",
+          "value": 29955.0
+        },
+        {
+          "date": "2026-07-07",
+          "value": 29955.0
+        }
+      ],
+      "backtest_start": "2026-07-03",
+      "backtest_end": "2026-07-07",
+      "backtest_days": 3
+    },
+    {
+      "name": "北向资金跟投",
+      "category": "事件驱动",
+      "version": "1.0.0",
+      "description": "北向资金持续净买入，跟投外资",
+      "initial_capital": 30000,
+      "current_capital": 775.0,
+      "total_value": 29563.0,
+      "total_return": -0.014566666666666667,
+      "monthly_return": -0.014566666666666667,
+      "sharpe_ratio": -11.224972160321824,
+      "max_drawdown": 0.014566666666666667,
+      "win_rate": 0.5,
+      "realized_pnl": -437.0,
+      "realized_pnl_pct": -1.46,
+      "floating_pnl": 0.0,
+      "floating_pnl_pct": 0.0,
+      "total_pnl": -437.0,
+      "total_pnl_pct": -1.46,
+      "holdings": [
+        {
+          "symbol": "000001",
+          "name": "000001",
+          "buy_price": 10.5,
+          "quantity": 900,
+          "buy_date": "2026-07-06",
+          "cost": 9450.0,
+          "stock_reason": "北向持股=3.87%",
+          "timing_reason": "回踩MA5; MACD绿柱缩脚; RSI超卖(34.9); 温和放量上涨",
+          "hold_days": 2,
+          "current_price": 10.5,
+          "profit": 0.0,
+          "profit_pct": 0.0
+        },
+        {
+          "symbol": "000100",
+          "name": "000100",
+          "buy_price": 5.19,
+          "quantity": 1900,
+          "buy_date": "2026-07-07",
+          "cost": 9861.0,
+          "stock_reason": "北向持股=3.41%",
+          "timing_reason": "均线多头排列",
+          "hold_days": 1,
+          "current_price": 5.19,
+          "profit": 0.0,
+          "profit_pct": 0.0
+        },
+        {
+          "symbol": "000157",
+          "name": "000157",
+          "buy_price": 7.29,
+          "quantity": 1300,
+          "buy_date": "2026-07-07",
+          "cost": 9477.0,
+          "stock_reason": "北向持股=4.92%",
+          "timing_reason": "MACD绿柱缩脚; KDJ超卖金叉; KDJ金叉; RSI超卖(39.2); 温和放量上涨",
+          "hold_days": 1,
+          "current_price": 7.29,
+          "profit": 0.0,
+          "profit_pct": 0.0
+        }
+      ],
+      "trades": [
+        {
+          "symbol": "000001",
+          "name": "000001",
+          "buy_date": "2026-07-03",
+          "buy_price": 10.29,
+          "sell_date": "2026-07-06",
+          "sell_price": 10.5,
+          "quantity": 900,
+          "profit": 189.0,
+          "profit_pct": 2.0408163265306123,
+          "hold_days": 1,
+          "stock_reason": "北向持股=3.87%",
+          "timing_reason": "回踩MA5; MACD绿柱缩脚; KDJ金叉; RSI超卖(24.0); 温和放量上涨",
+          "sell_reason": "跌破MA20"
+        },
+        {
+          "symbol": "000157",
+          "name": "000157",
+          "buy_date": "2026-07-03",
+          "buy_price": 7.17,
+          "sell_date": "2026-07-06",
+          "sell_price": 7.29,
+          "quantity": 1300,
+          "profit": 156.0,
+          "profit_pct": 1.6736401673640167,
+          "hold_days": 1,
+          "stock_reason": "北向持股=4.92%",
+          "timing_reason": "回踩MA5; MACD绿柱缩脚; RSI超卖(44.8); 温和放量上涨",
+          "sell_reason": "跌破MA20"
+        },
+        {
+          "symbol": "000100",
+          "name": "000100",
+          "buy_date": "2026-07-03",
+          "buy_price": 5.65,
+          "sell_date": "2026-07-07",
+          "sell_price": 5.19,
+          "quantity": 1700,
+          "profit": -782.0,
+          "profit_pct": -8.141592920353983,
+          "hold_days": 2,
+          "stock_reason": "北向持股=3.41%",
+          "timing_reason": "均线多头排列",
+          "sell_reason": "MACD红柱缩短; KDJ高位死叉; 跌破MA5"
+        },
+        {
+          "symbol": "000157",
+          "name": "000157",
+          "buy_date": "2026-07-06",
+          "buy_price": 7.29,
+          "sell_date": "2026-07-07",
+          "sell_price": 7.29,
+          "quantity": 1300,
+          "profit": 0.0,
+          "profit_pct": 0.0,
+          "hold_days": 1,
+          "stock_reason": "北向持股=4.92%",
+          "timing_reason": "MACD绿柱缩脚; KDJ超卖金叉; KDJ金叉; RSI超卖(39.2); 温和放量上涨",
+          "sell_reason": "跌破MA20"
+        }
+      ],
+      "equity_curve": [
+        {
+          "date": "2026-07-03",
+          "value": 30000.0
+        },
+        {
+          "date": "2026-07-06",
+          "value": 29563.0
+        },
+        {
+          "date": "2026-07-07",
+          "value": 29563.0
+        }
+      ],
+      "backtest_start": "2026-07-03",
+      "backtest_end": "2026-07-07",
+      "backtest_days": 3
+    },
+    {
+      "name": "现金流质量",
+      "category": "质量因子",
+      "version": "1.0.0",
+      "description": "现金流质量",
+      "initial_capital": 30000,
+      "current_capital": 2155.0,
+      "total_value": 29254.0,
+      "total_return": -0.024866666666666665,
+      "monthly_return": -0.024866666666666665,
+      "sharpe_ratio": -11.224972160321826,
+      "max_drawdown": 0.024866666666666665,
+      "win_rate": 0.25,
+      "realized_pnl": -746.0,
+      "realized_pnl_pct": -2.49,
+      "floating_pnl": 0.0,
+      "floating_pnl_pct": 0.0,
+      "total_pnl": -746.0,
+      "total_pnl_pct": -2.49,
+      "holdings": [
+        {
+          "symbol": "002074",
+          "name": "002074",
+          "buy_price": 26.75,
+          "quantity": 300,
+          "buy_date": "2026-07-06",
+          "cost": 8025.0,
+          "stock_reason": "现金流质量:9.0000",
+          "timing_reason": "MACD金叉; RSI超卖(34.5)",
+          "hold_days": 2,
+          "current_price": 26.75,
+          "profit": 0.0,
+          "profit_pct": 0.0
+        },
+        {
+          "symbol": "000100",
+          "name": "000100",
+          "buy_price": 5.19,
+          "quantity": 1900,
+          "buy_date": "2026-07-07",
+          "cost": 9861.0,
+          "stock_reason": "现金流质量:7.9480",
+          "timing_reason": "均线多头排列",
+          "hold_days": 1,
+          "current_price": 5.19,
+          "profit": 0.0,
+          "profit_pct": 0.0
+        },
+        {
+          "symbol": "002142",
+          "name": "002142",
+          "buy_price": 30.71,
+          "quantity": 300,
+          "buy_date": "2026-07-07",
+          "cost": 9213.0,
+          "stock_reason": "现金流质量:7.3065",
+          "timing_reason": "回踩MA5; MACD绿柱缩脚; KDJ超卖金叉; RSI超卖(36.6); 温和放量上涨",
+          "hold_days": 1,
+          "current_price": 30.71,
+          "profit": 0.0,
+          "profit_pct": 0.0
+        }
+      ],
+      "trades": [
+        {
+          "symbol": "002074",
+          "name": "002074",
+          "buy_date": "2026-07-03",
+          "buy_price": 27.05,
+          "sell_date": "2026-07-06",
+          "sell_price": 26.75,
+          "quantity": 300,
+          "profit": -90.0,
+          "profit_pct": -1.1090573012939002,
+          "hold_days": 1,
+          "stock_reason": "现金流质量:9.0000",
+          "timing_reason": "MACD绿柱缩脚; RSI超卖(38.2)",
+          "sell_reason": "跌破MA5; 跌破MA20"
+        },
+        {
+          "symbol": "002142",
+          "name": "002142",
+          "buy_date": "2026-07-03",
+          "buy_price": 30.29,
+          "sell_date": "2026-07-06",
+          "sell_price": 30.71,
+          "quantity": 300,
+          "profit": 126.0,
+          "profit_pct": 1.3865962363816442,
+          "hold_days": 1,
+          "stock_reason": "现金流质量:7.3065",
+          "timing_reason": "回踩MA5; MACD绿柱缩脚; KDJ金叉; RSI超卖(27.5)",
+          "sell_reason": "跌破MA20"
+        },
+        {
+          "symbol": "000100",
+          "name": "000100",
+          "buy_date": "2026-07-03",
+          "buy_price": 5.65,
+          "sell_date": "2026-07-07",
+          "sell_price": 5.19,
+          "quantity": 1700,
+          "profit": -782.0,
+          "profit_pct": -8.141592920353983,
+          "hold_days": 2,
+          "stock_reason": "现金流质量:7.9480",
+          "timing_reason": "均线多头排列",
+          "sell_reason": "MACD红柱缩短; KDJ高位死叉; 跌破MA5"
+        },
+        {
+          "symbol": "002142",
+          "name": "002142",
+          "buy_date": "2026-07-06",
+          "buy_price": 30.71,
+          "sell_date": "2026-07-07",
+          "sell_price": 30.71,
+          "quantity": 300,
+          "profit": 0.0,
+          "profit_pct": 0.0,
+          "hold_days": 1,
+          "stock_reason": "现金流质量:7.3065",
+          "timing_reason": "回踩MA5; MACD绿柱缩脚; KDJ超卖金叉; RSI超卖(36.6); 温和放量上涨",
+          "sell_reason": "跌破MA20"
+        }
+      ],
+      "equity_curve": [
+        {
+          "date": "2026-07-03",
+          "value": 30000.0
+        },
+        {
+          "date": "2026-07-06",
+          "value": 29254.0
+        },
+        {
+          "date": "2026-07-07",
+          "value": 29254.0
+        }
+      ],
+      "backtest_start": "2026-07-03",
+      "backtest_end": "2026-07-07",
+      "backtest_days": 3
+    },
+    {
+      "name": "ST摘帽潜伏",
+      "category": "事件驱动",
+      "version": "1.0.0",
+      "description": "筛选ST股中扭亏预期，潜伏摘帽行情",
+      "initial_capital": 30000,
+      "current_capital": 3237.0,
+      "total_value": 30237.0,
+      "total_return": -0.026066666666666665,
+      "monthly_return": -0.026066666666666665,
+      "sharpe_ratio": 11.224972160321826,
+      "max_drawdown": 0,
+      "win_rate": 0.0,
+      "realized_pnl": -782.0,
+      "realized_pnl_pct": -2.61,
+      "floating_pnl": 1019.0,
+      "floating_pnl_pct": 3.4,
+      "total_pnl": 237.0,
+      "total_pnl_pct": 0.79,
+      "holdings": [
+        {
+          "symbol": "000301",
+          "name": "000301",
+          "buy_price": 12.55,
+          "quantity": 700,
+          "buy_date": "2026-07-03",
+          "cost": 8785.0,
+          "stock_reason": "困境反转，净利润增速=319.9%",
+          "timing_reason": "温和放量上涨",
+          "hold_days": 3,
+          "current_price": 13.81,
+          "profit": 881.9999999999999,
+          "profit_pct": 10.039840637450197
+        },
+        {
+          "symbol": "000408",
+          "name": "000408",
+          "buy_price": 73.35,
+          "quantity": 100,
+          "buy_date": "2026-07-03",
+          "cost": 7334.999999999999,
+          "stock_reason": "困境反转，净利润增速=110.6%",
+          "timing_reason": "MACD绿柱缩脚; KDJ金叉; RSI超卖(40.8); 温和放量上涨",
+          "hold_days": 3,
+          "current_price": 74.72,
+          "profit": 137.00000000000045,
+          "profit_pct": 1.8677573278800337
+        },
+        {
+          "symbol": "000100",
+          "name": "000100",
+          "buy_price": 5.19,
+          "quantity": 1900,
+          "buy_date": "2026-07-07",
+          "cost": 9861.0,
+          "stock_reason": "困境反转，净利润增速=53.7%",
+          "timing_reason": "均线多头排列",
+          "hold_days": 1,
+          "current_price": 5.19,
+          "profit": 0.0,
+          "profit_pct": 0.0
+        }
+      ],
+      "trades": [
+        {
+          "symbol": "000100",
+          "name": "000100",
+          "buy_date": "2026-07-03",
+          "buy_price": 5.65,
+          "sell_date": "2026-07-06",
+          "sell_price": 5.19,
+          "quantity": 1700,
+          "profit": -782.0,
+          "profit_pct": -8.141592920353983,
+          "hold_days": 1,
+          "stock_reason": "困境反转，净利润增速=53.7%",
+          "timing_reason": "均线多头排列",
+          "sell_reason": "MACD红柱缩短; KDJ高位死叉; 跌破MA5"
+        },
+        {
+          "symbol": "000100",
+          "name": "000100",
+          "buy_date": "2026-07-06",
+          "buy_price": 5.19,
+          "sell_date": "2026-07-07",
+          "sell_price": 5.19,
+          "quantity": 1900,
+          "profit": 0.0,
+          "profit_pct": 0.0,
+          "hold_days": 1,
+          "stock_reason": "困境反转，净利润增速=53.7%",
+          "timing_reason": "均线多头排列",
+          "sell_reason": "MACD红柱缩短; KDJ高位死叉; 跌破MA5"
+        }
+      ],
+      "equity_curve": [
+        {
+          "date": "2026-07-03",
+          "value": 30000.0
+        },
+        {
+          "date": "2026-07-06",
+          "value": 30237.0
+        },
+        {
+          "date": "2026-07-07",
+          "value": 30237.0
+        }
+      ],
+      "backtest_start": "2026-07-03",
+      "backtest_end": "2026-07-07",
+      "backtest_days": 3
+    },
+    {
+      "name": "业绩超预期",
+      "category": "事件驱动",
+      "version": "1.0.0",
+      "description": "财报数据超市场预期，捕捉业绩行情",
+      "initial_capital": 30000,
+      "current_capital": 3237.0,
+      "total_value": 30237.0,
+      "total_return": -0.026066666666666665,
+      "monthly_return": -0.026066666666666665,
+      "sharpe_ratio": 11.224972160321826,
+      "max_drawdown": 0,
+      "win_rate": 0.0,
+      "realized_pnl": -782.0,
+      "realized_pnl_pct": -2.61,
+      "floating_pnl": 1019.0,
+      "floating_pnl_pct": 3.4,
+      "total_pnl": 237.0,
+      "total_pnl_pct": 0.79,
+      "holdings": [
+        {
+          "symbol": "000301",
+          "name": "000301",
+          "buy_price": 12.55,
+          "quantity": 700,
+          "buy_date": "2026-07-03",
+          "cost": 8785.0,
+          "stock_reason": "业绩超预期，净利润增速=319.9%",
+          "timing_reason": "温和放量上涨",
+          "hold_days": 3,
+          "current_price": 13.81,
+          "profit": 881.9999999999999,
+          "profit_pct": 10.039840637450197
+        },
+        {
+          "symbol": "000408",
+          "name": "000408",
+          "buy_price": 73.35,
+          "quantity": 100,
+          "buy_date": "2026-07-03",
+          "cost": 7334.999999999999,
+          "stock_reason": "业绩超预期，净利润增速=110.6%",
+          "timing_reason": "MACD绿柱缩脚; KDJ金叉; RSI超卖(40.8); 温和放量上涨",
+          "hold_days": 3,
+          "current_price": 74.72,
+          "profit": 137.00000000000045,
+          "profit_pct": 1.8677573278800337
+        },
+        {
+          "symbol": "000100",
+          "name": "000100",
+          "buy_price": 5.19,
+          "quantity": 1900,
+          "buy_date": "2026-07-07",
+          "cost": 9861.0,
+          "stock_reason": "业绩超预期，净利润增速=53.7%",
+          "timing_reason": "均线多头排列",
+          "hold_days": 1,
+          "current_price": 5.19,
+          "profit": 0.0,
+          "profit_pct": 0.0
+        }
+      ],
+      "trades": [
+        {
+          "symbol": "000100",
+          "name": "000100",
+          "buy_date": "2026-07-03",
+          "buy_price": 5.65,
+          "sell_date": "2026-07-06",
+          "sell_price": 5.19,
+          "quantity": 1700,
+          "profit": -782.0,
+          "profit_pct": -8.141592920353983,
+          "hold_days": 1,
+          "stock_reason": "业绩超预期，净利润增速=53.7%",
+          "timing_reason": "均线多头排列",
+          "sell_reason": "MACD红柱缩短; KDJ高位死叉; 跌破MA5"
+        },
+        {
+          "symbol": "000100",
+          "name": "000100",
+          "buy_date": "2026-07-06",
+          "buy_price": 5.19,
+          "sell_date": "2026-07-07",
+          "sell_price": 5.19,
+          "quantity": 1900,
+          "profit": 0.0,
+          "profit_pct": 0.0,
+          "hold_days": 1,
+          "stock_reason": "业绩超预期，净利润增速=53.7%",
+          "timing_reason": "均线多头排列",
+          "sell_reason": "MACD红柱缩短; KDJ高位死叉; 跌破MA5"
+        }
+      ],
+      "equity_curve": [
+        {
+          "date": "2026-07-03",
+          "value": 30000.0
+        },
+        {
+          "date": "2026-07-06",
+          "value": 30237.0
+        },
+        {
+          "date": "2026-07-07",
+          "value": 30237.0
+        }
+      ],
+      "backtest_start": "2026-07-03",
+      "backtest_end": "2026-07-07",
+      "backtest_days": 3
+    },
+    {
+      "name": "趋势动量",
+      "category": "事件驱动",
+      "version": "1.0.0",
+      "description": "60日动量>5%且均线多头，捕捉趋势延续",
+      "initial_capital": 30000,
+      "current_capital": 9890.0,
+      "total_value": 29418.0,
+      "total_return": -0.0488,
+      "monthly_return": -0.0488,
+      "sharpe_ratio": -11.224972160321826,
+      "max_drawdown": 0.0194,
+      "win_rate": 0.0,
+      "realized_pnl": -1464.0,
+      "realized_pnl_pct": -4.88,
+      "floating_pnl": 882.0,
+      "floating_pnl_pct": 2.94,
+      "total_pnl": -582.0,
+      "total_pnl_pct": -1.94,
+      "holdings": [
+        {
+          "symbol": "000301",
+          "name": "000301",
+          "buy_price": 12.55,
+          "quantity": 700,
+          "buy_date": "2026-07-03",
+          "cost": 8785.0,
+          "stock_reason": "60日涨幅20.6%，均线多头",
+          "timing_reason": "温和放量上涨",
+          "hold_days": 3,
+          "current_price": 13.81,
+          "profit": 881.9999999999999,
+          "profit_pct": 10.039840637450197
+        },
+        {
+          "symbol": "000100",
+          "name": "000100",
+          "buy_price": 5.19,
+          "quantity": 1900,
+          "buy_date": "2026-07-07",
+          "cost": 9861.0,
+          "stock_reason": "60日涨幅22.7%，均线多头",
+          "timing_reason": "均线多头排列",
+          "hold_days": 1,
+          "current_price": 5.19,
+          "profit": 0.0,
+          "profit_pct": 0.0
+        }
+      ],
+      "trades": [
+        {
+          "symbol": "000100",
+          "name": "000100",
+          "buy_date": "2026-07-03",
+          "buy_price": 5.65,
+          "sell_date": "2026-07-06",
+          "sell_price": 5.19,
+          "quantity": 1700,
+          "profit": -782.0,
+          "profit_pct": -8.141592920353983,
+          "hold_days": 1,
+          "stock_reason": "60日涨幅22.7%，均线多头",
+          "timing_reason": "均线多头排列",
+          "sell_reason": "MACD红柱缩短; KDJ高位死叉; 跌破MA5"
+        },
+        {
+          "symbol": "000725",
+          "name": "000725",
+          "buy_date": "2026-07-03",
+          "buy_price": 8.38,
+          "sell_date": "2026-07-06",
+          "sell_price": 7.76,
+          "quantity": 1100,
+          "profit": -682.0,
+          "profit_pct": -7.398568019093078,
+          "hold_days": 1,
+          "stock_reason": "60日涨幅94.0%，均线多头",
+          "timing_reason": "均线多头排列",
+          "sell_reason": "MACD红柱缩短; KDJ高位死叉; 跌破MA5"
+        },
+        {
+          "symbol": "000100",
+          "name": "000100",
+          "buy_date": "2026-07-06",
+          "buy_price": 5.19,
+          "sell_date": "2026-07-07",
+          "sell_price": 5.19,
+          "quantity": 1900,
+          "profit": 0.0,
+          "profit_pct": 0.0,
+          "hold_days": 1,
+          "stock_reason": "60日涨幅22.7%，均线多头",
+          "timing_reason": "均线多头排列",
+          "sell_reason": "MACD红柱缩短; KDJ高位死叉; 跌破MA5"
+        }
+      ],
+      "equity_curve": [
+        {
+          "date": "2026-07-03",
+          "value": 30000.0
+        },
+        {
+          "date": "2026-07-06",
+          "value": 29418.0
+        },
+        {
+          "date": "2026-07-07",
+          "value": 29418.0
+        }
+      ],
+      "backtest_start": "2026-07-03",
+      "backtest_end": "2026-07-07",
+      "backtest_days": 3
+    },
+    {
+      "name": "多因子综合",
+      "category": "综合",
+      "version": "1.0.0",
+      "description": "等权组合ROE+低PE+动量+北向，综合评分",
+      "initial_capital": 30000,
+      "current_capital": 921.0,
+      "total_value": 28965.0,
+      "total_return": -0.0488,
+      "monthly_return": -0.0488,
+      "sharpe_ratio": -11.224972160321824,
+      "max_drawdown": 0.0345,
+      "win_rate": 0.0,
+      "realized_pnl": -1464.0,
+      "realized_pnl_pct": -4.88,
+      "floating_pnl": 429.0,
+      "floating_pnl_pct": 1.43,
+      "total_pnl": -1035.0,
+      "total_pnl_pct": -3.45,
+      "holdings": [
+        {
+          "symbol": "000338",
+          "name": "000338",
+          "buy_price": 28.14,
+          "quantity": 300,
+          "buy_date": "2026-07-03",
+          "cost": 8442.0,
+          "stock_reason": "多因子:51.6089",
+          "timing_reason": "回踩MA5; MACD绿柱缩脚; KDJ金叉; 温和放量上涨",
+          "hold_days": 3,
+          "current_price": 29.57,
+          "profit": 428.9999999999999,
+          "profit_pct": 5.081734186211797
+        },
+        {
+          "symbol": "000100",
+          "name": "000100",
+          "buy_price": 5.19,
+          "quantity": 1900,
+          "buy_date": "2026-07-06",
+          "cost": 9861.0,
+          "stock_reason": "多因子:48.7167",
+          "timing_reason": "均线多头排列",
+          "hold_days": 2,
+          "current_price": 5.19,
+          "profit": 0.0,
+          "profit_pct": 0.0
+        },
+        {
+          "symbol": "000725",
+          "name": "000725",
+          "buy_price": 7.76,
+          "quantity": 1200,
+          "buy_date": "2026-07-07",
+          "cost": 9312.0,
+          "stock_reason": "多因子:53.2216",
+          "timing_reason": "均线多头排列",
+          "hold_days": 1,
+          "current_price": 7.76,
+          "profit": 0.0,
+          "profit_pct": 0.0
+        }
+      ],
+      "trades": [
+        {
+          "symbol": "000725",
+          "name": "000725",
+          "buy_date": "2026-07-03",
+          "buy_price": 8.38,
+          "sell_date": "2026-07-06",
+          "sell_price": 7.76,
+          "quantity": 1100,
+          "profit": -682.0,
+          "profit_pct": -7.398568019093078,
+          "hold_days": 1,
+          "stock_reason": "多因子:53.2216",
+          "timing_reason": "均线多头排列",
+          "sell_reason": "MACD红柱缩短; KDJ高位死叉; 跌破MA5"
+        },
+        {
+          "symbol": "000100",
+          "name": "000100",
+          "buy_date": "2026-07-03",
+          "buy_price": 5.65,
+          "sell_date": "2026-07-06",
+          "sell_price": 5.19,
+          "quantity": 1700,
+          "profit": -782.0,
+          "profit_pct": -8.141592920353983,
+          "hold_days": 1,
+          "stock_reason": "多因子:48.7167",
+          "timing_reason": "均线多头排列",
+          "sell_reason": "MACD红柱缩短; KDJ高位死叉; 跌破MA5"
+        },
+        {
+          "symbol": "000725",
+          "name": "000725",
+          "buy_date": "2026-07-06",
+          "buy_price": 7.76,
+          "sell_date": "2026-07-07",
+          "sell_price": 7.76,
+          "quantity": 1200,
+          "profit": 0.0,
+          "profit_pct": 0.0,
+          "hold_days": 1,
+          "stock_reason": "多因子:53.2216",
+          "timing_reason": "均线多头排列",
+          "sell_reason": "MACD红柱缩短; KDJ高位死叉; 跌破MA5"
+        }
+      ],
+      "equity_curve": [
+        {
+          "date": "2026-07-03",
+          "value": 30000.0
+        },
+        {
+          "date": "2026-07-06",
+          "value": 28965.0
+        },
+        {
+          "date": "2026-07-07",
+          "value": 28965.0
+        }
+      ],
+      "backtest_start": "2026-07-03",
+      "backtest_end": "2026-07-07",
+      "backtest_days": 3
+    },
+    {
+      "name": "多周期共振",
+      "category": "趋势策略",
+      "version": "1.0.0",
+      "description": "日线和周线趋势同向+20日动量为正",
+      "initial_capital": 30000,
+      "current_capital": 9628.0,
+      "total_value": 28486.0,
+      "total_return": -0.05046666666666667,
+      "monthly_return": -0.05046666666666667,
+      "sharpe_ratio": -11.224972160321826,
+      "max_drawdown": 0.05046666666666667,
+      "win_rate": 0.0,
+      "realized_pnl": -1514.0,
+      "realized_pnl_pct": -5.05,
+      "floating_pnl": 0.0,
+      "floating_pnl_pct": 0.0,
+      "total_pnl": -1514.0,
+      "total_pnl_pct": -5.05,
+      "holdings": [
+        {
+          "symbol": "000725",
+          "name": "000725",
+          "buy_price": 7.76,
+          "quantity": 1200,
+          "buy_date": "2026-07-06",
+          "cost": 9312.0,
+          "stock_reason": "多周期共振:20.3977",
+          "timing_reason": "均线多头排列",
+          "hold_days": 2,
+          "current_price": 7.76,
+          "profit": 0.0,
+          "profit_pct": 0.0
+        },
+        {
+          "symbol": "002422",
+          "name": "002422",
+          "buy_price": 47.73,
+          "quantity": 200,
+          "buy_date": "2026-07-07",
+          "cost": 9546.0,
+          "stock_reason": "多周期共振:14.7480",
+          "timing_reason": "均线多头排列",
+          "hold_days": 1,
+          "current_price": 47.73,
+          "profit": 0.0,
+          "profit_pct": 0.0
+        }
+      ],
+      "trades": [
+        {
+          "symbol": "000725",
+          "name": "000725",
+          "buy_date": "2026-07-03",
+          "buy_price": 8.38,
+          "sell_date": "2026-07-06",
+          "sell_price": 7.76,
+          "quantity": 1100,
+          "profit": -682.0,
+          "profit_pct": -7.398568019093078,
+          "hold_days": 1,
+          "stock_reason": "多周期共振:20.3977",
+          "timing_reason": "均线多头排列",
+          "sell_reason": "MACD红柱缩短; KDJ高位死叉; 跌破MA5"
+        },
+        {
+          "symbol": "000100",
+          "name": "000100",
+          "buy_date": "2026-07-03",
+          "buy_price": 5.65,
+          "sell_date": "2026-07-06",
+          "sell_price": 5.19,
+          "quantity": 1700,
+          "profit": -782.0,
+          "profit_pct": -8.141592920353983,
+          "hold_days": 1,
+          "stock_reason": "多周期共振:12.7923",
+          "timing_reason": "均线多头排列",
+          "sell_reason": "MACD红柱缩短; KDJ高位死叉; 跌破MA5"
+        },
+        {
+          "symbol": "002422",
+          "name": "002422",
+          "buy_date": "2026-07-03",
+          "buy_price": 47.98,
+          "sell_date": "2026-07-07",
+          "sell_price": 47.73,
+          "quantity": 200,
+          "profit": -50.0,
+          "profit_pct": -0.5210504376823677,
+          "hold_days": 2,
+          "stock_reason": "多周期共振:14.7480",
+          "timing_reason": "温和放量上涨; 均线多头排列",
+          "sell_reason": "RSI超买(80.0)"
+        }
+      ],
+      "equity_curve": [
+        {
+          "date": "2026-07-03",
+          "value": 30000.0
+        },
+        {
+          "date": "2026-07-06",
+          "value": 28486.0
+        },
+        {
+          "date": "2026-07-07",
+          "value": 28486.0
+        }
+      ],
+      "backtest_start": "2026-07-03",
+      "backtest_end": "2026-07-07",
+      "backtest_days": 3
+    }
+  ]
+}
