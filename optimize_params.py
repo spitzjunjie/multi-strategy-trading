@@ -272,7 +272,7 @@ def main():
     
     # 显示可优化的策略
     strategies = get_grade_a_strategies()
-    param_grids = get_param_grids()
+    param_grids = get_param_grid()
     
     print(f"\n待优化A级策略 ({len(strategies)} 个):")
     for s in strategies:

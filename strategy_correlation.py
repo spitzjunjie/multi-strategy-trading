@@ -43,8 +43,17 @@ class StrategyCorrelation:
         """从权益曲线计算收益率序列"""
         if not equity_curve or len(equity_curve) < 2:
             return []
-        
-        curve = np.array(equity_curve)
+
+        # 处理equity_curve是{'date': str, 'value': float}格式的情况
+        if isinstance(equity_curve[0], dict):
+            values = [float(item['value']) for item in equity_curve if isinstance(item, dict) and 'value' in item]
+        else:
+            values = list(equity_curve)
+
+        if len(values) < 2:
+            return []
+
+        curve = np.array(values)
         returns = np.diff(curve) / curve[:-1]
         # 过滤无效值
         returns = returns[~np.isnan(returns) & ~np.isinf(returns)]

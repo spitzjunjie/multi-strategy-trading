@@ -1,0 +1,301 @@
+{
+  "update_time": "2026-07-07 17:57:48",
+  "optimization_count": 3,
+  "strategies": [
+    {
+      "strategy": "均线多头排列",
+      "best_params": {
+        "ma_periods": [
+          5,
+          10,
+          20
+        ],
+        "momentum_threshold": 0
+      },
+      "best_score": 30.0,
+      "all_results": [
+        {
+          "params": {
+            "ma_periods": [
+              5,
+              10,
+              20
+            ],
+            "momentum_threshold": 0
+          },
+          "score": 30.0
+        },
+        {
+          "params": {
+            "ma_periods": [
+              5,
+              10,
+              20
+            ],
+            "momentum_threshold": 5
+          },
+          "score": 27.5
+        },
+        {
+          "params": {
+            "ma_periods": [
+              5,
+              10,
+              20
+            ],
+            "momentum_threshold": 10
+          },
+          "score": 25.0
+        },
+        {
+          "params": {
+            "ma_periods": [
+              5,
+              10,
+              30
+            ],
+            "momentum_threshold": 0
+          },
+          "score": 30.0
+        },
+        {
+          "params": {
+            "ma_periods": [
+              5,
+              10,
+              30
+            ],
+            "momentum_threshold": 5
+          },
+          "score": 27.5
+        },
+        {
+          "params": {
+            "ma_periods": [
+              5,
+              10,
+              30
+            ],
+            "momentum_threshold": 10
+          },
+          "score": 25.0
+        },
+        {
+          "params": {
+            "ma_periods": [
+              5,
+              10,
+              60
+            ],
+            "momentum_threshold": 0
+          },
+          "score": 30.0
+        },
+        {
+          "params": {
+            "ma_periods": [
+              5,
+              10,
+              60
+            ],
+            "momentum_threshold": 5
+          },
+          "score": 27.5
+        },
+        {
+          "params": {
+            "ma_periods": [
+              5,
+              10,
+              60
+            ],
+            "momentum_threshold": 10
+          },
+          "score": 25.0
+        },
+        {
+          "params": {
+            "ma_periods": [
+              10,
+              20,
+              60
+            ],
+            "momentum_threshold": 0
+          },
+          "score": 30.0
+        },
+        {
+          "params": {
+            "ma_periods": [
+              10,
+              20,
+              60
+            ],
+            "momentum_threshold": 5
+          },
+          "score": 27.5
+        },
+        {
+          "params": {
+            "ma_periods": [
+              10,
+              20,
+              60
+            ],
+            "momentum_threshold": 10
+          },
+          "score": 25.0
+        }
+      ],
+      "total_combinations": 12
+    },
+    {
+      "strategy": "多周期共振",
+      "best_params": {
+        "daily_periods": [
+          5,
+          10,
+          20
+        ],
+        "weekly_params": "5/10/20"
+      },
+      "best_score": 30,
+      "all_results": [
+        {
+          "params": {
+            "daily_periods": [
+              5,
+              10,
+              20
+            ],
+            "weekly_params": "5/10/20"
+          },
+          "score": 30
+        },
+        {
+          "params": {
+            "daily_periods": [
+              5,
+              10,
+              20
+            ],
+            "weekly_params": "10/20/30"
+          },
+          "score": 30
+        },
+        {
+          "params": {
+            "daily_periods": [
+              5,
+              10,
+              20
+            ],
+            "weekly_params": "5/20/60"
+          },
+          "score": 30
+        },
+        {
+          "params": {
+            "daily_periods": [
+              5,
+              10,
+              30
+            ],
+            "weekly_params": "5/10/20"
+          },
+          "score": 30
+        },
+        {
+          "params": {
+            "daily_periods": [
+              5,
+              10,
+              30
+            ],
+            "weekly_params": "10/20/30"
+          },
+          "score": 30
+        },
+        {
+          "params": {
+            "daily_periods": [
+              5,
+              10,
+              30
+            ],
+            "weekly_params": "5/20/60"
+          },
+          "score": 30
+        },
+        {
+          "params": {
+            "daily_periods": [
+              10,
+              20,
+              60
+            ],
+            "weekly_params": "5/10/20"
+          },
+          "score": 30
+        },
+        {
+          "params": {
+            "daily_periods": [
+              10,
+              20,
+              60
+            ],
+            "weekly_params": "10/20/30"
+          },
+          "score": 30
+        },
+        {
+          "params": {
+            "daily_periods": [
+              10,
+              20,
+              60
+            ],
+            "weekly_params": "5/20/60"
+          },
+          "score": 30
+        }
+      ],
+      "total_combinations": 9
+    },
+    {
+      "strategy": "高管增持",
+      "best_params": {
+        "change_ratio_threshold": 0
+      },
+      "best_score": 50,
+      "all_results": [
+        {
+          "params": {
+            "change_ratio_threshold": 0
+          },
+          "score": 50
+        },
+        {
+          "params": {
+            "change_ratio_threshold": 0.5
+          },
+          "score": 45.0
+        },
+        {
+          "params": {
+            "change_ratio_threshold": 1
+          },
+          "score": 40
+        },
+        {
+          "params": {
+            "change_ratio_threshold": 2
+          },
+          "score": 30
+        }
+      ],
+      "total_combinations": 4
+    }
+  ]
+}
