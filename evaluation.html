@@ -1,0 +1,359 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>策略评估中心 | Multi-Strategy Trading</title>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.0/dist/chart.umd.min.js"></script>
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body {
+            background: #0a0e1a;
+            color: #e2e8f0;
+            font-family: 'Segoe UI', 'Microsoft YaHei', sans-serif;
+            min-height: 100vh;
+            background-image:
+                radial-gradient(circle at 20% 30%, rgba(0,240,255,0.08) 0%, transparent 50%),
+                radial-gradient(circle at 80% 70%, rgba(168,85,247,0.08) 0%, transparent 50%);
+        }
+        .container { max-width: 1400px; margin: 0 auto; padding: 24px; }
+
+        /* 顶部导航 */
+        .header {
+            display: flex; justify-content: space-between; align-items: center;
+            margin-bottom: 32px; padding: 20px 24px;
+            background: rgba(15,23,42,0.6); backdrop-filter: blur(20px) saturate(180%);
+            border: 1px solid rgba(0,240,255,0.2); border-radius: 16px;
+        }
+        .header h1 {
+            font-size: 24px; font-weight: 600;
+            background: linear-gradient(135deg, #00f0ff 0%, #a855f7 100%);
+            -webkit-background-clip: text; -webkit-text-fill-color: transparent;
+        }
+        .nav-links a {
+            color: #94a3b8; text-decoration: none; margin-left: 24px; font-size: 14px;
+            transition: color 0.3s;
+        }
+        .nav-links a:hover, .nav-links a.active { color: #00f0ff; }
+
+        /* 汇总卡片 */
+        .summary-grid {
+            display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 16px; margin-bottom: 32px;
+        }
+        .summary-card {
+            padding: 20px; border-radius: 12px;
+            background: rgba(15,23,42,0.6); backdrop-filter: blur(20px) saturate(180%);
+            border: 1px solid rgba(255,255,255,0.08);
+            transition: all 0.3s;
+        }
+        .summary-card:hover {
+            border-color: rgba(0,240,255,0.4);
+            box-shadow: 0 0 20px rgba(0,240,255,0.15);
+        }
+        .summary-card .label { font-size: 12px; color: #64748b; text-transform: uppercase; letter-spacing: 1px; }
+        .summary-card .value { font-size: 32px; font-weight: 700; margin-top: 8px; }
+        .grade-S { color: #fbbf24; }
+        .grade-A { color: #00f0ff; }
+        .grade-B { color: #a855f7; }
+        .grade-C { color: #94a3b8; }
+        .grade-D { color: #ef4444; }
+
+        /* 图表网格 */
+        .chart-grid {
+            display: grid; grid-template-columns: 1fr 1fr; gap: 24px; margin-bottom: 32px;
+        }
+        .chart-card {
+            padding: 24px; border-radius: 16px;
+            background: rgba(15,23,42,0.6); backdrop-filter: blur(20px) saturate(180%);
+            border: 1px solid rgba(255,255,255,0.08);
+        }
+        .chart-card h3 {
+            font-size: 16px; margin-bottom: 20px; color: #e2e8f0;
+            display: flex; align-items: center; gap: 8px;
+        }
+        .chart-card h3::before {
+            content: ''; width: 4px; height: 16px; border-radius: 2px;
+            background: linear-gradient(180deg, #00f0ff, #a855f7);
+        }
+        .chart-container { position: relative; height: 320px; }
+
+        /* 策略排名表 */
+        .ranking-card {
+            padding: 24px; border-radius: 16px; margin-bottom: 32px;
+            background: rgba(15,23,42,0.6); backdrop-filter: blur(20px) saturate(180%);
+            border: 1px solid rgba(255,255,255,0.08);
+        }
+        .ranking-card h3 {
+            font-size: 16px; margin-bottom: 20px;
+            display: flex; align-items: center; gap: 8px;
+        }
+        .ranking-card h3::before {
+            content: ''; width: 4px; height: 16px; border-radius: 2px;
+            background: linear-gradient(180deg, #00f0ff, #a855f7);
+        }
+        table { width: 100%; border-collapse: collapse; }
+        th, td { padding: 12px 8px; text-align: left; border-bottom: 1px solid rgba(255,255,255,0.05); font-size: 13px; }
+        th { color: #64748b; font-weight: 600; text-transform: uppercase; font-size: 11px; letter-spacing: 1px; }
+        tr:hover { background: rgba(0,240,255,0.03); }
+        .grade-badge {
+            display: inline-block; padding: 2px 10px; border-radius: 12px;
+            font-size: 11px; font-weight: 700; min-width: 24px; text-align: center;
+        }
+        .badge-S { background: rgba(251,191,36,0.15); color: #fbbf24; border: 1px solid rgba(251,191,36,0.3); }
+        .badge-A { background: rgba(0,240,255,0.15); color: #00f0ff; border: 1px solid rgba(0,240,255,0.3); }
+        .badge-B { background: rgba(168,85,247,0.15); color: #a855f7; border: 1px solid rgba(168,85,247,0.3); }
+        .badge-C { background: rgba(148,163,184,0.15); color: #94a3b8; border: 1px solid rgba(148,163,184,0.3); }
+        .badge-D { background: rgba(239,68,68,0.15); color: #ef4444; border: 1px solid rgba(239,68,68,0.3); }
+
+        .score-bar {
+            display: inline-block; width: 60px; height: 6px;
+            background: rgba(255,255,255,0.1); border-radius: 3px;
+            position: relative; vertical-align: middle; margin-right: 6px;
+        }
+        .score-bar-fill {
+            position: absolute; left: 0; top: 0; height: 100%;
+            border-radius: 3px;
+            background: linear-gradient(90deg, #ef4444, #fbbf24, #00f0ff);
+        }
+
+        .loading {
+            text-align: center; padding: 60px; color: #64748b;
+        }
+        .loading::after {
+            content: ''; display: inline-block; width: 32px; height: 32px;
+            border: 3px solid rgba(0,240,255,0.2); border-top-color: #00f0ff;
+            border-radius: 50%; animation: spin 1s linear infinite;
+            margin-top: 16px;
+        }
+        @keyframes spin { to { transform: rotate(360deg); } }
+
+        @media (max-width: 768px) {
+            .chart-grid { grid-template-columns: 1fr; }
+            .container { padding: 12px; }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h1>📊 策略评估中心</h1>
+            <div class="nav-links">
+                <a href="index.html">策略总览</a>
+                <a href="evaluation.html" class="active">评估中心</a>
+            </div>
+        </div>
+
+        <div id="content">
+            <div class="loading">加载中...</div>
+        </div>
+    </div>
+
+    <script>
+        // 等级配置
+        const GRADE_CONFIG = {
+            'S': { color: '#fbbf24', emoji: '🏆', label: '优秀' },
+            'A': { color: '#00f0ff', emoji: '🥇', label: '良好' },
+            'B': { color: '#a855f7', emoji: '🥈', label: '合格' },
+            'C': { color: '#94a3b8', emoji: '🥉', label: '较差' },
+            'D': { color: '#ef4444', emoji: '⚠️', label: '淘汰候选' }
+        };
+
+        async function loadData() {
+            try {
+                const response = await fetch('output/strategy_data.json');
+                if (!response.ok) throw new Error('数据加载失败');
+                const data = await response.json();
+                renderData(data);
+            } catch (error) {
+                document.getElementById('content').innerHTML =
+                    `<div class="loading">❌ ${error.message}<br>请确保回测引擎已运行</div>`;
+            }
+        }
+
+        function renderData(data) {
+            const strategies = data.strategies || [];
+            const gradeStats = data.grade_stats || {};
+
+            // 计算各指标
+            const avgReturn = strategies.reduce((s, x) => s + (x.total_return || 0), 0) / strategies.length;
+            const avgSharpe = strategies.reduce((s, x) => s + (x.sharpe_ratio || 0), 0) / strategies.length;
+            const positiveCount = strategies.filter(x => (x.total_return || 0) > 0).length;
+
+            let html = `
+                <!-- 汇总卡片 -->
+                <div class="summary-grid">
+                    <div class="summary-card">
+                        <div class="label">策略总数</div>
+                        <div class="value" style="color:#00f0ff">${strategies.length}</div>
+                    </div>
+                    <div class="summary-card">
+                        <div class="label">平均收益率</div>
+                        <div class="value ${avgReturn >= 0 ? 'grade-A' : 'grade-D'}">${(avgReturn*100).toFixed(2)}%</div>
+                    </div>
+                    <div class="summary-card">
+                        <div class="label">平均夏普比率</div>
+                        <div class="value ${avgSharpe >= 1 ? 'grade-S' : avgSharpe >= 0 ? 'grade-A' : 'grade-D'}">${avgSharpe.toFixed(2)}</div>
+                    </div>
+                    <div class="summary-card">
+                        <div class="label">盈利策略数</div>
+                        <div class="value grade-A">${positiveCount}/${strategies.length}</div>
+                    </div>
+                </div>
+
+                <!-- 图表网格 -->
+                <div class="chart-grid">
+                    <div class="chart-card">
+                        <h3>策略分级分布</h3>
+                        <div class="chart-container"><canvas id="gradeChart"></canvas></div>
+                    </div>
+                    <div class="chart-card">
+                        <h3>收益 vs 风险（夏普）</h3>
+                        <div class="chart-container"><canvas id="scatterChart"></canvas></div>
+                    </div>
+                </div>
+
+                <!-- 策略排名表 -->
+                <div class="ranking-card">
+                    <h3>策略综合排名（按综合分降序）</h3>
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>排名</th>
+                                <th>策略名</th>
+                                <th>类别</th>
+                                <th>等级</th>
+                                <th>综合分</th>
+                                <th>收益率</th>
+                                <th>夏普</th>
+                                <th>最大回撤</th>
+                                <th>胜率</th>
+                                <th>盈亏比</th>
+                                <th>稳定性</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+            `;
+
+            strategies.forEach((s, i) => {
+                const grade = s.grade || 'D';
+                const score = s.composite_score || 0;
+                const cfg = GRADE_CONFIG[grade] || GRADE_CONFIG['D'];
+                html += `
+                    <tr>
+                        <td>${i+1}</td>
+                        <td><a href="detail.html?name=${encodeURIComponent(s.name)}&from=evaluation" style="color:#00f0ff;text-decoration:none">${s.name}</a></td>
+                        <td>${s.category || ''}</td>
+                        <td><span class="grade-badge badge-${grade}">${cfg.emoji} ${grade}</span></td>
+                        <td>
+                            <span class="score-bar"><span class="score-bar-fill" style="width:${score}%"></span></span>
+                            <strong>${score}</strong>
+                        </td>
+                        <td style="color:${(s.total_return||0)>=0?'#00f0ff':'#ef4444'}">${((s.total_return||0)*100).toFixed(2)}%</td>
+                        <td>${(s.sharpe_ratio||0).toFixed(2)}</td>
+                        <td>${((s.max_drawdown||0)*100).toFixed(1)}%</td>
+                        <td>${((s.win_rate||0)*100).toFixed(0)}%</td>
+                        <td>${(s.profit_loss_ratio||0).toFixed(2)}</td>
+                        <td>${(s.return_stability||0).toFixed(2)}</td>
+                    </tr>
+                `;
+            });
+
+            html += `
+                        </tbody>
+                    </table>
+                </div>
+            `;
+
+            document.getElementById('content').innerHTML = html;
+
+            // 渲染图表
+            renderGradeChart(gradeStats, strategies);
+            renderScatterChart(strategies);
+        }
+
+        function renderGradeChart(gradeStats, strategies) {
+            const ctx = document.getElementById('gradeChart').getContext('2d');
+            const grades = ['S', 'A', 'B', 'C', 'D'];
+            const counts = grades.map(g => {
+                if (gradeStats[g] !== undefined) return gradeStats[g];
+                return strategies.filter(s => (s.grade || 'D') === g).length;
+            });
+            const colors = grades.map(g => GRADE_CONFIG[g].color);
+
+            new Chart(ctx, {
+                type: 'doughnut',
+                data: {
+                    labels: grades.map(g => `${GRADE_CONFIG[g].emoji} ${g}级 (${GRADE_CONFIG[g].label})`),
+                    datasets: [{
+                        data: counts,
+                        backgroundColor: colors.map(c => c + '99'),
+                        borderColor: colors,
+                        borderWidth: 2
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    plugins: {
+                        legend: { position: 'right', labels: { color: '#e2e8f0', padding: 12, font: { size: 12 } } }
+                    }
+                }
+            });
+        }
+
+        function renderScatterChart(strategies) {
+            const ctx = document.getElementById('scatterChart').getContext('2d');
+            const datasets = {};
+            strategies.forEach(s => {
+                const grade = s.grade || 'D';
+                if (!datasets[grade]) {
+                    datasets[grade] = {
+                        label: `${GRADE_CONFIG[grade].emoji} ${grade}级`,
+                        data: [],
+                        backgroundColor: GRADE_CONFIG[grade].color + '99',
+                        borderColor: GRADE_CONFIG[grade].color,
+                        borderWidth: 2
+                    };
+                }
+                datasets[grade].data.push({
+                    x: s.sharpe_ratio || 0,
+                    y: (s.total_return || 0) * 100,
+                    name: s.name
+                });
+            });
+
+            new Chart(ctx, {
+                type: 'scatter',
+                data: { datasets: Object.values(datasets) },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    plugins: {
+                        legend: { labels: { color: '#e2e8f0' } },
+                        tooltip: {
+                            callbacks: {
+                                label: (ctx) => `${ctx.raw.name}: 夏普${ctx.raw.x.toFixed(2)}, 收益${ctx.raw.y.toFixed(2)}%`
+                            }
+                        }
+                    },
+                    scales: {
+                        x: {
+                            title: { display: true, text: '夏普比率', color: '#94a3b8' },
+                            ticks: { color: '#64748b' },
+                            grid: { color: 'rgba(255,255,255,0.05)' }
+                        },
+                        y: {
+                            title: { display: true, text: '收益率(%)', color: '#94a3b8' },
+                            ticks: { color: '#64748b' },
+                            grid: { color: 'rgba(255,255,255,0.05)' }
+                        }
+                    }
+                }
+            });
+        }
+
+        loadData();
+    </script>
+</body>
+</html>
