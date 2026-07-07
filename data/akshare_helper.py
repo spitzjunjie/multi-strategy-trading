@@ -227,8 +227,18 @@ class AKShareHelper:
             df = ak.stock_financial_abstract_ths(symbol=symbol, indicator="按报告期")
             if df is not None and not df.empty:
                 latest = df.iloc[-1].to_dict()  # 取最新一期数据
+                
+                # 同花顺财务摘要的ROE列名可能是不同的，需要尝试多种列名
+                # 可能列名：'净资产收益率', '净资产收益率-加权', '净资产收益率-摊薄'
+                roe_value = 0
+                roe_cols = ['净资产收益率-加权', '净资产收益率-摊薄', '净资产收益率', 'ROE(%)']
+                for col in roe_cols:
+                    if col in latest and latest[col] is not None:
+                        roe_value = safe_pct(latest.get(col, 0))
+                        break
+                
                 data = {
-                    'roe': safe_pct(latest.get('净资产收益率-摊薄', 0)),
+                    'roe': roe_value,
                     'roic': 0,  # ths数据不含ROIC
                     'debt_ratio': safe_pct(latest.get('资产负债率', 0)),
                     'current_ratio': self._safe_float(latest.get('流动比率', 0)),
@@ -753,11 +763,35 @@ class AKShareHelper:
     # ==================== 机构持仓 ====================
 
     def get_institution_holding(self, symbol):
-        """获取机构持仓数据（基金重仓股）"""
+        """获取机构持仓数据（基金重仓股）
+        优先使用东财基金重仓接口，失败时使用东财基金持股详情接口
+        """
         cache_key = f"inst_hold_{symbol}"
         cache = self._get_cache(cache_key, days=7)
         if cache:
             return cache
+        
+        # 方案1: 使用东财基金重仓股接口
+        try:
+            df = ak.stock_fund_hold_em(symbol=symbol)
+            if df is not None and not df.empty:
+                # 获取该股票在最近报告期的基金持股数据
+                if '基金持股占流通A股比例' in df.columns:
+                    fund_ratio = df['基金持股占流通A股比例'].iloc[0]
+                elif '基金持股比例' in df.columns:
+                    fund_ratio = df['基金持股比例'].iloc[0]
+                else:
+                    fund_ratio = 0
+                data = {
+                    'fund_hold_ratio': self._safe_float(fund_ratio),
+                    'inst_count': len(df),  # 持有该股的基金数量
+                }
+                self._set_cache(cache_key, data)
+                return data
+        except Exception as e:
+            print(f"东财基金重仓接口失败 {symbol}: {e}")
+        
+        # 方案2: 使用东财基金持股详情接口
         try:
             df = ak.stock_fund_hold_detail_em(symbol=symbol)
             if df is not None and not df.empty:
@@ -769,7 +803,7 @@ class AKShareHelper:
                 self._set_cache(cache_key, data)
                 return data
         except Exception as e:
-            print(f"获取机构持仓失败 {symbol}: {e}")
+            print(f"东财基金持股详情接口失败 {symbol}: {e}")
         return {}
 
     def get_institution调研(self, symbol):

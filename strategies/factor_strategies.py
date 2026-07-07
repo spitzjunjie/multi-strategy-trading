@@ -102,7 +102,7 @@ class RevenueGrowthStrategy(FactorStrategyBase):
 
 
 class LowPEStrategy(FactorStrategyBase):
-    """低PE策略 - 真实市盈率，选最低的"""
+    """低PE策略优化版 - 避免低估值陷阱"""
 
     def __init__(self):
         super().__init__("低PE", "价值因子", "市盈率")
@@ -113,12 +113,28 @@ class LowPEStrategy(FactorStrategyBase):
         for sym in symbols:
             try:
                 val = helper.get_valuation_data(sym)
+                fin = helper.get_financial_indicator(sym)
                 pe = val.get('pe_ttm', 0)
-                # 低PE策略：用负PE排序（PE越低越靠前）
-                values.append(-pe if pe > 0 else -9999)
+                roe = fin.get('roe', 0)
+                
+                # 优化：避免低估值陷阱
+                # PE 5-30 + ROE > 0 才有效
+                if 5 < pe < 30 and roe > 0:
+                    # 用 PEG 修正：PE / 净利润增速
+                    growth = helper.get_growth_data(sym)
+                    profit_growth = growth.get('profit_growth', 0)
+                    if profit_growth and profit_growth > 0:
+                        peg = pe / profit_growth
+                        # PEG < 1.5 是好价格
+                        score = -peg if peg < 1.5 else -9999
+                    else:
+                        score = -pe  # 用PE原始值排序
+                else:
+                    score = -9999
+                values.append(score)
             except:
                 values.append(-9999)
-        return self.build_result(symbols, values, "PE={val:.2f}")
+        return self.build_result(symbols, values, "PE={val:.2f}, 排除陷阱")
 
 
 class LowPBStrategy(FactorStrategyBase):

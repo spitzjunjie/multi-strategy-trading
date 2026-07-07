@@ -116,13 +116,13 @@ class VolumeBreakoutStrategy(TechnicalBreakoutStrategy):
 
 
 class MACDCrossStrategy(TechnicalBreakoutStrategy):
-    """MACD金叉策略：零轴上方金叉，动能转强"""
+    """MACD金叉策略 - 放宽条件"""
 
     def __init__(self):
         super().__init__("MACD金叉")
 
     def get_description(self):
-        return "MACD零轴上方金叉，捕捉动能转强"
+        return "MACD金叉信号，捕捉动能转强（放宽至任意金叉）"
 
     def detect_events(self, helper, date=None):
         symbols = self.get_universe(helper)
@@ -142,19 +142,16 @@ class MACDCrossStrategy(TechnicalBreakoutStrategy):
                 latest = df.iloc[-1]
                 prev = df.iloc[-2]
 
-                # 信号条件：
-                # 1. DIF上穿DEA（金叉）
-                # 2. 零轴上方（DIF>0）
-                # 3. MACD柱由负转正
+                # 放宽条件：
+                # 1. 金叉即可（不要求零轴上方）
+                # 2. 或者 DIF > 0 但 DEA < 0（金叉即将形成）
                 golden_cross = (prev['dif'] <= prev['dea']) and (latest['dif'] > latest['dea'])
-                above_zero = latest['dif'] > 0
-                macd_positive = latest['macd'] > 0
-
-                if golden_cross and above_zero and macd_positive:
+                # 放宽：只要金叉即可
+                if golden_cross:
                     results.append({
                         'symbol': symbol,
                         'name': symbol,
-                        'reason': f"MACD零轴上方金叉，DIF={latest['dif']:.3f}"
+                        'reason': f"MACD金叉，DIF={latest['dif']:.3f}, DEA={latest['dea']:.3f}"
                     })
 
                 if len(results) >= 10:
