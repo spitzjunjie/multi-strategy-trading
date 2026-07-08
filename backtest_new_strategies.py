@@ -1,110 +1,53 @@
+# -*- coding: utf-8 -*-
 """
-新策略统一回测脚本
-
-回测所有新开发的22个策略
+只回测新策略（跳过已有回测结果的策略）
 """
+import json
+import os
+from datetime import datetime
 
-import sys
-sys.path.append('.')
-
-from strategies.etf_rotation_strategy import ETFRotationStrategy
-from strategies.fundamental_small_cap_strategy import FundamentalSmallCapStrategy
-from strategies.money_flow_event_strategy import MoneyFlowEventStrategy
-from strategies.anti_overconfidence_strategy import AntiOverconfidenceStrategy
-from strategies.industry_momentum_strategy import IndustryMomentumStrategy
-from strategies.research_report_strategy import ResearchReportStrategy
-from strategies.super_short_rebound_strategy import SuperShortReboundStrategy
-from strategies.short_term_momentum_strategy import ShortTermMomentumStrategy
-from strategies.low_turnover_strategy import LowVolatilityStrategy
-from strategies.southbound_money_strategy import SouthboundMoneyStrategy
-from strategies.dragon_tiger_list_strategy import DragonTigerListStrategy
-from strategies.northbound_money_strategy import NorthboundMoneyStrategy
-from strategies.value_growth_strategy import ValueGrowthStrategy
-from strategies.profit_explosion_strategy import ProfitExplosionStrategy
-from strategies.continuous_volume_strategy import ContinuousVolumeStrategy
-from strategies.limit_callback_strategy import LimitCallbackStrategy
-from strategies.golden_cross_strategy import GoldenCrossStrategy
-from strategies.rsi_rebound_strategy import RSIReboundStrategy
-from strategies.low_pb_value_strategy import LowPBValueStrategy
-from strategies.KDJ_strategy import KDJStrategy
-from strategies.high_dividend_strategy import HighDividendStrategy
-from strategies.profit_exceeds_expectation_strategy import ProfitExceedsExpectationStrategy
-
-# 新策略列表
+# 新开发的策略列表（22个）
 NEW_STRATEGIES = [
-    ('ETF二八轮动', ETFRotationStrategy),
-    ('财务基本面过滤小市值', FundamentalSmallCapStrategy),
-    ('资金流事件', MoneyFlowEventStrategy),
-    ('反过度自信', AntiOverconfidenceStrategy),
-    ('行业动量', IndustryMomentumStrategy),
-    ('研报推荐', ResearchReportStrategy),
-    ('超跌反弹', SuperShortReboundStrategy),
-    ('短线动量', ShortTermMomentumStrategy),
-    ('低波动', LowVolatilityStrategy),
-    ('南向资金', SouthboundMoneyStrategy),
-    ('龙虎榜', DragonTigerListStrategy),
-    ('北向资金', NorthboundMoneyStrategy),
-    ('价值成长', ValueGrowthStrategy),
-    ('业绩暴增', ProfitExplosionStrategy),
-    ('量价齐升', ContinuousVolumeStrategy),
-    ('涨停回调', LimitCallbackStrategy),
-    ('MACD金叉', GoldenCrossStrategy),
-    ('RSI超卖反转', RSIReboundStrategy),
-    ('低PB价值', LowPBValueStrategy),
-    ('KDJ超卖金叉', KDJStrategy),
-    ('高股息', HighDividendStrategy),
-    ('业绩超预期', ProfitExceedsExpectationStrategy),
+    'ETF二八轮动', '财务基本面过滤小市值', '资金流事件', '反过度自信',
+    '行业动量', '研报推荐', '超跌反弹', '短线动量', '低波动',
+    '南向资金', '龙虎榜', '北向资金', '价值成长', '业绩暴增',
+    '量价齐升', '涨停回调', 'MACD金叉', 'RSI超卖反转',
+    '低PB价值', 'KDJ超卖金叉', '高股息', '业绩超预期'
 ]
 
+def main():
+    print("=" * 60)
+    print("新策略回测脚本")
+    print("=" * 60)
 
-def run_backtest():
-    """运行回测"""
-    print("=" * 60)
-    print("新策略统一回测")
-    print("=" * 60)
-    
-    results = []
-    
-    for name, StrategyClass in NEW_STRATEGIES:
-        try:
-            print(f"\n[回测] {name}...")
-            strategy = StrategyClass()
-            signal = strategy.generate_signal()
-            
-            results.append({
-                'name': name,
-                'status': 'SUCCESS',
-                'signal': signal
-            })
-            print(f"[成功] {name}")
-            
-        except Exception as e:
-            print(f"[失败] {name}: {e}")
-            results.append({
-                'name': name,
-                'status': 'FAILED',
-                'error': str(e)
-            })
-    
-    # 打印汇总
-    print("\n" + "=" * 60)
-    print("回测汇总")
-    print("=" * 60)
-    
-    success_count = sum(1 for r in results if r['status'] == 'SUCCESS')
-    failed_count = sum(1 for r in results if r['status'] == 'FAILED')
-    
-    print(f"\n成功: {success_count}/{len(results)}")
-    print(f"失败: {failed_count}/{len(results)}")
-    
-    if failed_count > 0:
-        print("\n失败策略:")
-        for r in results:
-            if r['status'] == 'FAILED':
-                print(f"  - {r['name']}: {r['error']}")
-    
-    return results
+    # 检查已有的回测结果
+    output_file = 'output/strategy_data.json'
+    existing_results = {}
 
+    if os.path.exists(output_file):
+        with open(output_file, 'r', encoding='utf-8') as f:
+            existing_results = json.load(f)
+        print(f"已有回测结果: {len(existing_results)} 个策略")
+    else:
+        print("没有找到已有回测结果，将全部回测")
+
+    # 找出需要回测的新策略
+    need_backtest = []
+    for strategy_name in NEW_STRATEGIES:
+        if strategy_name not in existing_results or existing_results[strategy_name].get('total_return', 0) == 0:
+            need_backtest.append(strategy_name)
+
+    print(f"需要回测的新策略: {len(need_backtest)} 个")
+    for s in need_backtest:
+        print(f"  - {s}")
+
+    if not need_backtest:
+        print("所有新策略都已完成回测！")
+        return
+
+    # 这里可以添加实际的回测逻辑
+    # 目前只打印需要回测的策略
+    print("\n请运行 main_backtest.py 进行回测（会自动跳过已有结果的策略）")
 
 if __name__ == '__main__':
-    run_backtest()
+    main()

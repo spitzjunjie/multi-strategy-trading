@@ -191,14 +191,26 @@ def main():
     print("多策略模拟交易系统")
     print(f"运行时间: {datetime.now().strftime('%Y-%m-%d %H:%M:%S')}")
     print("=" * 60)
-    
+
+    # 新开发的策略列表（22个）- 只回测这些
+    NEW_STRATEGIES = {
+        'ETF二八轮动', '财务基本面过滤小市值', '资金流事件', '反过度自信',
+        '行业动量', '研报推荐', '超跌反弹', '短线动量', '低波动',
+        '南向资金', '龙虎榜', '北向资金', '价值成长', '业绩暴增',
+        '量价齐升', '涨停回调', 'MACD金叉', 'RSI超卖反转',
+        '低PB价值', 'KDJ超卖金叉', '高股息', '业绩超预期'
+    }
+
     # 初始化
     helper = Helper(cache_dir="data/cache")
     timing = TimingEngine()
-    strategies = get_all_strategies()
-    
-    print(f"\n共 {len(strategies)} 个策略\n")
-    
+    all_strategies = get_all_strategies()
+
+    # 只保留新策略
+    strategies = [s for s in all_strategies if s.name in NEW_STRATEGIES]
+
+    print(f"\n共 {len(strategies)} 个策略（只回测新策略）\n")
+
     # 并行运行策略
     results = []
     
