@@ -25,8 +25,9 @@ class TushareHelper:
         self.cache_dir = cache_dir
         os.makedirs(cache_dir, exist_ok=True)
         self._hs300_cache = None
+        self._kline_cache = {}  # K线缓存
         self._last_call_time = {}  # 记录上次调用时间
-        self._min_interval = 0.2  # 最小调用间隔（秒）
+        self._min_interval = 0.5  # 最小调用间隔（秒），避免超限
 
     def _rate_limit(self, api_name):
         """速率限制"""
@@ -114,7 +115,12 @@ class TushareHelper:
     # ==================== K线数据 ====================
 
     def get_history_kline(self, symbol, days=60, end_date=None):
-        """获取历史K线"""
+        """获取历史K线（带缓存）"""
+        # 检查缓存
+        cache_key = f"{symbol}_{days}"
+        if cache_key in self._kline_cache:
+            return self._kline_cache[cache_key]
+
         if not end_date:
             end_date = datetime.now().strftime('%Y%m%d')
         start_date = (datetime.now() - timedelta(days=days*2)).strftime('%Y%m%d')
@@ -136,6 +142,8 @@ class TushareHelper:
                 # 统一列名（tushare用vol，akshare用volume）
                 if 'vol' in df.columns and 'volume' not in df.columns:
                     df['volume'] = df['vol']
+                # 缓存结果
+                self._kline_cache[cache_key] = df
                 return df
         except Exception as e:
             print(f"[Tushare]获取K线失败 {symbol}: {e}")
