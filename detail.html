@@ -490,8 +490,14 @@
         function renderEquityChart(equityCurve, initialCapital, isPositive) {
             const ctx = document.getElementById('equityChart');
 
-            if (equityCurve.length < 2) {
-                equityCurve = [initialCapital, initialCapital];
+            // 处理equity_curve格式：可能是 {'date': str, 'value': float} 或直接是数字
+            let chartData = equityCurve;
+            if (equityCurve.length > 0 && typeof equityCurve[0] === 'object') {
+                chartData = equityCurve.map(item => item.value);
+            }
+
+            if (chartData.length < 2) {
+                chartData = [initialCapital, initialCapital];
             }
 
             const color = isPositive ? '#22c55e' : '#ef4444';
@@ -506,10 +512,10 @@
             equityChart = new Chart(ctx, {
                 type: 'line',
                 data: {
-                    labels: equityCurve.map((_, i) => i + 1),
+                    labels: chartData.map((_, i) => i + 1),
                     datasets: [{
                         label: '权益',
-                        data: equityCurve,
+                        data: chartData,
                         borderColor: color,
                         borderWidth: 2,
                         fill: true,
@@ -522,7 +528,7 @@
                         pointHoverBorderWidth: 2
                     }, {
                         label: '初始资金',
-                        data: equityCurve.map(() => initialCapital),
+                        data: chartData.map(() => initialCapital),
                         borderColor: 'rgba(100, 116, 139, 0.5)',
                         borderWidth: 1,
                         borderDash: [5, 5],
