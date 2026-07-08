@@ -9,11 +9,12 @@ import os
 from datetime import datetime
 from concurrent.futures import ThreadPoolExecutor, as_completed
 import random
+import pandas as pd
 
-from data.tushare_helper import TushareHelper
+from data.akshare_helper import AKShareHelper
 
-# 使用Tushare作为主数据源（更稳定）
-Helper = TushareHelper
+# 使用AKShare作为主数据源
+Helper = AKShareHelper
 from timing.timing import TimingEngine
 from trading.simulator import TradingSimulator
 
@@ -45,6 +46,15 @@ from strategies.advanced_strategies import (
     IndustryMomentumStrategy, SouthboundFlowStrategy, OversoldReboundStrategy,
     ValueLowPBStrategy, EarningsSurpriseStrategy as AdvEarningsSurprise,
     VolumeBreakoutStrategy as AdvVolumeBreakout
+)
+from strategies.new_strategies import (
+    ETFRotationStrategy, FundamentalSmallCapStrategy, MoneyFlowEventStrategy,
+    AntiOverconfidenceStrategy, ResearchReportStrategy, SuperShortReboundStrategy,
+    ShortTermMomentumStrategy, LowVolatilityStrategy, DragonTigerListStrategy,
+    NorthboundMoneyStrategy, ValueGrowthStrategy, ProfitExplosionStrategy,
+    ContinuousVolumeStrategy, LimitCallbackStrategy, GoldenCrossStrategy,
+    RSIReboundStrategy, LowPBValueStrategy, KDJStrategy, HighDividendStrategy,
+    ProfitExceedsExpectationStrategy
 )
 
 
@@ -101,6 +111,27 @@ def get_all_strategies():
         ValueLowPBStrategy(),
         AdvEarningsSurprise(),
         AdvVolumeBreakout(),
+        # 新策略 (22个) - 完整导入
+        ETFRotationStrategy(),              # ETF二八轮动
+        FundamentalSmallCapStrategy(),      # 财务基本面过滤小市值
+        MoneyFlowEventStrategy(),           # 资金流事件
+        AntiOverconfidenceStrategy(),       # 反过度自信
+        ResearchReportStrategy(),           # 研报推荐
+        SuperShortReboundStrategy(),        # 超跌反弹
+        ShortTermMomentumStrategy(),        # 短线动量
+        LowVolatilityStrategy(),            # 低波动
+        DragonTigerListStrategy(),          # 龙虎榜
+        NorthboundMoneyStrategy(),          # 北向资金
+        ValueGrowthStrategy(),              # 价值成长
+        ProfitExplosionStrategy(),          # 业绩暴增
+        ContinuousVolumeStrategy(),         # 量价齐升
+        LimitCallbackStrategy(),            # 涨停回调
+        GoldenCrossStrategy(),              # MACD金叉
+        RSIReboundStrategy(),               # RSI超卖反转
+        LowPBValueStrategy(),               # 低PB价值
+        KDJStrategy(),                      # KDJ超卖金叉
+        HighDividendStrategy(),             # 高股息
+        ProfitExceedsExpectationStrategy(), # 业绩超预期
     ]
     return strategies
 
@@ -121,8 +152,11 @@ def run_strategy(strategy, helper, timing, date=None):
         for stock in selected[:30]:  # 扩大到前30只（原10只太少）
             try:
                 df = helper.get_history_kline(stock['symbol'], days=5, end_date=date)
-                if not df.empty:
-                    prices[stock['symbol']] = df['close'].iloc[-1]
+                # 严格验证：确保是DataFrame、有数据、有close列、是数字
+                if isinstance(df, pd.DataFrame) and not df.empty and 'close' in df.columns:
+                    close_price = df['close'].iloc[-1]
+                    if pd.notna(close_price) and isinstance(close_price, (int, float)):
+                        prices[stock['symbol']] = float(close_price)
             except:
                 continue
 
@@ -131,13 +165,16 @@ def run_strategy(strategy, helper, timing, date=None):
             symbol = holding['symbol']
             try:
                 df = helper.get_history_kline(symbol, days=5, end_date=date)
-                if not df.empty:
-                    prices[symbol] = df['close'].iloc[-1]
-                    # 检查是否需要卖出（传helper+date，消除未来函数Bug）
-                    should_sell, reason = simulator.check_and_sell(
-                        symbol, prices[symbol], helper=helper, date=date)
-                    if should_sell:
-                        simulator.execute_sell(symbol, prices[symbol], reason, sell_date=date)
+                # 严格验证
+                if isinstance(df, pd.DataFrame) and not df.empty and 'close' in df.columns:
+                    close_price = df['close'].iloc[-1]
+                    if pd.notna(close_price) and isinstance(close_price, (int, float)):
+                        prices[symbol] = float(close_price)
+                        # 检查是否需要卖出
+                        should_sell, reason = simulator.check_and_sell(
+                            symbol, prices[symbol], helper=helper, date=date)
+                        if should_sell:
+                            simulator.execute_sell(symbol, prices[symbol], reason, sell_date=date)
             except:
                 continue
 
@@ -206,10 +243,10 @@ def main():
     timing = TimingEngine()
     all_strategies = get_all_strategies()
 
-    # 只保留新策略
-    strategies = [s for s in all_strategies if s.name in NEW_STRATEGIES]
+    # 回测所有策略（Dashboard上线的所有策略）
+    strategies = all_strategies
 
-    print(f"\n共 {len(strategies)} 个策略（只回测新策略）\n")
+    print(f"\n共 {len(strategies)} 个策略（所有上线策略）\n")
 
     # 并行运行策略
     results = []
