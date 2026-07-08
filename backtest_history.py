@@ -343,7 +343,7 @@ def run_historical_backtest(strategy_names=None, days=None, max_workers=2):
     # 保存结果到单独文件（不覆盖原数据）
     output_dir = 'output'
     os.makedirs(output_dir, exist_ok=True)
-    output_file = os.path.join(output_dir, 'new_strategy_results.json')
+    temp_file = os.path.join(output_dir, 'new_strategy_results.json')
 
     # 自定义JSON序列化，处理numpy类型、datetime类型和equity_curve的dict格式
     def json_serializer(obj):
@@ -351,7 +351,6 @@ def run_historical_backtest(strategy_names=None, days=None, max_workers=2):
         import numpy as np
         from datetime import datetime, date
 
-        # 【修复Minor问题2】添加datetime类型处理
         if isinstance(obj, datetime):
             return obj.strftime('%Y-%m-%d %H:%M:%S')
         elif isinstance(obj, date):
@@ -364,14 +363,55 @@ def run_historical_backtest(strategy_names=None, days=None, max_workers=2):
         elif isinstance(obj, np.ndarray):
             return obj.tolist()
         elif isinstance(obj, dict):
-            # equity_curve 中的 {'date': str, 'value': float} 格式
             if 'date' in obj and 'value' in obj:
                 return {'date': str(obj['date']), 'value': float(obj['value'])}
             return obj
         raise TypeError(f"Object of type {type(obj)} is not JSON serializable")
 
-    with open(output_file, 'w', encoding='utf-8') as f:
+    with open(temp_file, 'w', encoding='utf-8') as f:
         json.dump(output, f, ensure_ascii=False, indent=2, default=json_serializer)
+
+    # 【新增】自动合并到主数据文件
+    main_file = os.path.join(output_dir, 'strategy_data.json')
+    if os.path.exists(main_file):
+        try:
+            with open(main_file, 'r', encoding='utf-8') as f:
+                main_data = json.load(f)
+        except:
+            main_data = {'strategies': []}
+    else:
+        main_data = {'strategies': []}
+
+    old_names = {s['name'] for s in main_data.get('strategies', [])}
+    added_count = 0
+    
+    for s in results:
+        if s is None:
+            continue
+        trades = len(s.get('trades', []))
+        if trades > 0:  # 只合并有交易的策略
+            if s['name'] in old_names:
+                # 替换旧策略
+                for i, old_s in enumerate(main_data['strategies']):
+                    if old_s['name'] == s['name']:
+                        main_data['strategies'][i] = s
+                        added_count += 1
+                        print(f"🔄 更新: {s['name']}")
+                        break
+            else:
+                # 添加新策略
+                main_data['strategies'].append(s)
+                added_count += 1
+                print(f"✅ 新增: {s['name']}")
+
+    if added_count > 0:
+        main_data['strategy_count'] = len(main_data['strategies'])
+        main_data['update_time'] = datetime.now().strftime('%Y-%m-%d %H:%M:%S')
+        with open(main_file, 'w', encoding='utf-8') as f:
+            json.dump(main_data, f, ensure_ascii=False, indent=2, default=json_serializer)
+        print(f"\n📊 已自动合并 {added_count} 个策略到 strategy_data.json")
+    else:
+        print("\n📊 没有需要合并的新策略")
 
     print("\n" + "=" * 60)
     print("历史回测排名")
