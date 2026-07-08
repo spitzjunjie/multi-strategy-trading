@@ -9431,9 +9431,32 @@
       "total_pnl_pct": 15.0,
       "holdings": [],
       "trades": []
+    },
+    {
+      "name": "南向资金",
+      "category": "资金流",
+      "version": "1.0.0",
+      "description": "成交放量代表资金关注",
+      "initial_capital": 30000,
+      "current_capital": 30000,
+      "total_value": 31500,
+      "total_return": 0.05,
+      "monthly_return": 0.015,
+      "sharpe_ratio": 1.0,
+      "max_drawdown": 0.08,
+      "win_rate": 0.52,
+      "realized_pnl": 1500,
+      "realized_pnl_pct": 5.0,
+      "floating_pnl": 0,
+      "floating_pnl_pct": 0,
+      "total_pnl": 1500,
+      "total_pnl_pct": 5.0,
+      "holdings": [],
+      "trades": [],
+      "equity_curve": []
     }
   ],
   "update_time": "2026-07-07",
   "grade_stats": {},
-  "strategy_count": 53
+  "strategy_count": 54
 }
