@@ -452,9 +452,28 @@
         }
 
         function renderDashboard(data) {
-            document.getElementById('updateTime').textContent = '更新: ' + data.update_time;
+            document.getElementById('updateTime').textContent = '更新: ' + (data.update_time || new Date().toLocaleString());
 
-            const strategies = data.strategies || [];
+            let strategies = data.strategies || [];
+
+            // 计算综合分（与evaluation.html一致）
+            strategies = strategies.map(s => {
+                const ret = (s.total_return || 0) * 100;
+                const sharpe = s.sharpe_ratio || 0;
+                const dd = (s.max_drawdown || 0) * 100;
+                const win = (s.win_rate || 0) * 100;
+                const score = Math.min(100, Math.max(0, Math.round(
+                    Math.min(ret, 50) * 0.6 +
+                    Math.min(sharpe, 3) * 8.3 +
+                    Math.max(0, 25 - dd * 0.5) +
+                    win * 0.2
+                )));
+                return { ...s, composite_score: score };
+            });
+
+            // 按综合分排序
+            strategies.sort((a, b) => b.composite_score - a.composite_score);
+
             const returns = strategies.map(s => s.total_pnl_pct || 0);
             const avgReturn = returns.reduce((a, b) => a + b, 0) / (returns.length || 1);
             const positiveCount = returns.filter(r => r > 0).length;
