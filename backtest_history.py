@@ -268,6 +268,26 @@ def run_historical_backtest(strategy_names=None, days=None, max_workers=2):
                 strategy.realized_pnl = 0.0
                 strategy.realized_pnl_pct = 0.0
                 return run_single_strategy(strategy, new_helper, source_switched=True)
+        
+        # 【新增】检查交易价格是否异常（买卖价相同）
+        if len(strategy.trades) > 0 and not source_switched:
+            suspicious_trades = [t for t in strategy.trades if t.get('profit', 0) == 0 and t.get('buy_price') == t.get('sell_price')]
+            if len(suspicious_trades) >= len(strategy.trades) * 0.8:  # 80%以上交易价格相同
+                print(f"[警告] 策略 {strategy.name} 交易价格异常（买卖价相同），尝试切换数据源...")
+                new_source = DATA_SOURCE_SWITCH.get(DATA_SOURCE, 'tushare')
+                print(f"[切换] 自动切换数据源重试: {DATA_SOURCE} -> {new_source}")
+                if new_source == 'tushare':
+                    new_helper = TushareHelper(cache_dir="data/cache")
+                else:
+                    new_helper = AKShareHelper(cache_dir="data/cache")
+                # 重置策略状态
+                strategy.current_capital = strategy.initial_capital
+                strategy.holdings = []
+                strategy.trades = []
+                strategy.equity_curve = []
+                strategy.realized_pnl = 0.0
+                strategy.realized_pnl_pct = 0.0
+                return run_single_strategy(strategy, new_helper, source_switched=True)
 
         # 返回策略最终状态
         # 获取最新价格计算浮动收益

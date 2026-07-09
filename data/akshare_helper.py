@@ -61,6 +61,46 @@ class AKShareHelper:
             print(f"获取实时行情失败 {symbol}: {e}")
         return None
 
+    def get_etf_history_kline(self, symbol, period="daily", days=60, end_date=None):
+        """获取ETF历史K线
+        symbol: ETF代码，如 '510300' / '159915'
+        end_date: 指定结束日期(YYYYMMDD字符串或YYYY-MM-DD)，None=今天
+        使用东方财富ETF接口 fund_etf_hist_em
+        """
+        # 统一end_date格式为YYYYMMDD
+        if end_date and isinstance(end_date, str) and '-' in end_date:
+            end_date = end_date.replace('-', '')
+        cache_key = f"etf_kline_{symbol}_{period}_{days}_{end_date or 'now'}"
+        cache = self._get_cache(cache_key, days=1)
+        if cache:
+            return pd.DataFrame(cache)
+        actual_end = end_date or datetime.now().strftime("%Y%m%d")
+        actual_start = (datetime.strptime(actual_end, "%Y%m%d") - timedelta(days=days*2)).strftime("%Y%m%d")
+        
+        try:
+            df = ak.fund_etf_hist_em(symbol=symbol, period=period,
+                                      start_date=actual_start, end_date=actual_end)
+            if df is not None and not df.empty:
+                df = df.tail(days)
+                col_map = {
+                    '日期': 'date', '开盘': 'open', '收盘': 'close',
+                    '最高': 'high', '最低': 'low', '成交量': 'volume',
+                    '成交额': 'amount', '振幅': 'amplitude'
+                }
+                df = df.rename(columns=col_map)
+                if 'date' not in df.columns and '日期' not in df.columns:
+                    # 尝试自动检测日期列
+                    for col in df.columns:
+                        if 'date' in col.lower() or '日期' in col:
+                            df = df.rename(columns={col: 'date'})
+                            break
+                df['date'] = df['date'].astype(str)
+                self._set_cache(cache_key, df.to_dict('records'))
+                return df
+        except Exception as e:
+            print(f"ETF历史K线获取失败 {symbol}: {e}")
+        return pd.DataFrame()
+
     def get_history_kline(self, symbol, period="daily", days=60, end_date=None):
         """获取历史K线（前复权）
         symbol: 6位股票代码，如 '000001' / '600000'

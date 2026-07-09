@@ -26,7 +26,7 @@ class ETFRotationStrategy(BaseStrategy):
         """选股：选择强势ETF"""
         results = []
         
-        # 模拟ETF池
+        # ETF池
         etf_pool = [
             {'symbol': '510300', 'name': '沪深300ETF'},
             {'symbol': '159915', 'name': '创业板ETF'},
@@ -39,7 +39,12 @@ class ETFRotationStrategy(BaseStrategy):
         
         for etf in etf_pool:
             try:
-                kline = helper.get_history_kline(etf['symbol'], days=self.lookback_days + 10)
+                # 使用ETF专用接口获取历史K线
+                if hasattr(helper, 'get_etf_history_kline'):
+                    kline = helper.get_etf_history_kline(etf['symbol'], days=self.lookback_days + 10)
+                else:
+                    # 降级：使用通用K线接口
+                    kline = helper.get_history_kline(etf['symbol'], days=self.lookback_days + 10)
                 if kline.empty or len(kline) < self.lookback_days:
                     continue
                     
@@ -47,7 +52,8 @@ class ETFRotationStrategy(BaseStrategy):
                 if ret > best_return:
                     best_return = ret
                     best_etf = etf
-            except:
+            except Exception as e:
+                print(f"获取ETF数据失败 {etf['symbol']}: {e}")
                 continue
         
         if best_etf:
