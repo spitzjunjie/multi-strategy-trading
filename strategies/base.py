@@ -117,11 +117,14 @@ class BaseStrategy(ABC):
         )
         return self.current_capital + holdings_value
     
-    def get_total_return(self):
+    def get_total_return(self, prices=None):
         """计算总收益率"""
-        return (self.current_capital + sum(
-            h['buy_price'] * h['quantity'] for h in self.holdings
-        ) - self.initial_capital) / self.initial_capital
+        prices = prices or {}
+        holdings_value = sum(
+            prices.get(h['symbol'], h['buy_price']) * h['quantity']
+            for h in self.holdings
+        )
+        return (self.current_capital + holdings_value - self.initial_capital) / self.initial_capital
 
     def get_floating_pnl(self, prices=None):
         """计算浮动收益（未实现盈亏）"""
@@ -216,8 +219,8 @@ class BaseStrategy(ABC):
             'initial_capital': self.initial_capital,
             'current_capital': self.current_capital,
             'total_value': total_value,
-            'total_return': self.get_total_return(),
-            'monthly_return': self.get_total_return(),  # 简化
+            'total_return': self.get_total_return(prices),
+            'monthly_return': self.get_total_return(prices),  # 简化
             'sharpe_ratio': self.get_sharpe_ratio(),
             'max_drawdown': self.get_max_drawdown(),
             'win_rate': self.get_win_rate(),
