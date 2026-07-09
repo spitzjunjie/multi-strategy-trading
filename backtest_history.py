@@ -119,7 +119,7 @@ def run_historical_backtest(strategy_names=None, days=None, max_workers=2):
 
     Args:
         strategy_names: 指定策略名列表，None=全部
-        days: 回测交易日天数，None=自动计算（从基准日期到今天）
+        days: 回测交易日天数，None=自动计算（从基准日期2026-05-26到运行当天）
         max_workers: 并行线程数（减少避免频率限制）
 
     Returns:
@@ -136,7 +136,7 @@ def run_historical_backtest(strategy_names=None, days=None, max_workers=2):
     # 自动计算回测天数（交易日数）
     helper = HelperClass(cache_dir="data/cache")
     
-    # 计算从基准日期到今天有多少个交易日
+    # 计算从基准日期到运行当天有多少个交易日
     if hasattr(helper, 'get_trade_dates'):
         temp_dates = helper.get_trade_dates(days=1000)
     else:
@@ -148,7 +148,7 @@ def run_historical_backtest(strategy_names=None, days=None, max_workers=2):
     
     if days is None or days > actual_days:
         days = actual_days  # 使用实际的交易日数
-        print(f"自动调整回测天数: {days}个交易日（从基准日期到今天）")
+        print(f"自动调整回测天数: {days}个交易日（从基准日期到运行当天）")
 
     print("=" * 60)
     print("历史回测引擎")
@@ -352,8 +352,25 @@ def run_historical_backtest(strategy_names=None, days=None, max_workers=2):
                 import traceback
                 traceback.print_exc()
 
-    # 按总收益排序
-    results.sort(key=lambda x: x.get('total_return', 0), reverse=True)
+    # 过滤掉None结果
+    results = [r for r in results if r is not None]
+
+    # 计算策略等级（与backtest.py保持一致）
+    try:
+        from evaluation import StrategyEvaluator
+        evaluator = StrategyEvaluator()
+        evaluations = evaluator.evaluate_batch(results)
+        for r, e in zip(results, evaluations):
+            r['composite_score'] = e.get('composite_score', 0)
+            r['grade'] = e.get('grade', 'N/A')
+            r['profit_loss_ratio'] = e.get('profit_loss_ratio', 0)
+            r['return_stability'] = e.get('return_stability', 0)
+            r['calmar_ratio'] = e.get('calmar_ratio', 0)
+    except Exception as e:
+        print(f"[警告] 策略等级计算失败: {e}")
+
+    # 按综合评分排序（与backtest.py一致）
+    results.sort(key=lambda x: x.get('composite_score', x.get('total_return', 0)), reverse=True)
 
     # 生成输出
     output = {

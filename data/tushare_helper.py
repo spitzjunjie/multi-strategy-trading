@@ -287,11 +287,11 @@ class TushareHelper:
 
     def get_trade_dates(self, days=30, start_date=None):
         """获取最近交易日（升序排列）
-        start_date: 开始日期（YYYYMMDD），None=自动从基准日期开始
+        start_date: 开始日期（YYYYMMDD），None=自动从基准日期2026-05-26开始
         """
         end_date = datetime.now().strftime('%Y%m%d')
         if start_date is None:
-            # 默认从基准日期开始
+            # 默认从基准日期开始（与backtest_history.py的BENCHMARK_START_DATE保持一致）
             start_date = '20260526'
         try:
             df = self.pro.trade_cal(exchange='SSE', start_date=start_date, end_date=end_date)
