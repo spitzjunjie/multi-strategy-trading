@@ -6,6 +6,16 @@ on:
     - cron: '30 10 * * 1-5'  # 周一到周五 UTC 10:30 = 中国时间 18:30
   # 也支持手动触发
   workflow_dispatch:
+    inputs:
+      strategies:
+        description: '指定策略（逗号分隔），留空则回测全部'
+        required: false
+        type: string
+      backtest_type:
+        description: '回测类型 (daily/historical)'
+        required: false
+        type: string
+        default: 'daily'
 
 permissions:
   contents: write  # 允许推送数据回仓库
@@ -42,7 +52,16 @@ jobs:
           echo "::notice::API密钥已配置"
       
       - name: 运行回测
-        run: python backtest.py
+        run: |
+          if [ "${{ inputs.backtest_type }}" == "historical" ]; then
+            if [ -n "${{ inputs.strategies }}" ]; then
+              python backtest_history.py --strategies "${{ inputs.strategies }}"
+            else
+              python backtest_history.py
+            fi
+          else
+            python backtest.py
+          fi
         env:
           TUSHARE_TOKEN: ${{ secrets.TUSHARE_TOKEN }}
           FEISHU_APP_ID: ${{ secrets.FEISHU_APP_ID }}
