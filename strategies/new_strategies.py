@@ -36,6 +36,18 @@ from strategies.major_capital_flow import MajorCapitalFlowStrategy
 from strategies.institution_survey import InstitutionSurveyStrategy
 from strategies.north_money_timing import NorthMoneyTimingStrategy
 from strategies.earnings_surprise_v2 import EarningsSurpriseV2Strategy
+# 新增11个GitHub开源研究策略v3
+from strategies.moat_strategy import MoatStrategy
+from strategies.piotroski_strategy import PiotroskiStrategy
+from strategies.garp_strategy import GARPStrategy
+from strategies.high_growth_strategy import HighGrowthStrategy
+from strategies.cycle_timing_strategy import CycleTimingStrategy
+from strategies.repurchase_strategy import RepurchaseStrategy
+from strategies.equity_incentive_strategy import EquityIncentiveStrategy
+from strategies.lockup_expiry_strategy import LockupExpiryStrategy
+from strategies.dragon_tiger_follow_strategy import DragonTigerFollowStrategy
+from strategies.limit_up_relay_strategy import LimitUpRelayStrategy
+from strategies.new_stock_strategy import NewStockStrategy
 
 # 新策略注册表
 NEW_STRATEGIES = {
@@ -220,6 +232,73 @@ NEW_STRATEGIES = {
         'category': '事件驱动',
         'risk': '中',
         'description': '业绩改善信号，财报季alpha'
+    },
+    # 新增11个GitHub开源研究策略v3
+    '护城河选股': {
+        'class': MoatStrategy,
+        'category': '质量因子',
+        'risk': '低',
+        'description': '高ROE+高毛利+低负债，巴菲特护城河'
+    },
+    '质量因子选股': {
+        'class': PiotroskiStrategy,
+        'category': '质量因子',
+        'risk': '低',
+        'description': 'Piotroski F-Score≥7分，高质量公司'
+    },
+    'GARP成长': {
+        'class': GARPStrategy,
+        'category': '价值成长',
+        'risk': '中',
+        'description': 'PEG<1，合理价格成长股'
+    },
+    '高成长股': {
+        'class': HighGrowthStrategy,
+        'category': '成长因子',
+        'risk': '中',
+        'description': '营收+净利双高增长，动能确认'
+    },
+    '周期股择时': {
+        'class': CycleTimingStrategy,
+        'category': '价值因子',
+        'risk': '中',
+        'description': 'PB低位+价格分位低，周期底部反转'
+    },
+    '回购信号': {
+        'class': RepurchaseStrategy,
+        'category': '事件驱动',
+        'risk': '低',
+        'description': '高管增持+低估+高ROE，回购信号'
+    },
+    '股权激励': {
+        'class': EquityIncentiveStrategy,
+        'category': '事件驱动',
+        'risk': '中',
+        'description': '高ROE+成长+低负债，激励特征'
+    },
+    '解禁逆向': {
+        'class': LockupExpiryStrategy,
+        'category': '事件驱动',
+        'risk': '中',
+        'description': '超跌+基本面支撑，解禁逆向博弈'
+    },
+    '龙虎榜跟风': {
+        'class': DragonTigerFollowStrategy,
+        'category': '资金面',
+        'risk': '中高',
+        'description': '龙虎榜净买入跟风，资金关注'
+    },
+    '打板接力': {
+        'class': LimitUpRelayStrategy,
+        'category': '短线事件',
+        'risk': '高',
+        'description': '连板接力，情绪周期'
+    },
+    '次新股': {
+        'class': NewStockStrategy,
+        'category': '事件驱动',
+        'risk': '中高',
+        'description': '次新股放量+趋势，波动博弈'
     },
 }
 

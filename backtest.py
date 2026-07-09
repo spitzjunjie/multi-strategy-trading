@@ -101,6 +101,18 @@ from strategies.new_s_strategies import (
     MonthlyResonanceStrategy, MainForceMoneyStrategy,
     NorthMoneyTimingStrategy, EarningsSeasonStrategy
 )
+# 新增11个GitHub开源研究策略v3
+from strategies.moat_strategy import MoatStrategy
+from strategies.piotroski_strategy import PiotroskiStrategy
+from strategies.garp_strategy import GARPStrategy
+from strategies.high_growth_strategy import HighGrowthStrategy
+from strategies.cycle_timing_strategy import CycleTimingStrategy
+from strategies.repurchase_strategy import RepurchaseStrategy
+from strategies.equity_incentive_strategy import EquityIncentiveStrategy
+from strategies.lockup_expiry_strategy import LockupExpiryStrategy
+from strategies.dragon_tiger_follow_strategy import DragonTigerFollowStrategy
+from strategies.limit_up_relay_strategy import LimitUpRelayStrategy
+from strategies.new_stock_strategy import NewStockStrategy
 
 
 def get_all_strategies():
@@ -186,6 +198,18 @@ def get_all_strategies():
         MainForceMoneyStrategy(),           # 主力资金
         NorthMoneyTimingStrategy(),         # 北向择时
         EarningsSeasonStrategy(),           # 财报季
+        # 新增11个GitHub开源研究策略v3
+        MoatStrategy(),                    # 护城河选股
+        PiotroskiStrategy(),               # 质量因子选股
+        GARPStrategy(),                    # GARP成长
+        HighGrowthStrategy(),              # 高成长股
+        CycleTimingStrategy(),             # 周期股择时
+        RepurchaseStrategy(),              # 回购信号
+        EquityIncentiveStrategy(),         # 股权激励
+        LockupExpiryStrategy(),            # 解禁逆向
+        DragonTigerFollowStrategy(),       # 龙虎榜跟风
+        LimitUpRelayStrategy(),            # 打板接力
+        NewStockStrategy(),                # 次新股
     ]
     return strategies
 

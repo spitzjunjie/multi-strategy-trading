@@ -29,6 +29,16 @@ class TushareHelper:
         self._last_call_time = {}  # 记录上次调用时间
         self._min_interval = 1.5  # 最小调用间隔（秒），避免超限（1.5秒=40次/分，安全余量充足）
 
+    def _normalize_code(self, symbol):
+        """标准化股票代码为Tushare格式（加交易所后缀）"""
+        code = symbol.replace('.SH', '').replace('.SZ', '').replace('.BJ', '')
+        if code.startswith('6') or code.startswith('5') or code.startswith('9'):
+            return code + '.SH'
+        elif code.startswith('8') or code.startswith('4'):
+            return code + '.BJ'
+        else:
+            return code + '.SZ'
+
     def _rate_limit(self, api_name):
         """速率限制"""
         current_time = time.time()
@@ -213,12 +223,92 @@ class TushareHelper:
 
     def get_financial_data(self, symbol):
         """获取财务数据"""
-        code = symbol.replace('.SH', '').replace('.SZ', '').replace('.BJ', '')
+        code = self._normalize_code(symbol)
         try:
             df = self.pro.fina_indicator(ts_code=code, start_date='20240101')
             if df is not None and len(df) > 0:
-                return df.iloc[0].to_dict()
+                # 转换并返回关键指标
+                row = df.iloc[0]
+                return {
+                    'roe': row.get('roe', 0),
+                    'gross_margin': row.get('gross_margin', 0),
+                    'net_margin': row.get('net_profit_ratio', 0),
+                    'debt_ratio': row.get('debt_to_assets', 0),
+                    'current_ratio': row.get('current_ratio', 0),
+                    'roic': row.get('roic', 0),
+                }
         except Exception as e:
+            pass
+        return {}
+
+    def get_financial_indicator(self, symbol):
+        """获取财务指标"""
+        return self.get_financial_data(symbol)
+
+    def get_growth_data(self, symbol):
+        """获取成长数据（营收增速、净利润增速）"""
+        code = self._normalize_code(symbol)
+        try:
+            df = self.pro.fina_indicator(ts_code=code, start_date='20240101', fields='ts_code,trade_date,roe,net_profit_ratio,revenue_ratio,profit_ratio')
+            if df is not None and len(df) > 0:
+                row = df.iloc[0]
+                return {
+                    'profit_growth': row.get('profit_ratio', 0) * 10,  # 简化处理
+                    'revenue_growth': row.get('revenue_ratio', 0) * 10,  # 简化处理
+                }
+        except:
+            pass
+        # Fallback: 使用利润表数据
+        try:
+            df = self.pro.income(ts_code=code, start_date='20240101', fields='ts_code,end_date,total_profit,operating_revenue')
+            if df is not None and len(df) >= 2:
+                current = df.iloc[0]
+                prev = df.iloc[1]
+                if prev['total_profit'] != 0:
+                    profit_growth = (current['total_profit'] / prev['total_profit'] - 1) * 100
+                else:
+                    profit_growth = 0
+                if prev['operating_revenue'] != 0:
+                    revenue_growth = (current['operating_revenue'] / prev['operating_revenue'] - 1) * 100
+                else:
+                    revenue_growth = 0
+                return {'profit_growth': profit_growth, 'revenue_growth': revenue_growth}
+        except:
+            pass
+        return {}
+
+    def get_cash_flow(self, symbol):
+        """获取现金流数据"""
+        code = self._normalize_code(symbol)
+        try:
+            df = self.pro.cashflow(ts_code=code, start_date='20240101')
+            if df is not None and len(df) > 0:
+                row = df.iloc[0]
+                return {
+                    'operating_cf': row.get('netOperCashFlow', 0),
+                    'investing_cf': row.get('netInvestCashFlow', 0),
+                    'financing_cf': row.get('netFinCashFlow', 0),
+                }
+        except:
+            pass
+        return {}
+
+    def get_valuation_data(self, symbol):
+        """获取估值数据（PB、PE等）"""
+        code = self._normalize_code(symbol)
+        try:
+            # 使用 daily_basic 接口获取最新估值
+            df = self.pro.daily_basic(ts_code=code)
+            if df is not None and len(df) > 0:
+                row = df.iloc[0]
+                return {
+                    'pe': row.get('pe', 0),
+                    'pb': row.get('pb', 0),
+                    'ps': row.get('ps', 0),
+                    'dv_ratio': row.get('dv_ratio', 0),
+                    'total_mv': row.get('total_mv', 0),
+                }
+        except:
             pass
         return {}
 
