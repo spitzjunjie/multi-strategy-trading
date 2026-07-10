@@ -130,6 +130,20 @@ from strategies.perilla_chokepoint_strategy import PerillaChokepointStrategy
 from strategies.sepa_growth_strategy import SEPAGrowthStrategy
 from strategies.cointegration_pairs_strategy import CointegrationPairsStrategy
 from strategies.hurst_timing_strategy import HurstTimingStrategy
+# 新增13个GitHub开源研究策略v5（短线交易类+套利另类类+基本面深度类）
+from strategies.auction_selection_strategy import AuctionSelectionStrategy
+from strategies.after_hours_momentum_strategy import AfterHoursMomentumStrategy
+from strategies.hot_money_tracking_strategy import HotMoneyTrackingStrategy
+from strategies.limit_up_seal_strategy import LimitUpSealStrategy
+from strategies.limit_down_rebound_strategy import LimitDownReboundStrategy
+from strategies.convertible_bond_double_low_strategy import ConvertibleBondDoubleLowStrategy
+from strategies.convertible_bond_downward_strategy import ConvertibleBondDownwardStrategy
+from strategies.etf_premium_arbitrage_strategy import ETFPremiumArbitrageStrategy
+from strategies.grid_trading_strategy import GridTradingStrategy
+from strategies.lockup_expiry_arbitrage_strategy import LockupExpiryArbitrageStrategy
+from strategies.davis_double_hit_strategy import DavisDoubleHitStrategy
+from strategies.turnaround_strategy import TurnaroundStrategy
+from strategies.shareholder_change_strategy import ShareholderChangeStrategy
 
 
 def get_all_strategies():
@@ -232,6 +246,20 @@ def get_all_strategies():
         SEPAGrowthStrategy(),              # SEPA成长股（Minervini SEPA）
         CointegrationPairsStrategy(),      # 协整配对交易（Chan统计套利）
         HurstTimingStrategy(),             # Hurst择时动量（Hurst指数择时）
+        # 新增13个GitHub开源研究策略v5（短线交易类+套利另类类+基本面深度类）
+        AuctionSelectionStrategy(),        # 集合竞价选股
+        AfterHoursMomentumStrategy(),      # 尾盘抢筹
+        HotMoneyTrackingStrategy(),        # 游资席位跟踪
+        LimitUpSealStrategy(),             # 涨停封单
+        LimitDownReboundStrategy(),        # 跌停撬板
+        ConvertibleBondDoubleLowStrategy(), # 可转债双低
+        ConvertibleBondDownwardStrategy(), # 可转债下修博弈
+        ETFPremiumArbitrageStrategy(),     # ETF折溢价套利
+        GridTradingStrategy(),             # 网格交易
+        LockupExpiryArbitrageStrategy(),  # 限售解禁博弈
+        DavisDoubleHitStrategy(),          # 戴维斯双击
+        TurnaroundStrategy(),              # 困境反转
+        ShareholderChangeStrategy(),       # 股东户数变化
     ]
     return strategies
 
