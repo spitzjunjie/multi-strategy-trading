@@ -48,6 +48,25 @@ from strategies.lockup_expiry_strategy import LockupExpiryStrategy
 from strategies.dragon_tiger_follow_strategy import DragonTigerFollowStrategy
 from strategies.limit_up_relay_strategy import LimitUpRelayStrategy
 from strategies.new_stock_strategy import NewStockStrategy
+# 新增4个研究驱动策略v4（基于海外交易者方法论+量化经典书系）
+from strategies.perilla_chokepoint_strategy import PerillaChokepointStrategy
+from strategies.sepa_growth_strategy import SEPAGrowthStrategy
+from strategies.cointegration_pairs_strategy import CointegrationPairsStrategy
+from strategies.hurst_timing_strategy import HurstTimingStrategy
+# 新增13个GitHub开源研究策略v5（短线交易类+套利另类类+基本面深度类）
+from strategies.auction_selection_strategy import AuctionSelectionStrategy
+from strategies.after_hours_momentum_strategy import AfterHoursMomentumStrategy
+from strategies.hot_money_tracking_strategy import HotMoneyTrackingStrategy
+from strategies.limit_up_seal_strategy import LimitUpSealStrategy
+from strategies.limit_down_rebound_strategy import LimitDownReboundStrategy
+from strategies.convertible_bond_double_low_strategy import ConvertibleBondDoubleLowStrategy
+from strategies.convertible_bond_downward_strategy import ConvertibleBondDownwardStrategy
+from strategies.etf_premium_arbitrage_strategy import ETFPremiumArbitrageStrategy
+from strategies.grid_trading_strategy import GridTradingStrategy
+from strategies.lockup_expiry_arbitrage_strategy import LockupExpiryArbitrageStrategy
+from strategies.davis_double_hit_strategy import DavisDoubleHitStrategy
+from strategies.turnaround_strategy import TurnaroundStrategy
+from strategies.shareholder_change_strategy import ShareholderChangeStrategy
 
 # 新策略注册表
 NEW_STRATEGIES = {
@@ -299,6 +318,113 @@ NEW_STRATEGIES = {
         'category': '事件驱动',
         'risk': '中高',
         'description': '次新股放量+趋势，波动博弈'
+    },
+    # 新增4个研究驱动策略v4（基于海外交易者方法论+量化经典书系）
+    'AI供应链瓶颈': {
+        'class': PerillaChokepointStrategy,
+        'category': '产业链选股',
+        'risk': '中',
+        'description': 'Serenity瓶颈理论，AI供应链关键节点突破+量能放大'
+    },
+    'SEPA成长股': {
+        'class': SEPAGrowthStrategy,
+        'category': '成长股选股',
+        'risk': '中',
+        'description': 'Minervini SEPA，200日线+相对强度RS+基本面高增长'
+    },
+    '协整配对交易': {
+        'class': CointegrationPairsStrategy,
+        'category': '统计套利',
+        'risk': '中',
+        'description': 'Chan配对交易，同行业龙头价差z-score均值回归'
+    },
+    'Hurst择时动量': {
+        'class': HurstTimingStrategy,
+        'category': '择时策略',
+        'risk': '中',
+        'description': 'Hurst指数判断市场状态，动量/均值回归/低波动切换'
+    },
+    # 新增13个GitHub开源研究策略v5
+    # 短线交易类（5个）
+    '集合竞价选股': {
+        'class': AuctionSelectionStrategy,
+        'category': '短线事件',
+        'risk': '高',
+        'description': '竞价高开+量比，短线持有1-2天'
+    },
+    '尾盘抢筹': {
+        'class': AfterHoursMomentumStrategy,
+        'category': '短线事件',
+        'risk': '中',
+        'description': '黄金两点半异动，尾盘买入次日卖'
+    },
+    '游资席位跟踪': {
+        'class': HotMoneyTrackingStrategy,
+        'category': '资金面',
+        'risk': '高',
+        'description': '知名游资席位净买入跟风'
+    },
+    '涨停封单': {
+        'class': LimitUpSealStrategy,
+        'category': '短线事件',
+        'risk': '高',
+        'description': '封单量>5000万+换手率<5%'
+    },
+    '跌停撬板': {
+        'class': LimitDownReboundStrategy,
+        'category': '短线事件',
+        'risk': '极高',
+        'description': '跌停板博弈反转，高风险'
+    },
+    # 套利另类类（5个）
+    '可转债双低': {
+        'class': ConvertibleBondDoubleLowStrategy,
+        'category': '套利策略',
+        'risk': '低',
+        'description': '价格<130元+溢价率<20%'
+    },
+    '可转债下修博弈': {
+        'class': ConvertibleBondDownwardStrategy,
+        'category': '事件驱动',
+        'risk': '中',
+        'description': '正股跌破回售触发价博弈下修'
+    },
+    'ETF折溢价套利': {
+        'class': ETFPremiumArbitrageStrategy,
+        'category': '套利策略',
+        'risk': '低',
+        'description': '场内价与IOPV偏离套利'
+    },
+    '网格交易': {
+        'class': GridTradingStrategy,
+        'category': '另类策略',
+        'risk': '中',
+        'description': '区间震荡等间距挂单'
+    },
+    '限售解禁博弈': {
+        'class': LockupExpiryArbitrageStrategy,
+        'category': '事件驱动',
+        'risk': '中',
+        'description': '解禁前逆向博弈利空出尽'
+    },
+    # 基本面深度类（3个）
+    '戴维斯双击': {
+        'class': DavisDoubleHitStrategy,
+        'category': '成长因子',
+        'risk': '中',
+        'description': '业绩+估值双提升，低PE高增速'
+    },
+    '困境反转': {
+        'class': TurnaroundStrategy,
+        'category': '价值因子',
+        'risk': '中',
+        'description': '9类指标恢复评分，低估值底部介入'
+    },
+    '股东户数变化': {
+        'class': ShareholderChangeStrategy,
+        'category': '事件驱动',
+        'risk': '中',
+        'description': '户数减少=筹码集中，机构持股提升'
     },
 }
 

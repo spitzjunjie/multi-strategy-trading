@@ -51,7 +51,7 @@ class DragonTigerFollowStrategy(BaseStrategy):
 
         if df is None or df.empty:
             # 备选：用沪深300+K线异动筛选
-            return self._fallback_select(helper, date)
+            return self._akshare_fallback(helper, date)
 
         # 2. 解析龙虎榜数据，按净买入排序
         scored = []
@@ -96,11 +96,42 @@ class DragonTigerFollowStrategy(BaseStrategy):
 
         return results[:self.top_n]
 
-    def _fallback_select(self, helper, date=None):
-        """备选：无龙虎榜数据时用放量异动筛选"""
+    def _akshare_fallback(self, helper, date=None):
+        """AKShare龙虎榜数据源备选"""
         results = []
         try:
-            pool = self._get_pool(helper, date)[:15]
+            # 尝试用AKShare获取龙虎榜
+            df = helper.get_dragon_tiger_list(date=date.replace('-', '') if date else None)
+            if df is not None and not df.empty:
+                scored = []
+                for _, row in df.iterrows():
+                    try:
+                        symbol = str(row.get('代码', row.get('股票代码', '')))
+                        name = str(row.get('名称', row.get('股票简称', symbol)))
+                        if not symbol or len(symbol) != 6:
+                            continue
+                        # 净买入额（万元）
+                        net_buy = float(row.get('净买入额', row.get('龙虎榜净买入额', 0)) or 0)
+                        if net_buy < self.min_net_buy:
+                            continue
+                        scored.append((symbol, name, net_buy))
+                    except Exception:
+                        continue
+                scored.sort(key=lambda x: x[2], reverse=True)
+                for symbol, name, net_buy in scored[:self.top_n]:
+                    results.append({
+                        'symbol': symbol,
+                        'name': name,
+                        'reason': f"龙虎榜跟风(AKShare)：净买入{name}万"
+                    })
+                if results:
+                    return results
+        except Exception:
+            pass
+
+        # 最终备选：用成交量异动筛选
+        try:
+            pool = self._get_pool(helper, date)[:20]
         except Exception:
             pool = ['600519', '600036', '601318', '000858', '600887',
                     '000333', '601166', '600276', '601012', '600030']
@@ -108,15 +139,13 @@ class DragonTigerFollowStrategy(BaseStrategy):
         for symbol in pool:
             try:
                 kline = helper.get_history_kline(symbol, days=20, end_date=date)
-                if kline.empty or len(kline) < 15:
+                if kline.empty or len(kline) < 10:
                     continue
-                # 放量：今日量>5日均量*1.5
                 vol_today = kline['volume'].iloc[-1]
                 vol_ma5 = kline['volume'].iloc[-5:].mean()
                 if vol_today > vol_ma5 * 1.5:
-                    # 涨幅<5%（不追高）
                     today_ret = (kline['close'].iloc[-1] / kline['close'].iloc[-2] - 1) * 100
-                    if today_ret < 5 and today_ret > 0:
+                    if today_ret > 0 and today_ret < 5:
                         try:
                             quote = helper.get_realtime_quote(symbol)
                             name = quote.get('名称', symbol) if quote else symbol
@@ -125,7 +154,7 @@ class DragonTigerFollowStrategy(BaseStrategy):
                         results.append({
                             'symbol': symbol,
                             'name': name,
-                            'reason': f"放量异动：量比{vol_today/vol_ma5:.1f}, 涨{today_ret:.1f}%"
+                            'reason': f"放量异动(AKShare备选)：量比{vol_today/vol_ma5:.1f}, 涨{today_ret:.1f}%"
                         })
                 if len(results) >= self.top_n:
                     break

@@ -19,9 +19,9 @@ class CycleTimingStrategy(BaseStrategy):
     """周期股择时策略"""
 
     def __init__(self,
-                 low_pb=1.5,           # PB上限（低估值）
-                 price_percentile=20,  # 价格历史分位上限%
-                 max_pb=3.0,           # PB绝对上限
+                 low_pb=3.0,           # PB上限（放宽，不再只选低估）
+                 price_percentile=80,  # 价格历史分位上限%（改为追涨，>80%分位=创新高）
+                 max_pb=5.0,           # PB绝对上限（放宽）
                  holding_days=25,
                  top_n=5):
         super().__init__("周期股择时", "价值因子")
@@ -87,11 +87,9 @@ class CycleTimingStrategy(BaseStrategy):
                 pb = val.get('pb', 0)
                 if pb <= 0 or pb > self.max_pb:
                     continue
-                if pb > self.low_pb:
-                    continue
 
-                # 综合得分：PB越低+价格分位越低 = 得分越高
-                score = (self.low_pb - pb) + (self.price_percentile - percentile) / 10
+                # 综合得分：价格在高位+PB低 = 强势周期股
+                score = (percentile / 20) + (self.low_pb - pb) + (current / ma5)
                 scored.append((symbol, stock['name'], score, pb, percentile))
 
             except Exception:

@@ -4,7 +4,7 @@
 策略逻辑：
 - 股权激励草案公告=管理层信心信号（开源证券：超额年化24.84%，信息比率1.13）
 - 激励规模占比大、高管持股占比低是有效筛选指标
-- 用财务数据筛选可能实施激励的公司（高ROE+成长+低负债）
+- 用财务数据筛选可能实施激励的公司（高ROE+低负债）
 - 叠加股价动能确认
 - 适用于事件驱动中长期
 
@@ -19,10 +19,10 @@ class EquityIncentiveStrategy(BaseStrategy):
     """股权激励策略（用财务筛选替代公告信号）"""
 
     def __init__(self,
-                 min_roe=12,            # ROE下限%
-                 min_profit_growth=15,  # 净利润增速下限%
-                 max_debt_ratio=50,     # 负债率上限%
-                 max_pe=30,             # PE上限
+                 min_roe=8,             # ROE下限%（降低）
+                 min_profit_growth=0,   # 净利润增速下限%（去掉增速要求）
+                 max_debt_ratio=70,     # 负债率上限%（放宽）
+                 max_pe=40,             # PE上限（放宽）
                  holding_days=30,
                  top_n=5):
         super().__init__("股权激励", "事件驱动")
@@ -72,14 +72,14 @@ class EquityIncentiveStrategy(BaseStrategy):
             except Exception:
                 continue
 
-        # 3. 激励特征筛选（高ROE+成长+低负债+合理估值）
+        # 3. 激励特征筛选（高ROE+低负债+合理估值，去掉增速要求）
         scored = []
         for symbol in candidates:
             try:
+                # 去掉增速要求，只用ROE筛选（股权激励本质是选好公司）
                 fin = helper.get_financial_indicator(symbol)
                 if not fin:
-                    continue
-
+                    fin = {}
                 roe = fin.get('roe', 0) * 100
                 debt_ratio = fin.get('debt_ratio', 0) * 100
                 if roe < self.min_roe:
@@ -87,34 +87,16 @@ class EquityIncentiveStrategy(BaseStrategy):
                 if debt_ratio > self.max_debt_ratio:
                     continue
 
-                growth = helper.get_growth_data(symbol)
-                if not growth:
-                    growth = {'profit_growth': 0, 'revenue_growth': 0}
-                profit_growth = growth.get('profit_growth', 0)
-                
-                # 宽松模式：增速缺失时降低要求
-                has_growth = profit_growth > 0
-                if has_growth:
-                    if profit_growth < self.min_profit_growth:
-                        continue
-                else:
-                    fin = helper.get_financial_indicator(symbol)
-                    if not fin:
-                        continue
-                    roe = fin.get('roe', 0) * 100
-                    if roe < 15:  # 增速缺失时用ROE>15替代
-                        continue
-
                 val = helper.get_valuation_data(symbol)
                 if not val:
                     continue
                 pe = val.get('pe', 0)
-                if pe <= 0 or pe > max(self.max_pe, 40):  # 放宽PE上限
+                if pe <= 0 or pe > max(self.max_pe, 50):  # 放宽PE上限
                     continue
 
-                # 激励特征得分：ROE越高+增速越高+负债越低+PE越低 = 越可能实施激励
-                score = roe / 20 + profit_growth / 30 + (self.max_debt_ratio - debt_ratio) / 50 + (self.max_pe - pe) / 30
-                scored.append((symbol, score, roe, profit_growth, debt_ratio, pe))
+                # 激励特征得分：ROE越高+负债越低+PE越低 = 越可能实施激励
+                score = roe / 10 + (self.max_debt_ratio - debt_ratio) / 70 + (self.max_pe - pe) / 40
+                scored.append((symbol, score, roe, 0, debt_ratio, pe))
             except Exception:
                 continue
 
@@ -130,7 +112,7 @@ class EquityIncentiveStrategy(BaseStrategy):
             results.append({
                 'symbol': symbol,
                 'name': name,
-                'reason': f"激励特征：ROE={roe:.1f}%, 增速={pg:.0f}%, 负债={dr:.0f}%, PE={pe:.1f}, 得分={score:.2f}"
+                'reason': f"激励特征：ROE={roe:.1f}%, 负债={dr:.0f}%, PE={pe:.1f}, 得分={score:.2f}"
             })
 
         return results[:self.top_n]

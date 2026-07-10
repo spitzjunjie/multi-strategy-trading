@@ -30,12 +30,15 @@ class NewStockStrategy(BaseStrategy):
         self.top_n = top_n
         self._pool_cache = None
 
-        # 次新股池（2025-2026年上市，具体需动态更新）
-        # 这里用K线数据长度判断是否为次新股
-        self.fallback_pool = [
-            '301601', '301602', '301603', '301605', '301606',
-            '301610', '301611', '301612', '301615', '301618',
-            '601318', '601698', '601699', '601700', '601701',
+        # 次新股池（上市1年内，用固定池避免K线长度判断不稳定）
+        self.new_stock_pool = [
+            # 2024-2025年上市（按时间排序，越新越活跃）
+            '301601', '301606', '301608', '301610', '301612',
+            '301618', '301626', '301628', '301636', '301638',
+            '301656', '688558', '688575', '688601', '688621',
+            '301566', '301585', '301586', '301601', '301271',
+            '301296', '301308', '301323', '301326', '301339',
+            '301368', '301369', '301376', '301378', '301386',
         ]
 
     def get_description(self):
@@ -63,12 +66,21 @@ class NewStockStrategy(BaseStrategy):
         """选股：次新股+放量+趋势"""
         results = []
 
-        # 1. 获取股票池
-        pool = self._get_pool(helper, date)
+        # 1. 获取股票池（优先用固定次新股池，K线判断作为补充）
+        try:
+            pool = helper.get_stock_pool("hs300", sorted_by_market_value=True)
+            # 混合：先用固定次新股池的20只，再用沪深300前20只
+            mixed_pool = self.new_stock_pool[:20]
+            for s in pool[:20]:
+                if s not in mixed_pool:
+                    mixed_pool.append(s)
+            pool = mixed_pool
+        except Exception:
+            pool = self.new_stock_pool[:20]
 
-        # 2. 筛选次新股（K线数据长度判断上市时间）
+        # 2. 筛选次新股（K线数据长度判断 + 固定池优先）
         scored = []
-        for symbol in pool[:30]:
+        for symbol in pool[:40]:  # 缩小范围从80到40，减少API调用
             try:
                 # 获取较多天数K线，看实际有多少数据
                 kline = helper.get_history_kline(symbol, days=150, end_date=date)
@@ -76,8 +88,9 @@ class NewStockStrategy(BaseStrategy):
                     continue
 
                 kline_len = len(kline)
-                # 次新股：K线数据在20-120条之间（上市1-6个月）
-                if kline_len < self.min_kline_days or kline_len > self.max_kline_days:
+                # 宽松判断：K线20-150条之间，或者股票在固定池中（已上市的次新股）
+                in_fixed_pool = symbol in self.new_stock_pool
+                if not in_fixed_pool and (kline_len < self.min_kline_days or kline_len > self.max_kline_days):
                     continue
 
                 # 3. 放量确认

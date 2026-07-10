@@ -17,8 +17,8 @@ class PiotroskiStrategy(BaseStrategy):
     """质量因子选股策略（Piotroski F-Score）"""
 
     def __init__(self,
-                 min_score=7,       # F-Score下限
-                 max_pe=25,         # PE上限
+                 min_score=3,       # F-Score下限（降低到3分）
+                 max_pe=40,         # PE上限（放宽到40）
                  holding_days=30,
                  top_n=5):
         super().__init__("质量因子选股", "质量因子")
@@ -48,14 +48,14 @@ class PiotroskiStrategy(BaseStrategy):
         """计算Piotroski F-Score（简化版，基于单期数据）"""
         score = 0
 
-        # 盈利能力 (4分)
+        # 盈利能力 (4分) - 放宽
         roe = fin.get('roe', 0)
         if roe > 0:
-            score += 1  # ROE>0
-        elif roe == 0:
-            pb = val.get('pb', 0) if val else 0
-            if pb > 0 and pb < 2:
-                score += 1  # ROE=0但PB<2时给1分
+            score += 1  # ROE>0即可得分
+        if roe > 5:
+            score += 1  # ROE>5%额外加分
+        if roe > 10:
+            score += 1  # ROE>10%再加分
         net_margin = fin.get('net_margin', 0)
         if net_margin > 0:
             score += 1  # 净利率>0

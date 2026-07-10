@@ -55,7 +55,7 @@ class LimitUpRelayStrategy(BaseStrategy):
 
         if df is None or df.empty:
             # 备选：用K线筛选近3日涨停的股票
-            return self._fallback_select(helper, date)
+            return self._akshare_fallback(helper, date)
 
         # 2. 筛选连板股
         scored = []
@@ -110,11 +110,50 @@ class LimitUpRelayStrategy(BaseStrategy):
 
         return results[:self.top_n]
 
-    def _fallback_select(self, helper, date=None):
-        """备选：用K线筛选涨停股"""
+    def _akshare_fallback(self, helper, date=None):
+        """AKShare涨停数据源备选"""
         results = []
         try:
-            pool = self._get_pool(helper, date)[:15]
+            # 尝试用AKShare获取涨停股列表
+            df = helper.get_limit_up_list(date=date.replace('-', '') if date else None)
+            if df is not None and not df.empty:
+                scored = []
+                for _, row in df.iterrows():
+                    try:
+                        symbol = str(row.get('代码', row.get('股票代码', '')))
+                        name = str(row.get('名称', row.get('股票简称', symbol)))
+                        if not symbol or len(symbol) != 6:
+                            continue
+                        # 连板数
+                        consecutive = 1
+                        for col in ['连板数', '连续涨停天数', '连板']:
+                            if col in row and row[col]:
+                                consecutive = int(row[col])
+                                break
+                        if consecutive < self.min_consecutive:
+                            continue
+                        # 封单金额（万元）
+                        seal_amount = float(row.get('封板资金', row.get('封单金额', 0)) or 0)
+                        # 综合得分
+                        score = consecutive * 10 + seal_amount / 10000
+                        scored.append((symbol, name, score, consecutive, seal_amount))
+                    except Exception:
+                        continue
+                scored.sort(key=lambda x: x[2], reverse=True)
+                for symbol, name, score, cons, seal in scored[:self.top_n]:
+                    results.append({
+                        'symbol': symbol,
+                        'name': name,
+                        'reason': f"打板接力(AKShare)：{cons}连板, 封单{seal:.0f}万"
+                    })
+                if results:
+                    return results
+        except Exception:
+            pass
+
+        # 最终备选：K线检测近3日涨停
+        try:
+            pool = self._get_pool(helper, date)[:20]
         except Exception:
             pool = ['600519', '600036', '601318', '000858', '600887',
                     '000333', '601166', '600276', '601012', '600030']
@@ -124,17 +163,13 @@ class LimitUpRelayStrategy(BaseStrategy):
                 kline = helper.get_history_kline(symbol, days=10, end_date=date)
                 if kline.empty or len(kline) < 5:
                     continue
-
-                # 检测涨停（涨幅>=9.8%）
                 today_ret = (kline['close'].iloc[-1] / kline['close'].iloc[-2] - 1) * 100
                 if today_ret >= 9.8:
-                    # 检查近3日是否有多次涨停（连板）
                     limit_count = 0
                     for i in range(min(3, len(kline) - 1)):
                         ret = (kline['close'].iloc[-1-i] / kline['close'].iloc[-2-i] - 1) * 100
                         if ret >= 9.8:
                             limit_count += 1
-
                     if limit_count >= self.min_consecutive:
                         try:
                             quote = helper.get_realtime_quote(symbol)
@@ -144,7 +179,7 @@ class LimitUpRelayStrategy(BaseStrategy):
                         results.append({
                             'symbol': symbol,
                             'name': name,
-                            'reason': f"打板接力：{limit_count}连板, 今日涨{today_ret:.1f}%"
+                            'reason': f"打板接力(K线检测)：{limit_count}连板"
                         })
                 if len(results) >= self.top_n:
                     break

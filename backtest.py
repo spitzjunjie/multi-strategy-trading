@@ -125,6 +125,11 @@ from strategies.lockup_expiry_strategy import LockupExpiryStrategy
 from strategies.dragon_tiger_follow_strategy import DragonTigerFollowStrategy
 from strategies.limit_up_relay_strategy import LimitUpRelayStrategy
 from strategies.new_stock_strategy import NewStockStrategy
+# 新增4个研究驱动策略v4（基于海外交易者方法论+量化经典书系）
+from strategies.perilla_chokepoint_strategy import PerillaChokepointStrategy
+from strategies.sepa_growth_strategy import SEPAGrowthStrategy
+from strategies.cointegration_pairs_strategy import CointegrationPairsStrategy
+from strategies.hurst_timing_strategy import HurstTimingStrategy
 
 
 def get_all_strategies():
@@ -222,6 +227,11 @@ def get_all_strategies():
         DragonTigerFollowStrategy(),       # 龙虎榜跟风
         LimitUpRelayStrategy(),            # 打板接力
         NewStockStrategy(),                # 次新股
+        # 新增4个研究驱动策略v4（基于海外交易者方法论+量化经典书系）
+        PerillaChokepointStrategy(),       # AI供应链瓶颈（Serenity瓶颈理论）
+        SEPAGrowthStrategy(),              # SEPA成长股（Minervini SEPA）
+        CointegrationPairsStrategy(),      # 协整配对交易（Chan统计套利）
+        HurstTimingStrategy(),             # Hurst择时动量（Hurst指数择时）
     ]
     return strategies
 

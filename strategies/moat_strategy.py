@@ -16,10 +16,10 @@ class MoatStrategy(BaseStrategy):
     """护城河选股策略"""
 
     def __init__(self,
-                 min_roe=15,        # ROE均值下限%
+                 min_roe=8,         # ROE均值下限%（放宽到8%）
                  min_gross_margin=30,  # 毛利率下限%
                  max_debt_ratio=50,    # 资产负债率上限%
-                 max_pe=30,            # PE上限
+                 max_pe=40,            # PE上限（放宽到40）
                  holding_days=30,
                  top_n=5):
         super().__init__("护城河选股", "质量因子")
@@ -76,40 +76,39 @@ class MoatStrategy(BaseStrategy):
         for symbol in candidates:
             try:
                 fin = helper.get_financial_indicator(symbol)
-                if not fin:
-                    continue
 
-                roe = fin.get('roe', 0) * 100
-                gross_margin = fin.get('gross_margin', 0) * 100
-                debt_ratio = fin.get('debt_ratio', 0) * 100
-                net_margin = fin.get('net_margin', 0) * 100
+                roe = fin.get('roe', 0) * 100 if fin else 0
+                gross_margin = fin.get('gross_margin', 0) * 100 if fin else 0
+                debt_ratio = fin.get('debt_ratio', 0) * 100 if fin else 0
+                net_margin = fin.get('net_margin', 0) * 100 if fin else 0
 
-                # 宽松模式：财务数据缺失时，用估值筛选
+                # 宽松模式：财务数据缺失时只保留ROE和PB筛选
                 has_financial = roe > 0 or gross_margin > 0 or debt_ratio > 0
                 if has_financial:
+                    # 有财务数据时严格筛选
                     if roe < self.min_roe:
-                        continue
-                    if gross_margin > 0 and gross_margin < self.min_gross_margin:
                         continue
                     if debt_ratio > self.max_debt_ratio:
                         continue
                 else:
-                    # 财务数据缺失时，只用估值筛选
-                    pass  # will filter by PE below
+                    # 无财务数据时用PB宽松筛选（PB<6说明低估）
+                    pass  # PB筛选在下面
 
-                # 估值筛选（宽松模式下也保留）
+                # PB估值筛选（统一降低门槛）
                 val = helper.get_valuation_data(symbol)
-                pe = val.get('pe', 0) if val else 0
-                pb = val.get('pb', 0) if val else 0
+                if not val:
+                    continue
+                pe = val.get('pe', 0)
+                pb = val.get('pb', 0)
+                if pe <= 0 or pe > 40:  # PE上限放宽到40
+                    continue
                 if pb <= 0:
-                    pb = 999  # 没有PB数据时跳过
-                if has_financial:
-                    if pe > self.max_pe or pe <= 0:
-                        continue
-                else:
-                    # 财务数据缺失时，只接受低PB股票
-                    if pb > 15 or pe <= 0:
-                        continue
+                    continue
+                # 宽松：PB<8 有财务数据时，或 PB<6 无财务数据时
+                if has_financial and pb > 8:
+                    continue
+                if not has_financial and pb > 6:
+                    continue
 
                 # 获取股票名称
                 try:

@@ -19,10 +19,10 @@ class GARPStrategy(BaseStrategy):
 
     def __init__(self,
                  max_peg=1.0,       # PEG上限
-                 min_revenue_growth=15,  # 营收增速下限%
-                 min_profit_growth=20,   # 净利润增速下限%
-                 min_roe=10,             # ROE下限%
-                 max_pe=40,              # PE上限（避免极值）
+                 min_revenue_growth=5,   # 营收增速下限%（大幅降低）
+                 min_profit_growth=5,    # 净利润增速下限%（大幅降低）
+                 min_roe=8,              # ROE下限%（降低）
+                 max_pe=50,              # PE上限（放宽）
                  holding_days=25,
                  top_n=5):
         super().__init__("GARP成长", "价值成长")
@@ -84,29 +84,20 @@ class GARPStrategy(BaseStrategy):
                 profit_growth = growth.get('profit_growth', 0)
                 revenue_growth = growth.get('revenue_growth', 0)
 
-                # 宽松模式：财务数据缺失时，降低增速要求
-                has_growth_data = profit_growth > 0 or revenue_growth > 0
-                if has_growth_data:
-                    if profit_growth < self.min_profit_growth:
-                        continue
-                    if revenue_growth < self.min_revenue_growth:
+                # 宽松模式：增速缺失时用ROE替代
+                has_growth = profit_growth >= self.min_profit_growth or revenue_growth >= self.min_revenue_growth
+                fin = helper.get_financial_indicator(symbol)
+
+                if not has_growth:
+                    # 增速不足时，用ROE>=10%替代
+                    if fin and fin.get('roe', 0) * 100 >= 8:
+                        pass  # ROE达标，允许入选
+                    else:
                         continue
                 else:
-                    # 没有增速数据时，用ROE替代筛选
-                    fin = helper.get_financial_indicator(symbol)
-                    if not fin:
+                    # 有增速时，ROE>=8%即可
+                    if fin and fin.get('roe', 0) * 100 < self.min_roe:
                         continue
-                    roe = fin.get('roe', 0) * 100
-                    if roe < 15:  # 要求ROE>15%作为替代
-                        continue
-
-                # 宽松模式已在上方处理fin，此处只保留需要的部分
-                fin = helper.get_financial_indicator(symbol)
-                if not fin:
-                    continue
-                roe = fin.get('roe', 0) * 100
-                if roe < self.min_roe:
-                    continue
 
                 val = helper.get_valuation_data(symbol)
                 if not val:
