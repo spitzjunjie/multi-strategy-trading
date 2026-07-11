@@ -57,16 +57,16 @@ class ShortTermMomentumStrategy(BaseStrategy):
         
         for stock in momentum_stocks:
             try:
-                kline = helper.get_history_kline(stock['symbol'], days=20)
+                kline = helper.get_history_kline(stock['symbol'], days=20, end_date=date)
                 if kline.empty or len(kline) < 5:
                     continue
-                
+
                 # 计算短期涨幅
                 ret = (kline['close'].iloc[-1] / kline['close'].iloc[-self.lookback_days] - 1) * 100 if len(kline) >= self.lookback_days else 0
-                
+
                 # 检查成交量放大
                 vol_ratio = kline['volume'].iloc[-1] / kline['volume'].tail(10).mean() if len(kline) >= 10 else 1
-                
+
                 # 优化：放宽条件
                 # 涨幅：从 >0 放宽到 >-2%
                 # 量比：从 >1.2 放宽到 >0.8
@@ -77,10 +77,30 @@ class ShortTermMomentumStrategy(BaseStrategy):
                         'name': stock['name'],
                         'reason': f"短线动量：近{self.lookback_days}日{ret:+.1f}%, 量能{round(vol_ratio,1)}倍"
                     })
-                
+
                 if len(results) >= self.top_n:
                     break
             except:
                 continue
-                
+
+        # 兜底：如果无满足条件股票，返回涨幅最高的3只
+        if not results:
+            fallback = []
+            for stock in momentum_stocks:
+                try:
+                    kline = helper.get_history_kline(stock['symbol'], days=20, end_date=date)
+                    if kline.empty or len(kline) < 5:
+                        continue
+                    ret = (kline['close'].iloc[-1] / kline['close'].iloc[-self.lookback_days] - 1) * 100 if len(kline) >= self.lookback_days else 0
+                    fallback.append((ret, stock))
+                except:
+                    continue
+            fallback.sort(key=lambda x: x[0], reverse=True)
+            for ret, stock in fallback[:3]:
+                results.append({
+                    'symbol': stock['symbol'],
+                    'name': stock['name'],
+                    'reason': f"短线动量兜底：近{self.lookback_days}日{ret:+.1f}%"
+                })
+
         return results[:self.top_n]

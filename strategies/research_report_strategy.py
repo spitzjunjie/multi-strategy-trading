@@ -55,7 +55,7 @@ class ResearchReportStrategy(BaseStrategy):
         
         for stock in report_stocks:
             try:
-                kline = helper.get_history_kline(stock['symbol'], days=20)
+                kline = helper.get_history_kline(stock['symbol'], days=20, end_date=date)
                 if kline.empty or len(kline) < 5:
                     continue
                 

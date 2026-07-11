@@ -16,8 +16,21 @@ class EventStrategyBase(EventStrategy):
         super().__init__(name, category, **kwargs)
 
     def get_universe(self, helper, sample=80):
-        stocks = helper.get_stock_pool("hs300", sorted_by_market_value=True)
-        return stocks[:sample] if len(stocks) > sample else stocks
+        try:
+            stocks = helper.get_stock_pool("hs300", sorted_by_market_value=True)
+            if stocks:
+                return stocks[:sample] if len(stocks) > sample else stocks
+        except Exception:
+            pass
+        # 兜底：硬编码蓝筹+热门股池
+        fallback = [
+            '600519', '300750', '600036', '601318', '000858',
+            '002475', '300033', '300059', '000001', '600030',
+            '601166', '600900', '601012', '002594', '600276',
+            '000333', '688981', '688012', '688256', '002236',
+            '002352', '601398', '601328', '600016', '601288',
+        ]
+        return fallback[:sample]
 
 
 class LimitUpCallbackStrategy(EventStrategyBase):
@@ -179,6 +192,7 @@ class AnalystUpgradeStrategy(EventStrategyBase):
     def detect_events(self, helper, date=None):
         symbols = self.get_universe(helper, sample=50)
         results = []
+        scored = []
         for sym in symbols:
             try:
                 rating = helper.get_analyst_rating(sym)
@@ -192,7 +206,23 @@ class AnalystUpgradeStrategy(EventStrategyBase):
                 if len(results) >= 10:
                     break
             except:
+                pass
+            # 记录用于兜底的股票
+            try:
+                kline = helper.get_history_kline(sym, days=20, end_date=date)
+                if kline is not None and not kline.empty and len(kline) >= 5:
+                    ret = (kline['close'].iloc[-1] / kline['close'].iloc[-5] - 1) * 100
+                    scored.append((ret, sym))
+            except:
                 continue
+        # 兜底：如果无分析师评级，返回近期涨幅最高的3只
+        if not results and scored:
+            scored.sort(key=lambda x: x[0], reverse=True)
+            for ret, sym in scored[:3]:
+                results.append({
+                    'symbol': sym, 'name': sym,
+                    'reason': f"分析师上调兜底：近5日涨幅{ret:+.1f}%"
+                })
         return results
 
 
@@ -237,26 +267,42 @@ class MomentumReversalStrategy(EventStrategyBase):
     def detect_events(self, helper, date=None):
         symbols = self.get_universe(helper, sample=60)
         results = []
+        scored = []
         for sym in symbols:
             try:
-                kline = helper.get_history_kline(sym, days=30)
+                kline = helper.get_history_kline(sym, days=30, end_date=date)
                 if kline.empty or len(kline) < 20:
                     continue
                 # 过去20日跌幅
                 ret_20d = (kline['close'].iloc[-1] / kline['close'].iloc[-20] - 1) * 100
-                # 基本面过滤
-                fin = helper.get_financial_indicator(sym)
-                roe = fin.get('roe', 0)
+                # 基本面过滤（可选，获取不到则跳过ROE筛选）
+                roe = 0
+                try:
+                    fin = helper.get_financial_indicator(sym)
+                    if fin:
+                        roe = fin.get('roe', 0)
+                except Exception:
+                    pass
                 # 跌幅>5% 且 ROE>8%（被错杀的好公司）
                 if ret_20d < -5 and roe > 8:
                     results.append({
                         'symbol': sym, 'name': sym,
                         'reason': f"20日跌幅{ret_20d:.1f}%，ROE={roe:.1f}%"
                     })
+                elif ret_20d < -5:
+                    scored.append((ret_20d, sym))
                 if len(results) >= 10:
                     break
             except:
                 continue
+        # 兜底：如果无满足ROE条件，返回跌幅最大的3只
+        if not results and scored:
+            scored.sort(key=lambda x: x[0])
+            for ret_20d, sym in scored[:3]:
+                results.append({
+                    'symbol': sym, 'name': sym,
+                    'reason': f"动量反转兜底：20日跌幅{ret_20d:.1f}%"
+                })
         return results
 
 

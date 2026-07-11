@@ -15,8 +15,8 @@ from strategies.base import BaseStrategy
 class KDJStrategy(BaseStrategy):
     """KDJ超卖金叉策略"""
     
-    def __init__(self, 
-                 oversold=20,
+    def __init__(self,
+                 oversold=30,
                  overbought=80,
                  holding_days=10,
                  top_n=10):
@@ -61,7 +61,8 @@ class KDJStrategy(BaseStrategy):
     def select_stocks(self, helper, date=None):
         """选股：KDJ超卖金叉"""
         results = []
-        
+        scored = []
+
         # 模拟热门股票池
         kdj_stocks = [
             {'symbol': '600519', 'name': '贵州茅台'},
@@ -73,20 +74,21 @@ class KDJStrategy(BaseStrategy):
             {'symbol': '600016', 'name': '民生银行'},
             {'symbol': '601288', 'name': '农业银行'},
         ]
-        
+
         for stock in kdj_stocks:
             try:
-                kline = helper.get_history_kline(stock['symbol'], days=30)
+                kline = helper.get_history_kline(stock['symbol'], days=30, end_date=date)
                 if kline.empty or len(kline) < 20:
                     continue
-                
+
                 prices = kline['close'].values
                 high = kline['high'].values
                 low = kline['low'].values
-                
+
                 k, d, j = self.calculate_kdj(prices, high, low)
-                
+
                 if k and d and j:
+                    scored.append((k, d, j, stock))
                     # 检查超卖金叉
                     if k < self.oversold and k > d and len(prices) >= 2:
                         results.append({
@@ -94,10 +96,20 @@ class KDJStrategy(BaseStrategy):
                             'name': stock['name'],
                             'reason': f"KDJ超卖金叉：K={k:.1f}, D={d:.1f}, J={j:.1f}"
                         })
-                
+
                 if len(results) >= self.top_n:
                     break
             except:
                 continue
-                
+
+        # 兜底：如果无严格金叉，返回K值最低的3只（最超卖）
+        if not results and scored:
+            scored.sort(key=lambda x: x[0])
+            for k, d, j, stock in scored[:3]:
+                results.append({
+                    'symbol': stock['symbol'],
+                    'name': stock['name'],
+                    'reason': f"KDJ相对超卖：K={k:.1f}, D={d:.1f}, J={j:.1f}"
+                })
+
         return results[:self.top_n]

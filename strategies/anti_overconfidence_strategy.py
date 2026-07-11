@@ -55,7 +55,7 @@ class AntiOverconfidenceStrategy(BaseStrategy):
         
         for stock in oversold_stocks:
             try:
-                kline = helper.get_history_kline(stock['symbol'], days=30)
+                kline = helper.get_history_kline(stock['symbol'], days=30, end_date=date)
                 if kline.empty or len(kline) < 15:
                     continue
                 

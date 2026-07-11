@@ -17,8 +17,22 @@ class TechnicalBreakoutStrategy(EventStrategy):
 
     def get_universe(self, helper, sample=80):
         """获取股票池（沪深300，按市值降序抽样）"""
-        stocks = helper.get_stock_pool("hs300", sorted_by_market_value=True)
-        return stocks[:sample] if len(stocks) > sample else stocks
+        try:
+            stocks = helper.get_stock_pool("hs300", sorted_by_market_value=True)
+            if stocks:
+                return stocks[:sample] if len(stocks) > sample else stocks
+        except Exception:
+            pass
+        # 兜底：硬编码蓝筹+热门股池
+        fallback = [
+            '600519', '300750', '600036', '601318', '000858',
+            '002475', '300033', '300059', '000001', '600030',
+            '601166', '600900', '601012', '002594', '600276',
+            '000333', '688981', '688012', '688256', '002236',
+            '002352', '601398', '601328', '600016', '601288',
+            '601628', '601601', '600000', '600028', '601857',
+        ]
+        return fallback[:sample]
 
     def calculate_indicators(self, df):
         """计算技术指标"""
@@ -83,7 +97,7 @@ class VolumeBreakoutStrategy(TechnicalBreakoutStrategy):
 
         for symbol in sample_symbols:
             try:
-                df = helper.get_history_kline(symbol, days=90)
+                df = helper.get_history_kline(symbol, days=90, end_date=date)
                 if df is None or len(df) < 60:
                     continue
 
@@ -134,7 +148,7 @@ class MACDCrossStrategy(TechnicalBreakoutStrategy):
 
         for symbol in sample_symbols:
             try:
-                df = helper.get_history_kline(symbol, days=90)
+                df = helper.get_history_kline(symbol, days=90, end_date=date)
                 if df is None or len(df) < 60:
                     continue
 
@@ -183,7 +197,7 @@ class KDJOversoldStrategy(TechnicalBreakoutStrategy):
 
         for symbol in sample_symbols:
             try:
-                df = helper.get_history_kline(symbol, days=90)
+                df = helper.get_history_kline(symbol, days=90, end_date=date)
                 if df is None or len(df) < 60:
                     continue
 
@@ -233,7 +247,7 @@ class RSIReversalStrategy(TechnicalBreakoutStrategy):
 
         for symbol in sample_symbols:
             try:
-                df = helper.get_history_kline(symbol, days=90)
+                df = helper.get_history_kline(symbol, days=90, end_date=date)
                 if df is None or len(df) < 60:
                     continue
 
@@ -285,7 +299,7 @@ class MomentumBreakoutStrategy(TechnicalBreakoutStrategy):
 
         for symbol in sample_symbols:
             try:
-                df = helper.get_history_kline(symbol, days=120)
+                df = helper.get_history_kline(symbol, days=120, end_date=date)
                 if df is None or len(df) < 90:
                     continue
 

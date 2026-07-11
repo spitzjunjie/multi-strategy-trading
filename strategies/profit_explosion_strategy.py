@@ -54,7 +54,7 @@ class ProfitExplosionStrategy(BaseStrategy):
         
         for stock in growth_stocks:
             try:
-                kline = helper.get_history_kline(stock['symbol'], days=60)
+                kline = helper.get_history_kline(stock['symbol'], days=60, end_date=date)
                 if kline.empty or len(kline) < 10:
                     continue
                 

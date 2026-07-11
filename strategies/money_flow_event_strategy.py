@@ -55,14 +55,14 @@ class MoneyFlowEventStrategy(BaseStrategy):
         
         for stock in money_flow_stocks:
             try:
-                kline = helper.get_history_kline(stock['symbol'], days=30)
+                kline = helper.get_history_kline(stock['symbol'], days=30, end_date=date)
                 if kline.empty or len(kline) < 10:
                     continue
-                
+
                 # 检查成交量是否持续放大
                 recent_vol = kline['volume'].tail(self.consecutive_days)
                 avg_vol = kline['volume'].tail(20).mean()
-                
+
                 # 优化：成交量放大从20%放宽到10%
                 if recent_vol.mean() > avg_vol * 1.1:  # 成交量放大10%以上
                     results.append({
@@ -70,10 +70,32 @@ class MoneyFlowEventStrategy(BaseStrategy):
                         'name': stock['name'],
                         'reason': f"资金流事件：成交量持续放大，较均量{round(recent_vol.mean()/avg_vol, 1)}倍"
                     })
-                
+
                 if len(results) >= self.top_n:
                     break
             except:
                 continue
-                
+
+        # 兜底：如果无满足条件股票，返回量比最高的3只
+        if not results:
+            fallback = []
+            for stock in money_flow_stocks:
+                try:
+                    kline = helper.get_history_kline(stock['symbol'], days=30, end_date=date)
+                    if kline.empty or len(kline) < 10:
+                        continue
+                    recent_vol = kline['volume'].tail(self.consecutive_days).mean()
+                    avg_vol = kline['volume'].tail(20).mean()
+                    ratio = recent_vol / avg_vol if avg_vol > 0 else 0
+                    fallback.append((ratio, stock))
+                except:
+                    continue
+            fallback.sort(key=lambda x: x[0], reverse=True)
+            for ratio, stock in fallback[:3]:
+                results.append({
+                    'symbol': stock['symbol'],
+                    'name': stock['name'],
+                    'reason': f"资金流兜底：量比{round(ratio, 1)}倍"
+                })
+
         return results[:self.top_n]

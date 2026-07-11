@@ -9,7 +9,7 @@
   1. 计算价差 spread = log(price_A) - β×log(price_B)，β简化用1
   2. 计算价差60日均值mean和标准差std
   3. 当前价差z-score = (current_spread - mean) / std
-  4. |z-score| > 2.0触发：
+  4. |z-score| > 1.5触发：
      - z < -2：价差过低，买标的A（A相对B低估）
      - z > +2：价差过高，买标的B（B相对A低估）
   5. 每个对最多选1只，总共最多3只
@@ -43,7 +43,7 @@ class CointegrationPairsStrategy(BaseStrategy):
 
     def __init__(self,
                  lookback_days=60,
-                 z_threshold=2.0,
+                 z_threshold=1.5,
                  holding_days=20,
                  top_n=3):
         super().__init__("协整配对交易", "统计套利")
