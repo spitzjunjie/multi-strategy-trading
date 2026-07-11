@@ -218,15 +218,18 @@ def _high_growth_signal(k):
 
 
 def _cycle_signal(k):
-    """周期股择时（超跌反弹：价格低位+企稳信号）"""
+    """金融周期择时（稳健银行股+严格止损）"""
     c, v = _safe(k)
     if c is None or len(c) < 20: return False, ""
+    ret20 = _ret(c, 20)
     pct = _price_percentile(c, 20)
-    ret10 = _ret(c, 10)
     vol_ratio = v[-5:].mean() / v[-20:].mean() if v is not None else 1
-    # 价格低位(<40%) + 超跌(-20%) + 缩量整理 + 企稳
-    if pct < 40 and -20 < ret10 < 0 and vol_ratio < 0.9 and c[-1] > _ma(c, 5):
-        return True, f"周期低位反弹{pct:.0f}%"
+    # 严格止损：近20日下跌超15%不买入（避免接飞刀）
+    if ret20 < -15:
+        return False, ""
+    # 价格中低位(<50%) + 缩量整理 + 趋势向上
+    if pct < 50 and vol_ratio < 0.9 and c[-1] > _ma(c, 5) > _ma(c, 10):
+        return True, f"金融周期稳健{pct:.0f}%"
     return False, ""
 
 
@@ -366,7 +369,7 @@ STRATEGIES = {
     '质量因子选股': {'pool': ['600036', '601318', '600519', '000858', '601166'], 'signal': _piotroski_signal, 'category': '基本面'},
     'GARP成长': {'pool': ['600036', '000858', '601318', '600519', '000333'], 'signal': _garp_signal, 'category': '基本面'},
     '高成长股': {'pool': ['300750', '688012', '300059', '002475', '300014'], 'signal': _high_growth_signal, 'category': '成长'},
-    '周期股择时': {'pool': ['601899', '000725', '600111', '601600', '000060'], 'signal': _cycle_signal, 'category': '周期'},
+    '周期股择时': {'pool': ['600036', '000001', '601166', '600016', '601818'], 'signal': _cycle_signal, 'category': '金融周期'},
     '回购信号': {'pool': ['600036', '000858', '601318', '600519', '000333'], 'signal': _repurchase_signal, 'category': '事件'},
     '股权激励': {'pool': ['600036', '000858', '601318', '600519', '000333'], 'signal': _equity_incentive_signal, 'category': '事件'},
     '龙虎榜跟风': {'pool': ['600036', '000858', '601318', '600519', '000333'], 'signal': _dragon_tiger_signal, 'category': '资金面'},
