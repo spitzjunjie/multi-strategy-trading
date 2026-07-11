@@ -5510,6 +5510,8 @@
       "current_capital": 22297.0,
       "total_value": 29666.0,
       "total_return": -0.011133333333333334,
+      "sharpe_ratio": -1.6706550235526763,
+      "max_drawdown": 0.026033333333333332,
       "trades": [
         {
           "buy_date": "20260529",
@@ -9038,6 +9040,8 @@
       "current_capital": 14235.0,
       "total_value": 29510.0,
       "total_return": -0.01633333333333333,
+      "sharpe_ratio": -0.9383074721742213,
+      "max_drawdown": 0.05323181491405791,
       "trades": [
         {
           "buy_date": "20260529",
@@ -9268,6 +9272,8 @@
       "current_capital": 10016.0,
       "total_value": 29808.0,
       "total_return": -0.0064,
+      "sharpe_ratio": -2.1261231854803038,
+      "max_drawdown": 0.0094,
       "trades": [
         {
           "buy_date": "20260605",
@@ -9458,6 +9464,8 @@
       "current_capital": 19957.0,
       "total_value": 30407.0,
       "total_return": 0.013566666666666666,
+      "sharpe_ratio": 1.0852125703968871,
+      "max_drawdown": 0.03638463759745885,
       "trades": [
         {
           "buy_date": "20260527",
@@ -9690,6 +9698,8 @@
       "current_capital": 11649.0,
       "total_value": 30089.0,
       "total_return": 0.0029666666666666665,
+      "sharpe_ratio": 0.3494593223334593,
+      "max_drawdown": 0.024611653667169168,
       "trades": [
         {
           "buy_date": "20260529",
@@ -9910,6 +9920,8 @@
       "current_capital": 29745.0,
       "total_value": 29745.0,
       "total_return": -0.0085,
+      "sharpe_ratio": -0.7411549080107012,
+      "max_drawdown": 0.016791723134895714,
       "trades": [
         {
           "buy_date": "20260526",
@@ -10083,6 +10095,8 @@
       "current_capital": 30081.0,
       "total_value": 30081.0,
       "total_return": 0.0027,
+      "sharpe_ratio": 1.0271419359263443,
+      "max_drawdown": 0.0041052805826849855,
       "trades": [
         {
           "buy_date": "20260609",
@@ -10246,6 +10260,8 @@
       "current_capital": 30502.0,
       "total_value": 30502.0,
       "total_return": 0.016733333333333333,
+      "sharpe_ratio": 2.883865774248626,
+      "max_drawdown": 0.009804879637773217,
       "trades": [
         {
           "buy_date": "20260526",
@@ -10439,6 +10455,8 @@
       "current_capital": 10553.0,
       "total_value": 28993.0,
       "total_return": -0.03356666666666667,
+      "sharpe_ratio": -1.9339836483960877,
+      "max_drawdown": 0.07796577270227427,
       "trades": [
         {
           "buy_date": "20260526",
@@ -10679,6 +10697,8 @@
       "current_capital": 29050.0,
       "total_value": 29050.0,
       "total_return": -0.03166666666666667,
+      "sharpe_ratio": -3.9052516359527276,
+      "max_drawdown": 0.03166666666666667,
       "trades": [
         {
           "buy_date": "20260610",
@@ -10842,6 +10862,8 @@
       "current_capital": 30798.0,
       "total_value": 30798.0,
       "total_return": 0.0266,
+      "sharpe_ratio": 3.015698320551686,
+      "max_drawdown": 0.0075406032482598605,
       "trades": [
         {
           "buy_date": "20260526",

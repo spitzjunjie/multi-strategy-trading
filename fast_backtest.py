@@ -352,36 +352,49 @@ def _mean_reversion_signal(k):
 
 # === 策略池 ===
 STRATEGIES = {
-    # 已有11个
-    '集合竞价': {'pool': ['600036', '000858', '601318', '600519', '000333'], 'signal': _auction_signal, 'category': '短线技术'},
-    '尾盘抢筹': {'pool': ['600036', '000858', '601318', '600519', '000333'], 'signal': _after_hours_signal, 'category': '短线技术'},
+    # 短线技术策略 - 活跃中小盘股
+    '集合竞价': {'pool': ['002594', '300750', '300059', '002475', '300014'], 'signal': _auction_signal, 'category': '短线技术'},
+    '尾盘抢筹': {'pool': ['002475', '300750', '002594', '300059', '688012'], 'signal': _after_hours_signal, 'category': '短线技术'},
+    '动量突破': {'pool': ['300750', '688012', '300059', '002475', '002594'], 'signal': _momentum_break_signal, 'category': '技术面'},
+
+    # 价值/基本面策略 - 蓝筹白马
     '戴维斯双击': {'pool': ['600036', '601318', '600519', '000858', '601166'], 'signal': _davis_signal, 'category': '价值'},
+    '护城河选股': {'pool': ['600519', '601318', '600036', '000858', '601166'], 'signal': _moat_signal, 'category': '基本面'},
+    '质量因子选股': {'pool': ['601318', '600036', '600519', '000858', '601166'], 'signal': _piotroski_signal, 'category': '基本面'},
+    'GARP成长': {'pool': ['600036', '000858', '601318', '600519', '601012'], 'signal': _garp_signal, 'category': '基本面'},
+
+    # 逆向策略 - 金融股（稳健）
     '困境反转': {'pool': ['000001', '600016', '601166', '600036', '601328'], 'signal': _turnaround_signal, 'category': '逆向'},
-    '股东户数变化': {'pool': ['600036', '000858', '601318', '600519', '000333'], 'signal': _shareholder_signal, 'category': '事件'},
-    '涨停封单': {'pool': ['600036', '000858', '601318', '600519', '000333'], 'signal': _limit_up_signal, 'category': '短线事件'},
+    '均值回归': {'pool': ['601328', '601818', '601398', '601939', '601288'], 'signal': _mean_reversion_signal, 'category': '逆向'},
+    '周期股择时': {'pool': ['600036', '000001', '601166', '600016', '601818'], 'signal': _cycle_signal, 'category': '金融周期'},
+
+    # 事件策略 - 各板块活跃股
+    '股东户数变化': {'pool': ['300750', '002594', '300059', '002475', '688012'], 'signal': _shareholder_signal, 'category': '事件'},
+    '回购信号': {'pool': ['600036', '000858', '601318', '600519', '601012'], 'signal': _repurchase_signal, 'category': '事件'},
+    '股权激励': {'pool': ['300750', '688012', '300059', '002475', '002594'], 'signal': _equity_incentive_signal, 'category': '事件'},
+    '限售解禁博弈': {'pool': ['002594', '300750', '300059', '002475', '688012'], 'signal': _lockup_signal, 'category': '事件'},
+
+    # 短线事件策略 - 波动大的活跃股
+    '涨停封单': {'pool': ['300059', '002475', '300750', '002594', '688012'], 'signal': _limit_up_signal, 'category': '短线事件'},
     '跌停撬板': {'pool': ['000001', '600016', '601166', '600036', '601328'], 'signal': _limit_down_signal, 'category': '短线事件'},
-    '限售解禁博弈': {'pool': ['600036', '000858', '601318', '600519', '000333'], 'signal': _lockup_signal, 'category': '事件'},
+    '打板接力': {'pool': ['688012', '300750', '300059', '002475', '002594'], 'signal': _limit_up_relay_signal, 'category': '短线事件'},
+
+    # 资金面策略 - 成交活跃的大盘股
     '游资席位跟踪': {'pool': ['600036', '000858', '601318', '600519', '000333'], 'signal': _hot_money_signal, 'category': '资金面'},
+    '龙虎榜跟风': {'pool': ['600036', '000858', '601318', '600519', '000333'], 'signal': _dragon_tiger_signal, 'category': '资金面'},
+
+    # 技术面策略 - 趋势明显的股票
     'Hurst择时动量': {'pool': ['600036', '601318', '600519', '000858', '601166'], 'signal': _hurst_signal, 'category': '技术面'},
     '协整配对交易': {'pool': ['600036', '601318', '600519', '000858', '601166'], 'signal': _pairs_signal, 'category': '统计套利'},
-    # v1.9优化策略（8个）
-    '护城河选股': {'pool': ['600036', '601318', '600519', '000858', '601166'], 'signal': _moat_signal, 'category': '基本面'},
-    '质量因子选股': {'pool': ['600036', '601318', '600519', '000858', '601166'], 'signal': _piotroski_signal, 'category': '基本面'},
-    'GARP成长': {'pool': ['600036', '000858', '601318', '600519', '000333'], 'signal': _garp_signal, 'category': '基本面'},
+
+    # 成长策略 - 创业板/科创板
     '高成长股': {'pool': ['300750', '688012', '300059', '002475', '300014'], 'signal': _high_growth_signal, 'category': '成长'},
-    '周期股择时': {'pool': ['600036', '000001', '601166', '600016', '601818'], 'signal': _cycle_signal, 'category': '金融周期'},
-    '回购信号': {'pool': ['600036', '000858', '601318', '600519', '000333'], 'signal': _repurchase_signal, 'category': '事件'},
-    '股权激励': {'pool': ['600036', '000858', '601318', '600519', '000333'], 'signal': _equity_incentive_signal, 'category': '事件'},
-    '龙虎榜跟风': {'pool': ['600036', '000858', '601318', '600519', '000333'], 'signal': _dragon_tiger_signal, 'category': '资金面'},
-    '打板接力': {'pool': ['600036', '000858', '601318', '600519', '000333'], 'signal': _limit_up_relay_signal, 'category': '短线事件'},
-    '次新股': {'pool': ['301601', '301606', '301608', '301610', '301612'], 'signal': _new_stock_signal, 'category': '事件'},
-    # v2.0新增策略（9个）
+
+    # 套利策略 - 大盘蓝筹（稳定）
     '网格交易': {'pool': ['600036', '601318', '600519', '000858', '601166'], 'signal': _grid_signal, 'category': '套利'},
-    'ETF折溢价': {'pool': ['510300', '510500', '159915', '512880', '512000'], 'signal': _etf_premium_signal, 'category': '套利'},
-    '可转债双低': {'pool': ['113050', '110033', '127005', '128005', '132003'], 'signal': _double_low_signal, 'category': '可转债'},
-    '可转债下修博弈': {'pool': ['113050', '110033', '127005', '128005', '132003'], 'signal': _downward_amend_signal, 'category': '可转债'},
-    '动量突破': {'pool': ['600036', '000858', '601318', '600519', '000333'], 'signal': _momentum_break_signal, 'category': '技术面'},
-    '均值回归': {'pool': ['000001', '600016', '601166', '600036', '601328'], 'signal': _mean_reversion_signal, 'category': '逆向'},
+
+    # 次新股策略 - 主板次新股（避免北交所）
+    '次新股': {'pool': ['601012', '601169', '600909', '601319', '601577'], 'signal': _new_stock_signal, 'category': '事件'},
 }
 
 
@@ -480,6 +493,30 @@ def run_backtest(strategy_name, config, helper, trading_dates):
     wins = [t for t in trades if isinstance(t.get('profit'), (int, float)) and t['profit'] > 0]
     win_rate = len(wins) / len(trades) * 100 if trades else 0
 
+    # 计算夏普比率和最大回撤
+    sharpe_ratio = 0
+    max_drawdown = 0
+    if len(equity_curve) > 1:
+        values = [e['value'] for e in equity_curve]
+        peak = values[0]
+        for v in values:
+            if v > peak:
+                peak = v
+            dd = (peak - v) / peak
+            if dd > max_drawdown:
+                max_drawdown = dd
+        # 简化夏普：日收益率/日波动率 * sqrt(252)
+        daily_returns = []
+        for i in range(1, len(values)):
+            if values[i-1] > 0:
+                daily_returns.append((values[i] - values[i-1]) / values[i-1])
+        if daily_returns:
+            import numpy as np
+            mean_ret = np.mean(daily_returns)
+            std_ret = np.std(daily_returns)
+            if std_ret > 0:
+                sharpe_ratio = mean_ret / std_ret * np.sqrt(252)
+
     return {
         'name': strategy_name,
         'category': config['category'],
@@ -487,6 +524,8 @@ def run_backtest(strategy_name, config, helper, trading_dates):
         'current_capital': capital,
         'total_value': final_val,
         'total_return': ret,
+        'sharpe_ratio': sharpe_ratio,
+        'max_drawdown': max_drawdown,
         'trades': [t for t in trades if 'sell_price' in t],
         'holdings': holdings,
         'equity_curve': equity_curve,
