@@ -1,5 +1,5 @@
 {
-  "update_time": "2026-07-11 01:40:26",
+  "update_time": "2026-07-11 13:19:01",
   "backtest_type": "historical",
   "backtest_start": "2026-05-26",
   "backtest_end": "2026-07-07",
@@ -14144,317 +14144,272 @@
       "version": "1.0.0",
       "description": "协整配对：60日价差z-score>|2.0|触发, 买低估端, 持有20天",
       "initial_capital": 30000,
-      "current_capital": 21764.0,
-      "total_value": 29904.0,
-      "total_return": -0.0032,
-      "monthly_return": -0.0032,
-      "sharpe_ratio": -0.07691588892417871,
-      "max_drawdown": 0.046541586840192904,
-      "win_rate": 0.32142857142857145,
-      "realized_pnl": -232.0,
-      "realized_pnl_pct": -0.77,
-      "floating_pnl": 136.0,
-      "floating_pnl_pct": 0.45,
-      "total_pnl": -96.0,
-      "total_pnl_pct": -0.32,
+      "current_capital": 19440.0,
+      "total_value": 29128.0,
+      "total_return": -0.029066666666666668,
+      "monthly_return": -0.029066666666666668,
+      "sharpe_ratio": -4.061347757879408,
+      "max_drawdown": 0.038933333333333334,
+      "win_rate": 0.2857142857142857,
+      "realized_pnl": -872.0,
+      "realized_pnl_pct": -2.91,
+      "floating_pnl": 0.0,
+      "floating_pnl_pct": 0.0,
+      "total_pnl": -872.0,
+      "total_pnl_pct": -2.91,
       "holdings": [
         {
-          "symbol": "600690",
-          "name": "海尔智家",
-          "buy_price": 20.01,
-          "quantity": 400,
-          "buy_date": "2026-07-09",
-          "cost": 8004.000000000001,
-          "stock_reason": "配对:家电, z-score=2.10, 买海尔智家(价差偏高买B)",
-          "timing_reason": "均线多头排列",
-          "hold_days": 2,
-          "current_price": 20.35,
-          "profit": 135.99999999999994,
-          "profit_pct": 1.6991504247876055
+          "symbol": "601012",
+          "name": "隆基绿能",
+          "buy_price": 12.11,
+          "quantity": 800,
+          "buy_date": "20260710",
+          "cost": 9688.0,
+          "stock_reason": "配对降级:光伏, z=-1.64, 买隆基绿能(偏离最大端)",
+          "timing_reason": "回踩MA5; MACD金叉; KDJ金叉; RSI超卖(33.2); 温和放量上涨",
+          "hold_days": 1,
+          "current_price": 12.11,
+          "profit": 0.0,
+          "profit_pct": 0.0
         }
       ],
       "trades": [
         {
           "symbol": "601012",
           "name": "隆基绿能",
-          "buy_date": "2026-06-22",
-          "buy_price": 13.23,
-          "sell_date": "2026-06-23",
-          "sell_price": 12.61,
+          "buy_date": "20260701",
+          "buy_price": 13.19,
+          "sell_date": "20260702",
+          "sell_price": 12.78,
           "quantity": 700,
-          "profit": -434.0,
-          "profit_pct": -4.686318972033257,
+          "profit": -287.0,
+          "profit_pct": -3.10841546626232,
           "hold_days": 1,
-          "stock_reason": "配对降级:光伏, z=-1.74, 买隆基绿能(偏离最大端)",
-          "timing_reason": "回踩MA5; RSI超卖(45.0); 温和放量上涨",
+          "stock_reason": "配对:光伏, z-score=-2.11, 买隆基绿能(价差偏低买A)",
+          "timing_reason": "回踩MA5; 回踩MA20; RSI超卖(35.9); 温和放量上涨",
           "sell_reason": "MACD红柱缩短; 跌破MA5; 跌破MA20"
-        },
-        {
-          "symbol": "000858",
-          "name": "五粮液",
-          "buy_date": "2026-06-23",
-          "buy_price": 74.76,
-          "sell_date": "2026-06-24",
-          "sell_price": 73.3,
-          "quantity": 100,
-          "profit": -146.0000000000009,
-          "profit_pct": -1.95291599785983,
-          "hold_days": 1,
-          "stock_reason": "配对降级:白酒, z=1.69, 买五粮液(偏离最大端)",
-          "timing_reason": "RSI超卖(13.8)",
-          "sell_reason": "跌破MA5; 跌破MA20"
-        },
-        {
-          "symbol": "600276",
-          "name": "恒瑞医药",
-          "buy_date": "2026-06-24",
-          "buy_price": 50.25,
-          "sell_date": "2026-06-26",
-          "sell_price": 48.67,
-          "quantity": 100,
-          "profit": -158.0,
-          "profit_pct": -3.1442786069651745,
-          "hold_days": 2,
-          "stock_reason": "配对:医药, z-score=-2.35, 买恒瑞医药(价差偏低买A)",
-          "timing_reason": "温和放量上涨; 均线多头排列",
-          "sell_reason": "MACD红柱缩短; 跌破MA5"
-        },
-        {
-          "symbol": "600276",
-          "name": "恒瑞医药",
-          "buy_date": "2026-06-26",
-          "buy_price": 48.67,
-          "sell_date": "2026-06-29",
-          "sell_price": 52.93,
-          "quantity": 200,
-          "profit": 852.0,
-          "profit_pct": 8.7528251489624,
-          "hold_days": 1,
-          "stock_reason": "配对:医药, z-score=-2.73, 买恒瑞医药(价差偏低买A)",
-          "timing_reason": "均线多头排列",
-          "sell_reason": "RSI超买(75.0)"
-        },
-        {
-          "symbol": "600276",
-          "name": "恒瑞医药",
-          "buy_date": "2026-06-29",
-          "buy_price": 52.93,
-          "sell_date": "2026-07-01",
-          "sell_price": 53.78,
-          "quantity": 100,
-          "profit": 85.0,
-          "profit_pct": 1.6058945777441904,
-          "hold_days": 2,
-          "stock_reason": "配对:医药, z-score=-2.36, 买恒瑞医药(价差偏低买A)",
-          "timing_reason": "回踩MA5; 温和放量上涨; 均线多头排列",
-          "sell_reason": "RSI超买(71.8)"
         },
         {
           "symbol": "601012",
           "name": "隆基绿能",
-          "buy_date": "2026-06-26",
-          "buy_price": 12.67,
-          "sell_date": "2026-07-02",
-          "sell_price": 12.78,
+          "buy_date": "20260702",
+          "buy_price": 12.78,
+          "sell_date": "20260703",
+          "sell_price": 12.55,
           "quantity": 700,
-          "profit": 77.0,
-          "profit_pct": 0.8681925808997633,
-          "hold_days": 4,
-          "stock_reason": "配对:光伏, z-score=-2.08, 买隆基绿能(价差偏低买A)",
-          "timing_reason": "RSI超卖(45.4); 温和放量上涨",
+          "profit": -161.0,
+          "profit_pct": -1.7996870109546166,
+          "hold_days": 1,
+          "stock_reason": "配对降级:光伏, z=-1.82, 买隆基绿能(偏离最大端)",
+          "timing_reason": "RSI超卖(36.2)",
+          "sell_reason": "MACD红柱缩短; 跌破MA5; 跌破MA20"
+        },
+        {
+          "symbol": "601012",
+          "name": "隆基绿能",
+          "buy_date": "20260703",
+          "buy_price": 12.55,
+          "sell_date": "20260706",
+          "sell_price": 12.35,
+          "quantity": 700,
+          "profit": -140.0,
+          "profit_pct": -1.593625498007968,
+          "hold_days": 1,
+          "stock_reason": "配对降级:光伏, z=-1.56, 买隆基绿能(偏离最大端)",
+          "timing_reason": "RSI超卖(35.6)",
           "sell_reason": "MACD红柱缩短; 跌破MA5; 跌破MA20"
         },
         {
           "symbol": "000858",
           "name": "五粮液",
-          "buy_date": "2026-07-02",
-          "buy_price": 73.5,
-          "sell_date": "2026-07-03",
-          "sell_price": 73.21,
-          "quantity": 100,
-          "profit": -29.00000000000091,
-          "profit_pct": -0.394557823129264,
-          "hold_days": 1,
-          "stock_reason": "配对降级:白酒, z=1.72, 买五粮液(偏离最大端)",
-          "timing_reason": "RSI超卖(27.6)",
-          "sell_reason": "跌破MA5; 跌破MA20"
-        },
-        {
-          "symbol": "000858",
-          "name": "五粮液",
-          "buy_date": "2026-07-03",
-          "buy_price": 73.21,
-          "sell_date": "2026-07-07",
+          "buy_date": "20260706",
+          "buy_price": 73.76,
+          "sell_date": "20260707",
           "sell_price": 71.72,
           "quantity": 100,
-          "profit": -148.9999999999991,
-          "profit_pct": -2.0352410872831457,
-          "hold_days": 2,
-          "stock_reason": "配对降级:白酒, z=1.60, 买五粮液(偏离最大端)",
-          "timing_reason": "RSI超卖(26.4)",
+          "profit": -204.0000000000009,
+          "profit_pct": -2.765726681127995,
+          "hold_days": 1,
+          "stock_reason": "配对降级:白酒, z=1.51, 买五粮液(偏离最大端)",
+          "timing_reason": "RSI超卖(29.7); 温和放量上涨",
           "sell_reason": "MACD红柱缩短; 跌破MA5; 跌破MA20"
         },
         {
-          "symbol": "600690",
-          "name": "海尔智家",
-          "buy_date": "2026-07-06",
-          "buy_price": 20.58,
-          "sell_date": "2026-07-08",
-          "sell_price": 20.29,
-          "quantity": 400,
-          "profit": -116.0,
-          "profit_pct": -1.4091350826044704,
-          "hold_days": 2,
-          "stock_reason": "配对降级:家电, z=1.64, 买海尔智家(偏离最大端)",
-          "timing_reason": "回踩MA5; RSI超卖(45.6)",
+          "symbol": "601012",
+          "name": "隆基绿能",
+          "buy_date": "20260707",
+          "buy_price": 12.21,
+          "sell_date": "20260708",
+          "sell_price": 11.74,
+          "quantity": 800,
+          "profit": -376.0,
+          "profit_pct": -3.8493038493038494,
+          "hold_days": 1,
+          "stock_reason": "配对降级:光伏, z=-1.91, 买隆基绿能(偏离最大端)",
+          "timing_reason": "RSI超卖(33.7)",
           "sell_reason": "MACD红柱缩短; 跌破MA5; 跌破MA20"
         },
         {
-          "symbol": "000858",
-          "name": "五粮液",
-          "buy_date": "2026-07-07",
-          "buy_price": 71.72,
-          "sell_date": "2026-07-09",
-          "sell_price": 70.9,
-          "quantity": 100,
-          "profit": -81.99999999999909,
-          "profit_pct": -1.1433351924149344,
-          "hold_days": 2,
-          "stock_reason": "配对降级:白酒, z=1.75, 买五粮液(偏离最大端)",
-          "timing_reason": "RSI超卖(28.3)",
-          "sell_reason": "MACD红柱缩短; 跌破MA5; 跌破MA20"
+          "symbol": "601012",
+          "name": "隆基绿能",
+          "buy_date": "20260708",
+          "buy_price": 11.74,
+          "sell_date": "20260709",
+          "sell_price": 11.83,
+          "quantity": 800,
+          "profit": 72.0,
+          "profit_pct": 0.7666098807495741,
+          "hold_days": 1,
+          "stock_reason": "配对降级:光伏, z=-1.90, 买隆基绿能(偏离最大端)",
+          "timing_reason": "RSI超卖(31.5)",
+          "sell_reason": "MACD红柱缩短; MACD死叉; 跌破MA5; 跌破MA20"
+        },
+        {
+          "symbol": "601012",
+          "name": "隆基绿能",
+          "buy_date": "20260709",
+          "buy_price": 11.83,
+          "sell_date": "20260710",
+          "sell_price": 12.11,
+          "quantity": 800,
+          "profit": 224.0,
+          "profit_pct": 2.366863905325444,
+          "hold_days": 1,
+          "stock_reason": "配对降级:光伏, z=-1.95, 买隆基绿能(偏离最大端)",
+          "timing_reason": "RSI超卖(35.4)",
+          "sell_reason": "跌破MA20"
         }
       ],
       "equity_curve": [
         {
-          "date": "2026-05-29",
-          "value": 30092.0
+          "date": "20260529",
+          "value": 30000
         },
         {
-          "date": "2026-06-01",
-          "value": 29797.0
+          "date": "20260601",
+          "value": 30000
         },
         {
-          "date": "2026-06-02",
-          "value": 29587.0
+          "date": "20260602",
+          "value": 30000
         },
         {
-          "date": "2026-06-03",
-          "value": 29551.0
+          "date": "20260603",
+          "value": 30000
         },
         {
-          "date": "2026-06-04",
-          "value": 29495.0
+          "date": "20260604",
+          "value": 30000
         },
         {
-          "date": "2026-06-05",
-          "value": 29348.0
+          "date": "20260605",
+          "value": 30000
         },
         {
-          "date": "2026-06-08",
-          "value": 28865.0
+          "date": "20260608",
+          "value": 30000
         },
         {
-          "date": "2026-06-09",
-          "value": 29265.0
+          "date": "20260609",
+          "value": 30000
         },
         {
-          "date": "2026-06-10",
-          "value": 30063.0
+          "date": "20260610",
+          "value": 30000
         },
         {
-          "date": "2026-06-11",
-          "value": 30128.0
+          "date": "20260611",
+          "value": 30000
         },
         {
-          "date": "2026-06-12",
-          "value": 30002.0
+          "date": "20260612",
+          "value": 30000
         },
         {
-          "date": "2026-06-15",
-          "value": 29973.0
+          "date": "20260615",
+          "value": 30000
         },
         {
-          "date": "2026-06-16",
-          "value": 29917.0
+          "date": "20260616",
+          "value": 30000
         },
         {
-          "date": "2026-06-17",
-          "value": 29756.0
+          "date": "20260617",
+          "value": 30000
         },
         {
-          "date": "2026-06-18",
-          "value": 29595.0
+          "date": "20260618",
+          "value": 30000
         },
         {
-          "date": "2026-06-22",
-          "value": 29868.0
+          "date": "20260622",
+          "value": 30000
         },
         {
-          "date": "2026-06-23",
-          "value": 29434.0
+          "date": "20260623",
+          "value": 30000
         },
         {
-          "date": "2026-06-24",
-          "value": 29288.0
+          "date": "20260624",
+          "value": 30000
         },
         {
-          "date": "2026-06-25",
-          "value": 29267.0
+          "date": "20260625",
+          "value": 30000
         },
         {
-          "date": "2026-06-26",
-          "value": 29130.0
+          "date": "20260626",
+          "value": 30000
         },
         {
-          "date": "2026-06-29",
-          "value": 30080.0
+          "date": "20260629",
+          "value": 30000
         },
         {
-          "date": "2026-06-30",
-          "value": 30208.0
+          "date": "20260630",
+          "value": 30000
         },
         {
-          "date": "2026-07-01",
-          "value": 30431.0
+          "date": "20260701",
+          "value": 30000.0
         },
         {
-          "date": "2026-07-02",
-          "value": 30144.0
+          "date": "20260702",
+          "value": 29713.0
         },
         {
-          "date": "2026-07-03",
-          "value": 30115.0
+          "date": "20260703",
+          "value": 29552.0
         },
         {
-          "date": "2026-07-06",
-          "value": 30115.0
+          "date": "20260706",
+          "value": 29412.0
         },
         {
-          "date": "2026-07-07",
-          "value": 29966.0
+          "date": "20260707",
+          "value": 29208.0
         },
         {
-          "date": "2026-07-08",
-          "value": 29826.0
+          "date": "20260708",
+          "value": 28832.0
         },
         {
-          "date": "2026-07-09",
-          "value": 29768.0
+          "date": "20260709",
+          "value": 28904.0
         },
         {
-          "date": "2026-07-10",
-          "value": 29904.0
+          "date": "20260710",
+          "value": 29128.0
         }
       ],
-      "backtest_start": "2026-05-26",
-      "backtest_end": "2026-07-10",
+      "backtest_start": "20260526",
+      "backtest_end": "20260710",
       "backtest_days": 33,
-      "composite_score": 45.6,
-      "grade": "C",
-      "profit_loss_ratio": 0.19498607242339833,
+      "composite_score": 25.7,
+      "grade": "D",
+      "profit_loss_ratio": 0.7961630695443743,
       "return_stability": 0,
-      "calmar_ratio": 0.6492041111111111
+      "calmar_ratio": 0.24575789473684212
     },
     {
       "name": "Hurst择时动量",
@@ -14462,121 +14417,75 @@
       "version": "1.0.0",
       "description": "Hurst择时：H>0.55动量/H<0.45回归/中间低波动, 窗口50天, 持有5天",
       "initial_capital": 30000,
-      "current_capital": 14918.0,
-      "total_value": 29663.0,
-      "total_return": -0.011233333333333333,
-      "monthly_return": -0.011233333333333333,
-      "sharpe_ratio": -0.6302773628589793,
-      "max_drawdown": 0.06281050390347764,
-      "win_rate": 0.4186046511627907,
-      "realized_pnl": -543.0,
-      "realized_pnl_pct": -1.81,
-      "floating_pnl": 206.0,
-      "floating_pnl_pct": 0.69,
-      "total_pnl": -337.0,
-      "total_pnl_pct": -1.12,
+      "current_capital": 7467.000000000001,
+      "total_value": 30111.0,
+      "total_return": 0.0037,
+      "monthly_return": 0.0037,
+      "sharpe_ratio": -1.1773217159612044,
+      "max_drawdown": 0.015055467511885896,
+      "win_rate": 0.42857142857142855,
+      "realized_pnl": -168.0,
+      "realized_pnl_pct": -0.56,
+      "floating_pnl": 279.0,
+      "floating_pnl_pct": 0.93,
+      "total_pnl": 111.0,
+      "total_pnl_pct": 0.37,
       "holdings": [
-        {
-          "symbol": "600036",
-          "name": "招商银行",
-          "buy_price": 35.85,
-          "quantity": 200,
-          "buy_date": "2026-07-03",
-          "cost": 7170.0,
-          "stock_reason": "Hurst择时:H=0.50(低波动), 近5日+2.3%",
-          "timing_reason": "MACD绿柱缩脚; RSI超卖(31.6); 温和放量上涨",
-          "hold_days": 6,
-          "current_price": 36.88,
-          "profit": 206.00000000000023,
-          "profit_pct": 2.8730822873082316
-        },
         {
           "symbol": "000858",
           "name": "五粮液",
-          "buy_price": 73.69,
+          "buy_price": 70.9,
           "quantity": 100,
-          "buy_date": "2026-07-10",
-          "cost": 7369.0,
-          "stock_reason": "Hurst择时:H=0.50(低波动), 近5日+0.7%",
-          "timing_reason": "回踩MA5; KDJ金叉; RSI超卖(40.9); 温和放量上涨",
+          "buy_date": "20260709",
+          "cost": 7090.000000000001,
+          "stock_reason": "Hurst择时:H=0.50(低波动), 近5日-3.5%",
+          "timing_reason": "RSI超卖(31.7)",
+          "hold_days": 2,
+          "current_price": 70.9,
+          "profit": 0.0,
+          "profit_pct": 0.0
+        },
+        {
+          "symbol": "600036",
+          "name": "招商银行",
+          "buy_price": 36.88,
+          "quantity": 200,
+          "buy_date": "20260710",
+          "cost": 7376.000000000001,
+          "stock_reason": "Hurst择时:H=0.50(低波动), 近5日+0.1%",
+          "timing_reason": "RSI超卖(44.4)",
           "hold_days": 1,
-          "current_price": 73.69,
+          "current_price": 36.88,
+          "profit": 0.0,
+          "profit_pct": 0.0
+        },
+        {
+          "symbol": "000333",
+          "name": "美的集团",
+          "buy_price": 78.99,
+          "quantity": 100,
+          "buy_date": "20260710",
+          "cost": 7898.999999999999,
+          "stock_reason": "Hurst择时:H=0.50(低波动), 近5日+1.3%",
+          "timing_reason": "回踩MA20",
+          "hold_days": 1,
+          "current_price": 78.99,
           "profit": 0.0,
           "profit_pct": 0.0
         }
       ],
       "trades": [
         {
-          "symbol": "000333",
-          "name": "美的集团",
-          "buy_date": "2026-06-25",
-          "buy_price": 72.87,
-          "sell_date": "2026-06-30",
-          "sell_price": 75.53,
-          "quantity": 100,
-          "profit": 266.0,
-          "profit_pct": 3.6503362151777137,
-          "hold_days": 3,
-          "stock_reason": "Hurst择时:H=0.50(低波动), 近5日-3.4%",
-          "timing_reason": "RSI超卖(30.7)",
-          "sell_reason": "跌破MA20"
-        },
-        {
-          "symbol": "000858",
-          "name": "五粮液",
-          "buy_date": "2026-06-29",
-          "buy_price": 74.0,
-          "sell_date": "2026-06-30",
-          "sell_price": 74.0,
-          "quantity": 100,
-          "profit": 0.0,
-          "profit_pct": 0.0,
+          "symbol": "600036",
+          "name": "招商银行",
+          "buy_date": "20260701",
+          "buy_price": 35.91,
+          "sell_date": "20260702",
+          "sell_price": 36.6,
+          "quantity": 200,
+          "profit": 138.0000000000009,
+          "profit_pct": 1.921470342522987,
           "hold_days": 1,
-          "stock_reason": "Hurst择时:H=0.50(低波动), 近5日-3.3%",
-          "timing_reason": "MACD绿柱缩脚; KDJ金叉; RSI超卖(28.8); 温和放量上涨",
-          "sell_reason": "跌破MA20"
-        },
-        {
-          "symbol": "600036",
-          "name": "招商银行",
-          "buy_date": "2026-06-29",
-          "buy_price": 35.45,
-          "sell_date": "2026-07-01",
-          "sell_price": 34.95,
-          "quantity": 200,
-          "profit": -100.0,
-          "profit_pct": -1.4104372355430181,
-          "hold_days": 2,
-          "stock_reason": "Hurst择时:H=0.50(低波动), 近5日-3.2%",
-          "timing_reason": "MACD绿柱缩脚; RSI超卖(31.9); 温和放量上涨",
-          "sell_reason": "跌破MA5; 跌破MA20"
-        },
-        {
-          "symbol": "000858",
-          "name": "五粮液",
-          "buy_date": "2026-06-30",
-          "buy_price": 74.0,
-          "sell_date": "2026-07-02",
-          "sell_price": 73.5,
-          "quantity": 100,
-          "profit": -50.0,
-          "profit_pct": -0.6756756756756757,
-          "hold_days": 2,
-          "stock_reason": "Hurst择时:H=0.50(低波动), 近5日-1.0%",
-          "timing_reason": "回踩MA5; RSI超卖(30.6)",
-          "sell_reason": "跌破MA5; 跌破MA20"
-        },
-        {
-          "symbol": "600036",
-          "name": "招商银行",
-          "buy_date": "2026-07-01",
-          "buy_price": 34.95,
-          "sell_date": "2026-07-03",
-          "sell_price": 35.85,
-          "quantity": 200,
-          "profit": 179.9999999999991,
-          "profit_pct": 2.575107296137326,
-          "hold_days": 2,
           "stock_reason": "Hurst择时:H=0.50(低波动), 近5日-2.3%",
           "timing_reason": "MACD绿柱缩脚; RSI超卖(27.5); 温和放量上涨",
           "sell_reason": "跌破MA20"
@@ -14584,24 +14493,39 @@
         {
           "symbol": "000858",
           "name": "五粮液",
-          "buy_date": "2026-07-02",
-          "buy_price": 73.5,
-          "sell_date": "2026-07-06",
-          "sell_price": 73.76,
+          "buy_date": "20260701",
+          "buy_price": 74.52,
+          "sell_date": "20260703",
+          "sell_price": 73.21,
           "quantity": 100,
-          "profit": 26.00000000000091,
-          "profit_pct": 0.35374149659865184,
+          "profit": -131.0000000000009,
+          "profit_pct": -1.7579173376274948,
           "hold_days": 2,
-          "stock_reason": "Hurst择时:H=0.50(低波动), 近5日-2.0%",
-          "timing_reason": "RSI超卖(27.6)",
+          "stock_reason": "Hurst择时:H=0.50(低波动), 近5日+1.7%",
+          "timing_reason": "回踩MA5; RSI超卖(33.1); 温和放量上涨",
           "sell_reason": "跌破MA5; 跌破MA20"
         },
         {
           "symbol": "000858",
           "name": "五粮液",
-          "buy_date": "2026-07-06",
+          "buy_date": "20260703",
+          "buy_price": 73.21,
+          "sell_date": "20260706",
+          "sell_price": 73.76,
+          "quantity": 100,
+          "profit": 55.00000000000182,
+          "profit_pct": 0.7512634885944792,
+          "hold_days": 1,
+          "stock_reason": "Hurst择时:H=0.50(低波动), 近5日+0.1%",
+          "timing_reason": "RSI超卖(26.4)",
+          "sell_reason": "跌破MA5; 跌破MA20"
+        },
+        {
+          "symbol": "000858",
+          "name": "五粮液",
+          "buy_date": "20260706",
           "buy_price": 73.76,
-          "sell_date": "2026-07-07",
+          "sell_date": "20260707",
           "sell_price": 71.72,
           "quantity": 100,
           "profit": -204.0000000000009,
@@ -14614,9 +14538,9 @@
         {
           "symbol": "000858",
           "name": "五粮液",
-          "buy_date": "2026-07-07",
+          "buy_date": "20260707",
           "buy_price": 71.72,
-          "sell_date": "2026-07-08",
+          "sell_date": "20260708",
           "sell_price": 71.48,
           "quantity": 100,
           "profit": -24.0,
@@ -14629,9 +14553,9 @@
         {
           "symbol": "000858",
           "name": "五粮液",
-          "buy_date": "2026-07-08",
+          "buy_date": "20260708",
           "buy_price": 71.48,
-          "sell_date": "2026-07-09",
+          "sell_date": "20260709",
           "sell_price": 70.9,
           "quantity": 100,
           "profit": -57.99999999999909,
@@ -14642,151 +14566,151 @@
           "sell_reason": "MACD红柱缩短; 跌破MA5; 跌破MA20"
         },
         {
-          "symbol": "000858",
-          "name": "五粮液",
-          "buy_date": "2026-07-09",
-          "buy_price": 70.9,
-          "sell_date": "2026-07-10",
-          "sell_price": 73.69,
-          "quantity": 100,
-          "profit": 278.9999999999991,
-          "profit_pct": 3.9351198871650075,
-          "hold_days": 1,
-          "stock_reason": "Hurst择时:H=0.50(低波动), 近5日-3.5%",
-          "timing_reason": "RSI超卖(31.7)",
-          "sell_reason": "跌破MA20"
+          "symbol": "600036",
+          "name": "招商银行",
+          "buy_date": "20260702",
+          "buy_price": 36.6,
+          "sell_date": "20260710",
+          "sell_price": 36.88,
+          "quantity": 200,
+          "profit": 56.00000000000091,
+          "profit_pct": 0.765027322404384,
+          "hold_days": 6,
+          "stock_reason": "Hurst择时:H=0.50(低波动), 近5日+1.0%",
+          "timing_reason": "MACD绿柱缩脚; KDJ金叉; RSI超卖(35.1); 温和放量上涨",
+          "sell_reason": "MACD红柱缩短; 跌破MA5; 跌破MA20"
         }
       ],
       "equity_curve": [
         {
-          "date": "2026-05-29",
-          "value": 30320.0
+          "date": "20260529",
+          "value": 30000
         },
         {
-          "date": "2026-06-01",
-          "value": 30439.0
+          "date": "20260601",
+          "value": 30000
         },
         {
-          "date": "2026-06-02",
-          "value": 30664.0
+          "date": "20260602",
+          "value": 30000
         },
         {
-          "date": "2026-06-03",
-          "value": 30570.0
+          "date": "20260603",
+          "value": 30000
         },
         {
-          "date": "2026-06-04",
-          "value": 30427.0
+          "date": "20260604",
+          "value": 30000
         },
         {
-          "date": "2026-06-05",
-          "value": 30476.0
+          "date": "20260605",
+          "value": 30000
         },
         {
-          "date": "2026-06-08",
-          "value": 30561.0
+          "date": "20260608",
+          "value": 30000
         },
         {
-          "date": "2026-06-09",
-          "value": 30566.0
+          "date": "20260609",
+          "value": 30000
         },
         {
-          "date": "2026-06-10",
-          "value": 30896.0
+          "date": "20260610",
+          "value": 30000
         },
         {
-          "date": "2026-06-11",
-          "value": 30945.0
+          "date": "20260611",
+          "value": 30000
         },
         {
-          "date": "2026-06-12",
-          "value": 30998.0
+          "date": "20260612",
+          "value": 30000
         },
         {
-          "date": "2026-06-15",
-          "value": 30725.0
+          "date": "20260615",
+          "value": 30000
         },
         {
-          "date": "2026-06-16",
-          "value": 30397.0
+          "date": "20260616",
+          "value": 30000
         },
         {
-          "date": "2026-06-17",
-          "value": 30224.0
+          "date": "20260617",
+          "value": 30000
         },
         {
-          "date": "2026-06-18",
-          "value": 29532.0
+          "date": "20260618",
+          "value": 30000
         },
         {
-          "date": "2026-06-22",
-          "value": 29705.0
+          "date": "20260622",
+          "value": 30000
         },
         {
-          "date": "2026-06-23",
-          "value": 29458.0
+          "date": "20260623",
+          "value": 30000
         },
         {
-          "date": "2026-06-24",
-          "value": 29051.0
+          "date": "20260624",
+          "value": 30000
         },
         {
-          "date": "2026-06-25",
-          "value": 29104.0
+          "date": "20260625",
+          "value": 30000
         },
         {
-          "date": "2026-06-26",
-          "value": 29256.0
+          "date": "20260626",
+          "value": 30000
         },
         {
-          "date": "2026-06-29",
-          "value": 29582.0
+          "date": "20260629",
+          "value": 30000
         },
         {
-          "date": "2026-06-30",
-          "value": 29228.0
+          "date": "20260630",
+          "value": 30000
         },
         {
-          "date": "2026-07-01",
-          "value": 29360.0
+          "date": "20260701",
+          "value": 30000.0
         },
         {
-          "date": "2026-07-02",
-          "value": 29392.0
+          "date": "20260702",
+          "value": 30036.0
         },
         {
-          "date": "2026-07-03",
-          "value": 29409.0
+          "date": "20260703",
+          "value": 30053.0
         },
         {
-          "date": "2026-07-06",
-          "value": 29638.0
+          "date": "20260706",
+          "value": 30288.0
         },
         {
-          "date": "2026-07-07",
-          "value": 29400.0
+          "date": "20260707",
+          "value": 30048.0
         },
         {
-          "date": "2026-07-08",
-          "value": 29452.0
+          "date": "20260708",
+          "value": 30102.0
         },
         {
-          "date": "2026-07-09",
-          "value": 29318.0
+          "date": "20260709",
+          "value": 29966.0
         },
         {
-          "date": "2026-07-10",
-          "value": 29663.0
+          "date": "20260710",
+          "value": 29832.0
         }
       ],
-      "backtest_start": "2026-05-26",
-      "backtest_end": "2026-07-10",
+      "backtest_start": "20260526",
+      "backtest_end": "20260710",
       "backtest_days": 33,
-      "composite_score": 22.1,
+      "composite_score": 21.7,
       "grade": "D",
-      "profit_loss_ratio": 2.153096330275227,
+      "profit_loss_ratio": 0.6335616438356159,
       "return_stability": 0,
-      "calmar_ratio": -0.17884482109227873
+      "calmar_ratio": -0.7465753424657534
     },
     {
       "name": "SEPA成长股",
