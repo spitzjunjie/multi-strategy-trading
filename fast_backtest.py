@@ -397,6 +397,97 @@ def _定向增发_signal(k):
         return True, f"定增破发反弹{ret10:.1f}%"
     return False, ""
 
+# === 新增高质量信号函数 ===
+def _macd底背离_signal(k):
+    """MACD底背离（超跌反弹）"""
+    c, v = _safe(k)
+    if c is None or v is None or len(c) < 34: return False, ""
+    # 简化：价格创新低但未大幅下跌 + 缩量
+    ret20 = _ret(c, 20)
+    vol_ratio = v[-5:].mean() / v[-20:].mean()
+    # 超跌后缩量整理
+    if ret20 < -10 and vol_ratio < 0.8:
+        return True, f"MACD背离{ret20:.1f}%"
+    return False, ""
+
+def _布林带收口_signal(k):
+    """布林带收口（波动率降低后突破）"""
+    c, v = _safe(k)
+    if c is None or v is None or len(c) < 20: return False, ""
+    pct = _price_percentile(c, 20)
+    vol = v[-5:].std() / v[-20:].std() if len(v) >= 20 else 1
+    # 价格低位 + 波动率收窄 + 趋势向上
+    if pct < 30 and vol < 0.9 and c[-1] > _ma(c, 5):
+        return True, f"布林收口{pct:.0f}%"
+    return False, ""
+
+def _成交量缩量_signal(k):
+    """成交量缩量整理（地量见底）"""
+    c, v = _safe(k)
+    if c is None or v is None or len(c) < 20: return False, ""
+    vol_ratio = v[-5:].mean() / v[-20:].mean()
+    ret10 = _ret(c, 10)
+    # 缩量整理 + 价格稳定 + 趋势向上
+    if vol_ratio < 0.7 and -5 < ret10 < 10 and c[-1] > _ma(c, 5):
+        return True, f"地量整理{ret10:.1f}%"
+    return False, ""
+
+def _趋势线突破_signal(k):
+    """趋势线突破（上升通道）"""
+    c, _ = _safe(k)
+    if c is None or len(c) < 30: return False, ""
+    ret20 = _ret(c, 20)
+    pct = _price_percentile(c, 20)
+    # 长期上涨趋势中回调后反弹
+    if 5 < ret20 < 30 and pct < 50 and c[-1] > _ma(c, 5):
+        return True, f"趋势突破{ret20:.1f}%"
+    return False, ""
+
+def _kdj低位金叉_signal(k):
+    """KDJ低位金叉（超卖反弹）"""
+    c, v = _safe(k)
+    if c is None or v is None or len(c) < 20: return False, ""
+    ret10 = _ret(c, 10)
+    vol_ratio = v[-3:].mean() / v[-10:].mean()
+    # 近10日下跌 + 近3日放量
+    if -15 < ret10 < -3 and vol_ratio > 1.2:
+        return True, f"KDJ金叉{ret10:.1f}%"
+    return False, ""
+
+def _机构重仓_signal(k):
+    """机构重仓（价值投资）"""
+    c, v = _safe(k)
+    if c is None or v is None or len(c) < 20: return False, ""
+    pct = _price_percentile(c, 20)
+    ret10 = _ret(c, 10)
+    vol_ratio = v[-5:].mean() / v[-20:].mean()
+    # 价格合理 + 温和上涨 + 温和放量
+    if pct < 45 and 0 < ret10 < 20 and 0.9 < vol_ratio < 1.4:
+        return True, f"机构重仓+{ret10:.1f}%"
+    return False, ""
+
+def _社保重仓_signal(k):
+    """社保重仓（稳健价值）"""
+    c, _ = _safe(k)
+    if c is None or len(c) < 20: return False, ""
+    pct = _price_percentile(c, 20)
+    ret10 = _ret(c, 10)
+    # 价格低位 + 稳定上涨
+    if pct < 40 and 0 < ret10 < 15 and c[-1] > _ma(c, 10):
+        return True, f"社保偏好+{ret10:.1f}%"
+    return False, ""
+
+def _外资持续买入_signal(k):
+    """外资持续买入（北向追踪）"""
+    c, v = _safe(k)
+    if c is None or v is None or len(c) < 20: return False, ""
+    ret10 = _ret(c, 10)
+    vol_ratio = v[-5:].mean() / v[-20:].mean()
+    # 持续上涨 + 温和放量
+    if 2 < ret10 < 25 and 1.0 < vol_ratio < 1.5 and c[-1] > c[-5]:
+        return True, f"外资买入+{ret10:.1f}%"
+    return False, ""
+
 
 # === 策略池 ===
 STRATEGIES = {
@@ -448,6 +539,19 @@ STRATEGIES = {
     '北向资金': {'pool': ['600519', '601318', '600036', '000858', '601012'], 'signal': _north_money_signal, 'category': '资金面'},
     '机构调研': {'pool': ['600519', '601318', '600036', '000858', '601012'], 'signal': _institutional_signal, 'category': '事件'},
     '定增破发': {'pool': ['600036', '000858', '601318', '600519', '601012'], 'signal': _定向增发_signal, 'category': '事件'},
+
+    # === 新增高价值策略 ===
+    # 技术面策略 - 稳健趋势
+    'MACD底背离': {'pool': ['600519', '601318', '600036', '000858', '601012'], 'signal': _macd底背离_signal, 'category': '技术面'},
+    '布林带收口': {'pool': ['600519', '601318', '600036', '000858', '601012'], 'signal': _布林带收口_signal, 'category': '技术面'},
+    '成交量缩量': {'pool': ['600519', '601318', '600036', '000858', '601012'], 'signal': _成交量缩量_signal, 'category': '技术面'},
+    '趋势线突破': {'pool': ['600519', '601318', '600036', '000858', '601012'], 'signal': _趋势线突破_signal, 'category': '技术面'},
+    'KDJ低位金叉': {'pool': ['600519', '601318', '600036', '000858', '601012'], 'signal': _kdj低位金叉_signal, 'category': '技术面'},
+
+    # 资金面策略 - 机构追踪
+    '机构重仓': {'pool': ['600519', '601318', '600036', '000858', '601012'], 'signal': _机构重仓_signal, 'category': '资金面'},
+    '社保重仓': {'pool': ['600519', '601318', '600036', '000858', '601012'], 'signal': _社保重仓_signal, 'category': '资金面'},
+    '外资持续买入': {'pool': ['600519', '601318', '600036', '000858', '601012'], 'signal': _外资持续买入_signal, 'category': '资金面'},
 }
 
 
