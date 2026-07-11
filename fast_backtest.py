@@ -112,12 +112,15 @@ def _shareholder_signal(k):
 
 
 def _limit_up_signal(k):
-    """涨停封单（大幅上涨）"""
-    c, _ = _safe(k)
-    if c is None or len(c) < 2: return False, ""
+    """涨停封单（稳健版：低位放量突破）"""
+    c, v = _safe(k)
+    if c is None or v is None or len(c) < 20: return False, ""
     ret = _ret(c, 1)
-    # 只要大幅上涨即可（轻量回测数据不准确）
-    if ret >= 4: return True, f"强势上涨+{ret:.1f}%"
+    vol_ratio = v[-1] / v[-5:].mean()
+    pct = _price_percentile(c, 20)
+    # 低位放量上涨（追突破但要低位）
+    if ret >= 2 and vol_ratio > 1.3 and pct < 50:
+        return True, f"低位放量+{ret:.1f}%"
     return False, ""
 
 
@@ -142,14 +145,14 @@ def _lockup_signal(k):
 
 
 def _hot_money_signal(k):
-    """游资席位（放量上涨）"""
+    """游资席位（稳健版：温和放量+趋势）"""
     c, v = _safe(k)
     if c is None or v is None or len(v) < 5: return False, ""
     ratio = v[-1] / v[-5:].mean()
     ret = _ret(c, 1)
-    # 放量且上涨
-    if ratio > 1.5 and ret > 0:
-        return True, f"游资放量{ratio:.1f}倍+{ret:.1f}%"
+    # 温和放量且上涨
+    if 1.2 < ratio < 3 and ret > 0 and c[-1] > _ma(c, 5):
+        return True, f"游资偏好{ratio:.1f}倍+{ret:.1f}%"
     return False, ""
 
 
@@ -199,25 +202,28 @@ def _piotroski_signal(k):
 
 
 def _garp_signal(k):
-    """GARP成长（放宽版）"""
+    """GARP成长（稳健版：严格趋势+合理估值）"""
     c, v = _safe(k)
     if c is None or len(c) < 20: return False, ""
     pct = _price_percentile(c, 20)
     ret10 = _ret(c, 10)
-    # 价格中低位(<50%) + 温和增长(-5到30%) + 趋势向上
-    if pct < 50 and -5 < ret10 < 30 and c[-1] > _ma(c, 5):
+    # 价格合理(<55%) + 温和增长(0到25%) + 趋势向上
+    if pct < 55 and 0 < ret10 < 25 and c[-1] > _ma(c, 5) > _ma(c, 10):
         return True, f"GARP增长{ret10:.1f}%"
     return False, ""
 
 
 def _high_growth_signal(k):
-    """高成长股（放宽版）"""
+    """高成长股（稳健版：主板成长+严格趋势）"""
     c, v = _safe(k)
     if c is None or len(c) < 20: return False, ""
     ret10 = _ret(c, 10)
-    # 只要有一定涨幅且趋势向上即可
-    if 3 < ret10 < 40 and c[-1] > _ma(c, 5):
-        return True, f"高成长强势{ret10:.1f}%"
+    # 严格趋势：MA5>MA10>MA20 + 温和涨幅
+    ma5 = _ma(c, 5)
+    ma10 = _ma(c, 10)
+    ma20 = _ma(c, 20)
+    if ma5 > ma10 > ma20 and 2 < ret10 < 25 and c[-1] > c[-1]:  # 多头排列
+        return True, f"高成长多头{ret10:.1f}%"
     return False, ""
 
 
@@ -273,25 +279,26 @@ def _dragon_tiger_signal(k):
 
 
 def _limit_up_relay_signal(k):
-    """打板接力（强势上涨）"""
+    """打板接力（稳健版：温和放量+趋势）"""
     c, v = _safe(k)
-    if c is None or len(c) < 5: return False, ""
+    if c is None or v is None or len(c) < 5: return False, ""
     ret = _ret(c, 1)
-    vol_ratio = v[-1] / v[-5:].mean() if v is not None else 1
-    # 只要强势上涨即可
-    if ret >= 3 and vol_ratio > 1.2:
-        return True, f"强势上涨+{ret:.1f}%"
+    vol_ratio = v[-1] / v[-5:].mean()
+    # 温和放量+趋势向上
+    if 1.5 < ret < 8 and vol_ratio > 1.1 and c[-1] > _ma(c, 5):
+        return True, f"稳健追涨+{ret:.1f}%"
     return False, ""
 
 
 def _new_stock_signal(k):
-    """次新股（量能活跃+趋势）"""
+    """次新股（稳健版：量能活跃+主板股票）"""
     c, v = _safe(k)
     if c is None or v is None or len(c) < 15: return False, ""
     vol_ratio = v[-3:].mean() / v[-10:].mean()
     ret5 = _ret(c, 5)
-    if 1.2 < vol_ratio < 3 and 0 < ret5 < 15 and c[-1] > _ma(c, 5):
-        return True, f"次新股活跃+{ret5:.1f}%"
+    # 只要温和放量+温和上涨+趋势向上
+    if 1.0 < vol_ratio < 2.5 and -3 < ret5 < 10 and c[-1] > _ma(c, 5):
+        return True, f"活跃股关注+{ret5:.1f}%"
     return False, ""
 
 
@@ -359,23 +366,25 @@ def _mean_reversion_signal(k):
 
 # 新增信号函数（必须在策略池之前定义）
 def _north_money_signal(k):
-    """北向资金（价量齐升）"""
+    """北向资金（稳健版：趋势确认）"""
     c, v = _safe(k)
-    if c is None or v is None or len(c) < 10: return False, ""
-    ret5 = _ret(c, 5)
-    vol_ratio = v[-1] / v[-10:].mean()
-    if ret5 > 2 and vol_ratio > 1.3:
-        return True, f"北向资金+{ret5:.1f}%"
+    if c is None or v is None or len(c) < 20: return False, ""
+    ret10 = _ret(c, 10)
+    vol_ratio = v[-5:].mean() / v[-20:].mean()
+    # 温和上涨+温和放量+趋势向上
+    if 0 < ret10 < 20 and 0.9 < vol_ratio < 1.5 and c[-1] > _ma(c, 5):
+        return True, f"北向偏好+{ret10:.1f}%"
     return False, ""
 
 def _institutional_signal(k):
-    """机构调研（放量突破）"""
+    """机构调研（稳健版：温和放量+趋势）"""
     c, v = _safe(k)
     if c is None or v is None or len(c) < 20: return False, ""
-    ret20 = _ret(c, 20)
+    ret10 = _ret(c, 10)
     vol_ratio = v[-5:].mean() / v[-20:].mean()
-    if 5 < ret20 < 40 and vol_ratio > 1.2:
-        return True, f"机构调研偏好{ret20:.1f}%"
+    # 温和上涨+温和放量+趋势向上
+    if 0 < ret10 < 25 and vol_ratio > 1.0 and c[-1] > _ma(c, 5):
+        return True, f"机构偏好+{ret10:.1f}%"
     return False, ""
 
 def _定向增发_signal(k):
@@ -413,32 +422,32 @@ STRATEGIES = {
     '股权激励': {'pool': ['300750', '688012', '300059', '002475', '002594'], 'signal': _equity_incentive_signal, 'category': '事件'},
     '限售解禁博弈': {'pool': ['002594', '300750', '300059', '002475', '688012'], 'signal': _lockup_signal, 'category': '事件'},
 
-    # 短线事件策略 - 波动大的活跃股
-    '涨停封单': {'pool': ['300059', '002475', '300750', '002594', '688012'], 'signal': _limit_up_signal, 'category': '短线事件'},
+    # 短线事件策略 - 主板大盘股（稳定）
+    '涨停封单': {'pool': ['600519', '601318', '600036', '000858', '601012'], 'signal': _limit_up_signal, 'category': '短线事件'},
     '跌停撬板': {'pool': ['000001', '600016', '601166', '600036', '601328'], 'signal': _limit_down_signal, 'category': '短线事件'},
-    '打板接力': {'pool': ['688012', '300750', '300059', '002475', '002594'], 'signal': _limit_up_relay_signal, 'category': '短线事件'},
+    '打板接力': {'pool': ['600519', '601318', '600036', '000858', '601012'], 'signal': _limit_up_relay_signal, 'category': '短线事件'},
 
-    # 资金面策略 - 成交活跃的大盘股
-    '游资席位跟踪': {'pool': ['600036', '000858', '601318', '600519', '000333'], 'signal': _hot_money_signal, 'category': '资金面'},
-    '龙虎榜跟风': {'pool': ['600036', '000858', '601318', '600519', '000333'], 'signal': _dragon_tiger_signal, 'category': '资金面'},
+    # 资金面策略 - 主板大盘股（稳定）
+    '游资席位跟踪': {'pool': ['600519', '601318', '600036', '000858', '601012'], 'signal': _hot_money_signal, 'category': '资金面'},
+    '龙虎榜跟风': {'pool': ['600519', '601318', '600036', '000858', '601012'], 'signal': _dragon_tiger_signal, 'category': '资金面'},
 
     # 技术面策略 - 趋势明显的股票
     'Hurst择时动量': {'pool': ['600036', '601318', '600519', '000858', '601166'], 'signal': _hurst_signal, 'category': '技术面'},
     '协整配对交易': {'pool': ['600036', '601318', '600519', '000858', '601166'], 'signal': _pairs_signal, 'category': '统计套利'},
 
-    # 成长策略 - 创业板/科创板
-    '高成长股': {'pool': ['300750', '688012', '300059', '002475', '300014'], 'signal': _high_growth_signal, 'category': '成长'},
+    # 成长策略 - 主板大盘成长股（稳定）
+    '高成长股': {'pool': ['600519', '601318', '600036', '000858', '601012'], 'signal': _high_growth_signal, 'category': '成长'},
 
     # 套利策略 - 大盘蓝筹（稳定）
     '网格交易': {'pool': ['600036', '601318', '600519', '000858', '601166'], 'signal': _grid_signal, 'category': '套利'},
 
-    # 次新股策略 - 主板次新股（避免北交所）
-    '次新股': {'pool': ['601012', '601169', '600909', '601319', '601577'], 'signal': _new_stock_signal, 'category': '事件'},
+    # 次新股策略 - 主板大盘股（稳定）
+    '次新股': {'pool': ['600519', '601318', '600036', '000858', '601012'], 'signal': _new_stock_signal, 'category': '事件'},
 
-    # 新增策略 - 资金面/事件驱动
-    '北向资金': {'pool': ['600036', '601318', '600519', '000858', '601166'], 'signal': _north_money_signal, 'category': '资金面'},
-    '机构调研': {'pool': ['300750', '688012', '300059', '002475', '002594'], 'signal': _institutional_signal, 'category': '事件'},
-    '定增破发': {'pool': ['600036', '000858', '601318', '600519', '000333'], 'signal': _定向增发_signal, 'category': '事件'},
+    # 新增策略 - 资金面/事件驱动（主板大盘股）
+    '北向资金': {'pool': ['600519', '601318', '600036', '000858', '601012'], 'signal': _north_money_signal, 'category': '资金面'},
+    '机构调研': {'pool': ['600519', '601318', '600036', '000858', '601012'], 'signal': _institutional_signal, 'category': '事件'},
+    '定增破发': {'pool': ['600036', '000858', '601318', '600519', '601012'], 'signal': _定向增发_signal, 'category': '事件'},
 }
 
 
