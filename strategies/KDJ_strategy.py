@@ -63,19 +63,36 @@ class KDJStrategy(BaseStrategy):
         results = []
         scored = []
 
-        # 模拟热门股票池
-        kdj_stocks = [
+        # 扩大的股票池
+        stock_pool = [
             {'symbol': '600519', 'name': '贵州茅台'},
-            {'symbol': '601398', 'name': '工商银行'},
-            {'symbol': '601328', 'name': '交通银行'},
-            {'symbol': '601166', 'name': '兴业银行'},
-            {'symbol': '600036', 'name': '招商银行'},
+            {'symbol': '000858', 'name': '五粮液'},
             {'symbol': '601318', 'name': '中国平安'},
-            {'symbol': '600016', 'name': '民生银行'},
-            {'symbol': '601288', 'name': '农业银行'},
+            {'symbol': '600036', 'name': '招商银行'},
+            {'symbol': '000333', 'name': '美的集团'},
+            {'symbol': '002714', 'name': '牧原股份'},
+            {'symbol': '300750', 'name': '宁德时代'},
+            {'symbol': '688981', 'name': '中芯国际'},
+            {'symbol': '601138', 'name': '工业富联'},
+            {'symbol': '300059', 'name': '东方财富'},
+            {'symbol': '002415', 'name': '海康威视'},
+            {'symbol': '600900', 'name': '长江电力'},
+            {'symbol': '601888', 'name': '中国中免'},
+            {'symbol': '600030', 'name': '中信证券'},
+            {'symbol': '002475', 'name': '立讯精密'},
+            {'symbol': '300274', 'name': '阳光电源'},
+            {'symbol': '601012', 'name': '隆基绿能'},
+            {'symbol': '600276', 'name': '恒瑞医药'},
+            {'symbol': '000001', 'name': '平安银行'},
+            {'symbol': '002352', 'name': '顺丰控股'},
+            {'symbol': '600028', 'name': '中国石化'},
+            {'symbol': '601857', 'name': '中国石油'},
+            {'symbol': '002594', 'name': '比亚迪'},
+            {'symbol': '300015', 'name': '爱尔眼科'},
+            {'symbol': '601166', 'name': '兴业银行'},
         ]
 
-        for stock in kdj_stocks:
+        for stock in stock_pool:
             try:
                 kline = helper.get_history_kline(stock['symbol'], days=30, end_date=date)
                 if kline.empty or len(kline) < 20:
@@ -89,12 +106,12 @@ class KDJStrategy(BaseStrategy):
 
                 if k and d and j:
                     scored.append((k, d, j, stock))
-                    # 检查超卖金叉
-                    if k < self.oversold and k > d and len(prices) >= 2:
+                    # 检查超卖金叉（放宽到50）
+                    if k < 50 and k > d and len(prices) >= 2:
                         results.append({
                             'symbol': stock['symbol'],
                             'name': stock['name'],
-                            'reason': f"KDJ超卖金叉：K={k:.1f}, D={d:.1f}, J={j:.1f}"
+                            'reason': f"KDJ金叉：K={k:.1f}, D={d:.1f}, J={j:.1f}"
                         })
 
                 if len(results) >= self.top_n:

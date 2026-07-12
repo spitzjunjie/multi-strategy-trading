@@ -55,19 +55,36 @@ class GoldenCrossStrategy(BaseStrategy):
         """选股：MACD金叉"""
         results = []
         
-        # 模拟热门股票池
-        macd_stocks = [
+        # 扩大的股票池
+        stock_pool = [
             {'symbol': '600519', 'name': '贵州茅台'},
-            {'symbol': '601398', 'name': '工商银行'},
-            {'symbol': '601328', 'name': '交通银行'},
-            {'symbol': '601166', 'name': '兴业银行'},
-            {'symbol': '600036', 'name': '招商银行'},
+            {'symbol': '000858', 'name': '五粮液'},
             {'symbol': '601318', 'name': '中国平安'},
-            {'symbol': '600016', 'name': '民生银行'},
-            {'symbol': '601288', 'name': '农业银行'},
+            {'symbol': '600036', 'name': '招商银行'},
+            {'symbol': '000333', 'name': '美的集团'},
+            {'symbol': '002714', 'name': '牧原股份'},
+            {'symbol': '300750', 'name': '宁德时代'},
+            {'symbol': '688981', 'name': '中芯国际'},
+            {'symbol': '601138', 'name': '工业富联'},
+            {'symbol': '300059', 'name': '东方财富'},
+            {'symbol': '002415', 'name': '海康威视'},
+            {'symbol': '600900', 'name': '长江电力'},
+            {'symbol': '601888', 'name': '中国中免'},
+            {'symbol': '600030', 'name': '中信证券'},
+            {'symbol': '002475', 'name': '立讯精密'},
+            {'symbol': '300274', 'name': '阳光电源'},
+            {'symbol': '601012', 'name': '隆基绿能'},
+            {'symbol': '600276', 'name': '恒瑞医药'},
+            {'symbol': '000001', 'name': '平安银行'},
+            {'symbol': '002352', 'name': '顺丰控股'},
+            {'symbol': '600028', 'name': '中国石化'},
+            {'symbol': '601857', 'name': '中国石油'},
+            {'symbol': '002594', 'name': '比亚迪'},
+            {'symbol': '300015', 'name': '爱尔眼科'},
+            {'symbol': '601166', 'name': '兴业银行'},
         ]
         
-        for stock in macd_stocks:
+        for stock in stock_pool:
             try:
                 kline = helper.get_history_kline(stock['symbol'], days=60)
                 if kline.empty or len(kline) < 40:
@@ -80,8 +97,8 @@ class GoldenCrossStrategy(BaseStrategy):
                     
                 dif, dea, _ = result
                 
-                # 检查金叉
-                if len(dif) >= 2 and dif[-1] > dea[-1] and dif[-2] <= dea[-2] and dif[-1] > 0:
+                # 检查金叉（放宽条件）
+                if len(dif) >= 2 and dif[-1] > dea[-1] and dif[-2] <= dea[-2]:
                     results.append({
                         'symbol': stock['symbol'],
                         'name': stock['name'],
@@ -92,5 +109,33 @@ class GoldenCrossStrategy(BaseStrategy):
                     break
             except:
                 continue
-                
+        
+        # 兜底：返回MACD多头排列的股票（DIF>DEA）
+        if not results:
+            for stock in stock_pool:
+                try:
+                    kline = helper.get_history_kline(stock['symbol'], days=60)
+                    if kline.empty or len(kline) < 40:
+                        continue
+                    
+                    prices = kline['close'].values
+                    result = self.calculate_macd(prices)
+                    if result[0] is None:
+                        continue
+                    
+                    dif, dea, _ = result
+                    
+                    # MACD多头排列
+                    if dif[-1] > dea[-1] > 0:
+                        results.append({
+                            'symbol': stock['symbol'],
+                            'name': stock['name'],
+                            'reason': f"MACD多头排列：DIF={dif[-1]:.3f}, DEA={dea[-1]:.3f}"
+                        })
+                    
+                    if len(results) >= self.top_n:
+                        break
+                except:
+                    continue
+        
         return results[:self.top_n]
