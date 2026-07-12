@@ -1,10 +1,10 @@
 {
-  "update_time": "2026-07-12 00:50:47",
+  "update_time": "2026-07-12 19:30:15",
   "backtest_type": "historical",
   "backtest_start": "2026-05-26",
   "backtest_end": "2026-07-07",
   "backtest_days": 30,
-  "strategy_count": 34,
+  "strategy_count": 92,
   "strategies": [
     {
       "name": "多周期共振",
@@ -2679,6 +2679,660 @@
       "backtest_days": 30
     },
     {
+      "name": "量价突破",
+      "category": "技术突破",
+      "version": "1.0.0",
+      "description": "放量突破前期高点，捕捉动能启动",
+      "initial_capital": 30000,
+      "current_capital": 21429.0,
+      "total_value": 31096.0,
+      "total_return": 0.036533333333333334,
+      "monthly_return": 0.036533333333333334,
+      "sharpe_ratio": 1.8681543483132792,
+      "max_drawdown": 0.03860391327340032,
+      "win_rate": 0.38095238095238093,
+      "realized_pnl": 1096.0,
+      "realized_pnl_pct": 3.65,
+      "floating_pnl": 0.0,
+      "floating_pnl_pct": 0.0,
+      "total_pnl": 1096.0,
+      "total_pnl_pct": 3.65,
+      "holdings": [
+        {
+          "symbol": "000301",
+          "name": "000301",
+          "buy_price": 13.81,
+          "quantity": 700,
+          "buy_date": "2026-07-06",
+          "cost": 9667.0,
+          "stock_reason": "放量突破20日高点，量比2.55",
+          "timing_reason": "温和放量上涨; 均线多头排列",
+          "hold_days": 2,
+          "current_price": 13.81,
+          "profit": 0.0,
+          "profit_pct": 0.0
+        }
+      ],
+      "trades": [
+        {
+          "symbol": "000301",
+          "name": "000301",
+          "buy_date": "2026-06-10",
+          "buy_price": 11.72,
+          "sell_date": "2026-06-11",
+          "sell_price": 11.61,
+          "quantity": 800,
+          "profit": -88.0,
+          "profit_pct": -0.938566552901024,
+          "hold_days": 1,
+          "stock_reason": "放量突破20日高点，量比2.55",
+          "timing_reason": "回踩MA5; MACD绿柱缩脚; RSI超卖(32.1); 温和放量上涨",
+          "sell_reason": "跌破MA5; 跌破MA20"
+        },
+        {
+          "symbol": "000301",
+          "name": "000301",
+          "buy_date": "2026-06-11",
+          "buy_price": 11.61,
+          "sell_date": "2026-06-12",
+          "sell_price": 11.88,
+          "quantity": 800,
+          "profit": 216.0,
+          "profit_pct": 2.3255813953488373,
+          "hold_days": 1,
+          "stock_reason": "放量突破20日高点，量比2.55",
+          "timing_reason": "MACD绿柱缩脚; RSI超卖(32.4)",
+          "sell_reason": "跌破MA20"
+        },
+        {
+          "symbol": "000301",
+          "name": "000301",
+          "buy_date": "2026-06-12",
+          "buy_price": 11.88,
+          "sell_date": "2026-06-18",
+          "sell_price": 11.59,
+          "quantity": 800,
+          "profit": -232.0,
+          "profit_pct": -2.441077441077441,
+          "hold_days": 4,
+          "stock_reason": "放量突破20日高点，量比2.55",
+          "timing_reason": "回踩MA5; MACD绿柱缩脚; KDJ超卖金叉; RSI超卖(39.8); 温和放量上涨",
+          "sell_reason": "MACD红柱缩短; 跌破MA5; 跌破MA20"
+        },
+        {
+          "symbol": "000301",
+          "name": "000301",
+          "buy_date": "2026-06-18",
+          "buy_price": 11.59,
+          "sell_date": "2026-06-22",
+          "sell_price": 12.14,
+          "quantity": 800,
+          "profit": 440.0,
+          "profit_pct": 4.745470232959448,
+          "hold_days": 1,
+          "stock_reason": "放量突破20日高点，量比2.55",
+          "timing_reason": "RSI超卖(44.4)",
+          "sell_reason": "跌破MA5"
+        },
+        {
+          "symbol": "000301",
+          "name": "000301",
+          "buy_date": "2026-06-22",
+          "buy_price": 12.14,
+          "sell_date": "2026-06-23",
+          "sell_price": 11.89,
+          "quantity": 800,
+          "profit": -200.0,
+          "profit_pct": -2.059308072487644,
+          "hold_days": 1,
+          "stock_reason": "放量突破20日高点，量比2.55",
+          "timing_reason": "回踩MA20; KDJ金叉; RSI超卖(49.3); 温和放量上涨",
+          "sell_reason": "MACD红柱缩短; 跌破MA5; 跌破MA20"
+        },
+        {
+          "symbol": "000301",
+          "name": "000301",
+          "buy_date": "2026-06-23",
+          "buy_price": 11.89,
+          "sell_date": "2026-06-25",
+          "sell_price": 11.54,
+          "quantity": 800,
+          "profit": -280.0,
+          "profit_pct": -2.943650126156434,
+          "hold_days": 2,
+          "stock_reason": "放量突破20日高点，量比2.55",
+          "timing_reason": "RSI超卖(47.1)",
+          "sell_reason": "MACD红柱缩短; MACD死叉; 跌破MA5; 跌破MA20"
+        },
+        {
+          "symbol": "000301",
+          "name": "000301",
+          "buy_date": "2026-06-25",
+          "buy_price": 11.54,
+          "sell_date": "2026-06-26",
+          "sell_price": 11.39,
+          "quantity": 800,
+          "profit": -120.0,
+          "profit_pct": -1.2998266897746966,
+          "hold_days": 1,
+          "stock_reason": "放量突破20日高点，量比2.55",
+          "timing_reason": "RSI超卖(49.2)",
+          "sell_reason": "跌破MA5; 跌破MA20"
+        },
+        {
+          "symbol": "000301",
+          "name": "000301",
+          "buy_date": "2026-06-26",
+          "buy_price": 11.39,
+          "sell_date": "2026-06-29",
+          "sell_price": 11.3,
+          "quantity": 800,
+          "profit": -72.0,
+          "profit_pct": -0.7901668129938543,
+          "hold_days": 1,
+          "stock_reason": "放量突破20日高点，量比2.55",
+          "timing_reason": "RSI超卖(45.1)",
+          "sell_reason": "跌破MA5; 跌破MA20"
+        },
+        {
+          "symbol": "000301",
+          "name": "000301",
+          "buy_date": "2026-06-29",
+          "buy_price": 11.3,
+          "sell_date": "2026-06-30",
+          "sell_price": 11.45,
+          "quantity": 800,
+          "profit": 120.0,
+          "profit_pct": 1.3274336283185841,
+          "hold_days": 1,
+          "stock_reason": "放量突破20日高点，量比2.55",
+          "timing_reason": "RSI超卖(48.5)",
+          "sell_reason": "跌破MA5; 跌破MA20"
+        },
+        {
+          "symbol": "000301",
+          "name": "000301",
+          "buy_date": "2026-06-30",
+          "buy_price": 11.45,
+          "sell_date": "2026-07-06",
+          "sell_price": 13.81,
+          "quantity": 800,
+          "profit": 1888.0,
+          "profit_pct": 20.611353711790393,
+          "hold_days": 4,
+          "stock_reason": "放量突破20日高点，量比2.55",
+          "timing_reason": "MACD绿柱缩脚; RSI超卖(47.3); 温和放量上涨",
+          "sell_reason": "止盈(20.6%)"
+        }
+      ],
+      "equity_curve": [
+        {
+          "date": "2026-05-26",
+          "value": 30000.0
+        },
+        {
+          "date": "2026-05-27",
+          "value": 29840.0
+        },
+        {
+          "date": "2026-05-28",
+          "value": 29808.0
+        },
+        {
+          "date": "2026-05-29",
+          "value": 29688.0
+        },
+        {
+          "date": "2026-06-01",
+          "value": 29808.0
+        },
+        {
+          "date": "2026-06-02",
+          "value": 29776.0
+        },
+        {
+          "date": "2026-06-03",
+          "value": 29552.0
+        },
+        {
+          "date": "2026-06-04",
+          "value": 29344.0
+        },
+        {
+          "date": "2026-06-05",
+          "value": 29528.0
+        },
+        {
+          "date": "2026-06-08",
+          "value": 29192.0
+        },
+        {
+          "date": "2026-06-09",
+          "value": 29392.0
+        },
+        {
+          "date": "2026-06-10",
+          "value": 29424.0
+        },
+        {
+          "date": "2026-06-11",
+          "value": 29336.0
+        },
+        {
+          "date": "2026-06-12",
+          "value": 29552.0
+        },
+        {
+          "date": "2026-06-15",
+          "value": 30256.0
+        },
+        {
+          "date": "2026-06-16",
+          "value": 30008.0
+        },
+        {
+          "date": "2026-06-17",
+          "value": 29864.0
+        },
+        {
+          "date": "2026-06-18",
+          "value": 29320.0
+        },
+        {
+          "date": "2026-06-22",
+          "value": 29760.0
+        },
+        {
+          "date": "2026-06-23",
+          "value": 29560.0
+        },
+        {
+          "date": "2026-06-24",
+          "value": 29672.0
+        },
+        {
+          "date": "2026-06-25",
+          "value": 29280.0
+        },
+        {
+          "date": "2026-06-26",
+          "value": 29160.0
+        },
+        {
+          "date": "2026-06-29",
+          "value": 29088.0
+        },
+        {
+          "date": "2026-06-30",
+          "value": 29208.0
+        },
+        {
+          "date": "2026-07-01",
+          "value": 29664.0
+        },
+        {
+          "date": "2026-07-02",
+          "value": 29744.0
+        },
+        {
+          "date": "2026-07-03",
+          "value": 30088.0
+        },
+        {
+          "date": "2026-07-06",
+          "value": 31096.0
+        },
+        {
+          "date": "2026-07-07",
+          "value": 31096.0
+        }
+      ],
+      "backtest_start": "2026-05-26",
+      "backtest_end": "2026-07-07",
+      "backtest_days": 30
+    },
+    {
+      "name": "北向资金跟投",
+      "category": "事件驱动",
+      "version": "1.0.0",
+      "description": "北向资金持续净买入，跟投外资",
+      "initial_capital": 30000,
+      "current_capital": 2280.0,
+      "total_value": 31068.0,
+      "total_return": 0.0356,
+      "monthly_return": 0.0356,
+      "sharpe_ratio": 1.4106171246409587,
+      "max_drawdown": 0.0406062339147841,
+      "win_rate": 0.5217391304347826,
+      "realized_pnl": 1068.0,
+      "realized_pnl_pct": 3.56,
+      "floating_pnl": 0.0,
+      "floating_pnl_pct": 0.0,
+      "total_pnl": 1068.0,
+      "total_pnl_pct": 3.56,
+      "holdings": [
+        {
+          "symbol": "000100",
+          "name": "000100",
+          "buy_price": 5.19,
+          "quantity": 1900,
+          "buy_date": "2026-07-06",
+          "cost": 9861.0,
+          "stock_reason": "北向持股=3.41%",
+          "timing_reason": "均线多头排列",
+          "hold_days": 2,
+          "current_price": 5.19,
+          "profit": 0.0,
+          "profit_pct": 0.0
+        },
+        {
+          "symbol": "000001",
+          "name": "000001",
+          "buy_price": 10.5,
+          "quantity": 900,
+          "buy_date": "2026-07-07",
+          "cost": 9450.0,
+          "stock_reason": "北向持股=3.87%",
+          "timing_reason": "回踩MA5; MACD绿柱缩脚; RSI超卖(34.9); 温和放量上涨",
+          "hold_days": 1,
+          "current_price": 10.5,
+          "profit": 0.0,
+          "profit_pct": 0.0
+        },
+        {
+          "symbol": "000157",
+          "name": "000157",
+          "buy_price": 7.29,
+          "quantity": 1300,
+          "buy_date": "2026-07-07",
+          "cost": 9477.0,
+          "stock_reason": "北向持股=4.92%",
+          "timing_reason": "MACD绿柱缩脚; KDJ超卖金叉; KDJ金叉; RSI超卖(39.2); 温和放量上涨",
+          "hold_days": 1,
+          "current_price": 7.29,
+          "profit": 0.0,
+          "profit_pct": 0.0
+        }
+      ],
+      "trades": [
+        {
+          "symbol": "000001",
+          "name": "000001",
+          "buy_date": "2026-06-29",
+          "buy_price": 10.24,
+          "sell_date": "2026-07-01",
+          "sell_price": 10.16,
+          "quantity": 900,
+          "profit": -72.0,
+          "profit_pct": -0.78125,
+          "hold_days": 2,
+          "stock_reason": "北向持股=3.87%",
+          "timing_reason": "RSI超卖(39.0); 温和放量上涨",
+          "sell_reason": "跌破MA5; 跌破MA20"
+        },
+        {
+          "symbol": "000157",
+          "name": "000157",
+          "buy_date": "2026-06-30",
+          "buy_price": 6.97,
+          "sell_date": "2026-07-01",
+          "sell_price": 7.0,
+          "quantity": 1400,
+          "profit": 42.0,
+          "profit_pct": 0.430416068866571,
+          "hold_days": 1,
+          "stock_reason": "北向持股=4.92%",
+          "timing_reason": "RSI超卖(32.8)",
+          "sell_reason": "跌破MA5; 跌破MA20"
+        },
+        {
+          "symbol": "000100",
+          "name": "000100",
+          "buy_date": "2026-06-30",
+          "buy_price": 5.82,
+          "sell_date": "2026-07-02",
+          "sell_price": 5.92,
+          "quantity": 1700,
+          "profit": 170.0,
+          "profit_pct": 1.718213058419244,
+          "hold_days": 2,
+          "stock_reason": "北向持股=3.41%",
+          "timing_reason": "回踩MA5; 均线多头排列",
+          "sell_reason": "MACD红柱缩短; RSI超买(77.4)"
+        },
+        {
+          "symbol": "000157",
+          "name": "000157",
+          "buy_date": "2026-07-01",
+          "buy_price": 7.0,
+          "sell_date": "2026-07-02",
+          "sell_price": 6.98,
+          "quantity": 1400,
+          "profit": -28.0,
+          "profit_pct": -0.2857142857142857,
+          "hold_days": 1,
+          "stock_reason": "北向持股=4.92%",
+          "timing_reason": "RSI超卖(38.7); 温和放量上涨",
+          "sell_reason": "跌破MA5; 跌破MA20"
+        },
+        {
+          "symbol": "000001",
+          "name": "000001",
+          "buy_date": "2026-07-01",
+          "buy_price": 10.16,
+          "sell_date": "2026-07-03",
+          "sell_price": 10.29,
+          "quantity": 900,
+          "profit": 117.0,
+          "profit_pct": 1.279527559055118,
+          "hold_days": 2,
+          "stock_reason": "北向持股=3.87%",
+          "timing_reason": "MACD绿柱缩脚; RSI超卖(30.2); 温和放量上涨",
+          "sell_reason": "跌破MA20"
+        },
+        {
+          "symbol": "000157",
+          "name": "000157",
+          "buy_date": "2026-07-02",
+          "buy_price": 6.98,
+          "sell_date": "2026-07-03",
+          "sell_price": 7.17,
+          "quantity": 1400,
+          "profit": 266.0,
+          "profit_pct": 2.722063037249284,
+          "hold_days": 1,
+          "stock_reason": "北向持股=4.92%",
+          "timing_reason": "RSI超卖(40.4)",
+          "sell_reason": "跌破MA20"
+        },
+        {
+          "symbol": "000100",
+          "name": "000100",
+          "buy_date": "2026-07-02",
+          "buy_price": 5.92,
+          "sell_date": "2026-07-06",
+          "sell_price": 5.19,
+          "quantity": 1600,
+          "profit": -1168.0,
+          "profit_pct": -12.33108108108108,
+          "hold_days": 2,
+          "stock_reason": "北向持股=3.41%",
+          "timing_reason": "回踩MA5; 均线多头排列",
+          "sell_reason": "止损(-12.3%)"
+        },
+        {
+          "symbol": "000157",
+          "name": "000157",
+          "buy_date": "2026-07-03",
+          "buy_price": 7.17,
+          "sell_date": "2026-07-06",
+          "sell_price": 7.29,
+          "quantity": 1300,
+          "profit": 156.0,
+          "profit_pct": 1.6736401673640167,
+          "hold_days": 1,
+          "stock_reason": "北向持股=4.92%",
+          "timing_reason": "回踩MA5; MACD绿柱缩脚; RSI超卖(44.8); 温和放量上涨",
+          "sell_reason": "跌破MA20"
+        },
+        {
+          "symbol": "000001",
+          "name": "000001",
+          "buy_date": "2026-07-03",
+          "buy_price": 10.29,
+          "sell_date": "2026-07-07",
+          "sell_price": 10.5,
+          "quantity": 900,
+          "profit": 189.0,
+          "profit_pct": 2.0408163265306123,
+          "hold_days": 2,
+          "stock_reason": "北向持股=3.87%",
+          "timing_reason": "回踩MA5; MACD绿柱缩脚; KDJ金叉; RSI超卖(24.0); 温和放量上涨",
+          "sell_reason": "跌破MA20"
+        },
+        {
+          "symbol": "000157",
+          "name": "000157",
+          "buy_date": "2026-07-06",
+          "buy_price": 7.29,
+          "sell_date": "2026-07-07",
+          "sell_price": 7.29,
+          "quantity": 1300,
+          "profit": 0.0,
+          "profit_pct": 0.0,
+          "hold_days": 1,
+          "stock_reason": "北向持股=4.92%",
+          "timing_reason": "MACD绿柱缩脚; KDJ超卖金叉; KDJ金叉; RSI超卖(39.2); 温和放量上涨",
+          "sell_reason": "跌破MA20"
+        }
+      ],
+      "equity_curve": [
+        {
+          "date": "2026-05-26",
+          "value": 30000.0
+        },
+        {
+          "date": "2026-05-27",
+          "value": 29789.0
+        },
+        {
+          "date": "2026-05-28",
+          "value": 29458.0
+        },
+        {
+          "date": "2026-05-29",
+          "value": 29032.0
+        },
+        {
+          "date": "2026-06-01",
+          "value": 29363.0
+        },
+        {
+          "date": "2026-06-02",
+          "value": 29490.0
+        },
+        {
+          "date": "2026-06-03",
+          "value": 30122.0
+        },
+        {
+          "date": "2026-06-04",
+          "value": 30392.0
+        },
+        {
+          "date": "2026-06-05",
+          "value": 30458.0
+        },
+        {
+          "date": "2026-06-08",
+          "value": 30244.0
+        },
+        {
+          "date": "2026-06-09",
+          "value": 30684.0
+        },
+        {
+          "date": "2026-06-10",
+          "value": 30135.0
+        },
+        {
+          "date": "2026-06-11",
+          "value": 29853.0
+        },
+        {
+          "date": "2026-06-12",
+          "value": 30289.0
+        },
+        {
+          "date": "2026-06-15",
+          "value": 30663.0
+        },
+        {
+          "date": "2026-06-16",
+          "value": 30565.0
+        },
+        {
+          "date": "2026-06-17",
+          "value": 31473.0
+        },
+        {
+          "date": "2026-06-18",
+          "value": 30922.0
+        },
+        {
+          "date": "2026-06-22",
+          "value": 31226.0
+        },
+        {
+          "date": "2026-06-23",
+          "value": 30518.0
+        },
+        {
+          "date": "2026-06-24",
+          "value": 30195.0
+        },
+        {
+          "date": "2026-06-25",
+          "value": 31185.0
+        },
+        {
+          "date": "2026-06-26",
+          "value": 31095.0
+        },
+        {
+          "date": "2026-06-29",
+          "value": 30754.0
+        },
+        {
+          "date": "2026-06-30",
+          "value": 31225.0
+        },
+        {
+          "date": "2026-07-01",
+          "value": 31876.0
+        },
+        {
+          "date": "2026-07-02",
+          "value": 31616.0
+        },
+        {
+          "date": "2026-07-03",
+          "value": 31459.0
+        },
+        {
+          "date": "2026-07-06",
+          "value": 31068.0
+        },
+        {
+          "date": "2026-07-07",
+          "value": 31068.0
+        }
+      ],
+      "backtest_start": "2026-05-26",
+      "backtest_end": "2026-07-07",
+      "backtest_days": 30
+    },
+    {
       "name": "多因子综合",
       "category": "综合",
       "version": "1.0.0",
@@ -3354,660 +4008,6 @@
         {
           "date": "2026-07-07",
           "value": 31140.0
-        }
-      ],
-      "backtest_start": "2026-05-26",
-      "backtest_end": "2026-07-07",
-      "backtest_days": 30
-    },
-    {
-      "name": "量价突破",
-      "category": "技术突破",
-      "version": "1.0.0",
-      "description": "放量突破前期高点，捕捉动能启动",
-      "initial_capital": 30000,
-      "current_capital": 21429.0,
-      "total_value": 31096.0,
-      "total_return": 0.036533333333333334,
-      "monthly_return": 0.036533333333333334,
-      "sharpe_ratio": 1.8681543483132792,
-      "max_drawdown": 0.03860391327340032,
-      "win_rate": 0.38095238095238093,
-      "realized_pnl": 1096.0,
-      "realized_pnl_pct": 3.65,
-      "floating_pnl": 0.0,
-      "floating_pnl_pct": 0.0,
-      "total_pnl": 1096.0,
-      "total_pnl_pct": 3.65,
-      "holdings": [
-        {
-          "symbol": "000301",
-          "name": "000301",
-          "buy_price": 13.81,
-          "quantity": 700,
-          "buy_date": "2026-07-06",
-          "cost": 9667.0,
-          "stock_reason": "放量突破20日高点，量比2.55",
-          "timing_reason": "温和放量上涨; 均线多头排列",
-          "hold_days": 2,
-          "current_price": 13.81,
-          "profit": 0.0,
-          "profit_pct": 0.0
-        }
-      ],
-      "trades": [
-        {
-          "symbol": "000301",
-          "name": "000301",
-          "buy_date": "2026-06-10",
-          "buy_price": 11.72,
-          "sell_date": "2026-06-11",
-          "sell_price": 11.61,
-          "quantity": 800,
-          "profit": -88.0,
-          "profit_pct": -0.938566552901024,
-          "hold_days": 1,
-          "stock_reason": "放量突破20日高点，量比2.55",
-          "timing_reason": "回踩MA5; MACD绿柱缩脚; RSI超卖(32.1); 温和放量上涨",
-          "sell_reason": "跌破MA5; 跌破MA20"
-        },
-        {
-          "symbol": "000301",
-          "name": "000301",
-          "buy_date": "2026-06-11",
-          "buy_price": 11.61,
-          "sell_date": "2026-06-12",
-          "sell_price": 11.88,
-          "quantity": 800,
-          "profit": 216.0,
-          "profit_pct": 2.3255813953488373,
-          "hold_days": 1,
-          "stock_reason": "放量突破20日高点，量比2.55",
-          "timing_reason": "MACD绿柱缩脚; RSI超卖(32.4)",
-          "sell_reason": "跌破MA20"
-        },
-        {
-          "symbol": "000301",
-          "name": "000301",
-          "buy_date": "2026-06-12",
-          "buy_price": 11.88,
-          "sell_date": "2026-06-18",
-          "sell_price": 11.59,
-          "quantity": 800,
-          "profit": -232.0,
-          "profit_pct": -2.441077441077441,
-          "hold_days": 4,
-          "stock_reason": "放量突破20日高点，量比2.55",
-          "timing_reason": "回踩MA5; MACD绿柱缩脚; KDJ超卖金叉; RSI超卖(39.8); 温和放量上涨",
-          "sell_reason": "MACD红柱缩短; 跌破MA5; 跌破MA20"
-        },
-        {
-          "symbol": "000301",
-          "name": "000301",
-          "buy_date": "2026-06-18",
-          "buy_price": 11.59,
-          "sell_date": "2026-06-22",
-          "sell_price": 12.14,
-          "quantity": 800,
-          "profit": 440.0,
-          "profit_pct": 4.745470232959448,
-          "hold_days": 1,
-          "stock_reason": "放量突破20日高点，量比2.55",
-          "timing_reason": "RSI超卖(44.4)",
-          "sell_reason": "跌破MA5"
-        },
-        {
-          "symbol": "000301",
-          "name": "000301",
-          "buy_date": "2026-06-22",
-          "buy_price": 12.14,
-          "sell_date": "2026-06-23",
-          "sell_price": 11.89,
-          "quantity": 800,
-          "profit": -200.0,
-          "profit_pct": -2.059308072487644,
-          "hold_days": 1,
-          "stock_reason": "放量突破20日高点，量比2.55",
-          "timing_reason": "回踩MA20; KDJ金叉; RSI超卖(49.3); 温和放量上涨",
-          "sell_reason": "MACD红柱缩短; 跌破MA5; 跌破MA20"
-        },
-        {
-          "symbol": "000301",
-          "name": "000301",
-          "buy_date": "2026-06-23",
-          "buy_price": 11.89,
-          "sell_date": "2026-06-25",
-          "sell_price": 11.54,
-          "quantity": 800,
-          "profit": -280.0,
-          "profit_pct": -2.943650126156434,
-          "hold_days": 2,
-          "stock_reason": "放量突破20日高点，量比2.55",
-          "timing_reason": "RSI超卖(47.1)",
-          "sell_reason": "MACD红柱缩短; MACD死叉; 跌破MA5; 跌破MA20"
-        },
-        {
-          "symbol": "000301",
-          "name": "000301",
-          "buy_date": "2026-06-25",
-          "buy_price": 11.54,
-          "sell_date": "2026-06-26",
-          "sell_price": 11.39,
-          "quantity": 800,
-          "profit": -120.0,
-          "profit_pct": -1.2998266897746966,
-          "hold_days": 1,
-          "stock_reason": "放量突破20日高点，量比2.55",
-          "timing_reason": "RSI超卖(49.2)",
-          "sell_reason": "跌破MA5; 跌破MA20"
-        },
-        {
-          "symbol": "000301",
-          "name": "000301",
-          "buy_date": "2026-06-26",
-          "buy_price": 11.39,
-          "sell_date": "2026-06-29",
-          "sell_price": 11.3,
-          "quantity": 800,
-          "profit": -72.0,
-          "profit_pct": -0.7901668129938543,
-          "hold_days": 1,
-          "stock_reason": "放量突破20日高点，量比2.55",
-          "timing_reason": "RSI超卖(45.1)",
-          "sell_reason": "跌破MA5; 跌破MA20"
-        },
-        {
-          "symbol": "000301",
-          "name": "000301",
-          "buy_date": "2026-06-29",
-          "buy_price": 11.3,
-          "sell_date": "2026-06-30",
-          "sell_price": 11.45,
-          "quantity": 800,
-          "profit": 120.0,
-          "profit_pct": 1.3274336283185841,
-          "hold_days": 1,
-          "stock_reason": "放量突破20日高点，量比2.55",
-          "timing_reason": "RSI超卖(48.5)",
-          "sell_reason": "跌破MA5; 跌破MA20"
-        },
-        {
-          "symbol": "000301",
-          "name": "000301",
-          "buy_date": "2026-06-30",
-          "buy_price": 11.45,
-          "sell_date": "2026-07-06",
-          "sell_price": 13.81,
-          "quantity": 800,
-          "profit": 1888.0,
-          "profit_pct": 20.611353711790393,
-          "hold_days": 4,
-          "stock_reason": "放量突破20日高点，量比2.55",
-          "timing_reason": "MACD绿柱缩脚; RSI超卖(47.3); 温和放量上涨",
-          "sell_reason": "止盈(20.6%)"
-        }
-      ],
-      "equity_curve": [
-        {
-          "date": "2026-05-26",
-          "value": 30000.0
-        },
-        {
-          "date": "2026-05-27",
-          "value": 29840.0
-        },
-        {
-          "date": "2026-05-28",
-          "value": 29808.0
-        },
-        {
-          "date": "2026-05-29",
-          "value": 29688.0
-        },
-        {
-          "date": "2026-06-01",
-          "value": 29808.0
-        },
-        {
-          "date": "2026-06-02",
-          "value": 29776.0
-        },
-        {
-          "date": "2026-06-03",
-          "value": 29552.0
-        },
-        {
-          "date": "2026-06-04",
-          "value": 29344.0
-        },
-        {
-          "date": "2026-06-05",
-          "value": 29528.0
-        },
-        {
-          "date": "2026-06-08",
-          "value": 29192.0
-        },
-        {
-          "date": "2026-06-09",
-          "value": 29392.0
-        },
-        {
-          "date": "2026-06-10",
-          "value": 29424.0
-        },
-        {
-          "date": "2026-06-11",
-          "value": 29336.0
-        },
-        {
-          "date": "2026-06-12",
-          "value": 29552.0
-        },
-        {
-          "date": "2026-06-15",
-          "value": 30256.0
-        },
-        {
-          "date": "2026-06-16",
-          "value": 30008.0
-        },
-        {
-          "date": "2026-06-17",
-          "value": 29864.0
-        },
-        {
-          "date": "2026-06-18",
-          "value": 29320.0
-        },
-        {
-          "date": "2026-06-22",
-          "value": 29760.0
-        },
-        {
-          "date": "2026-06-23",
-          "value": 29560.0
-        },
-        {
-          "date": "2026-06-24",
-          "value": 29672.0
-        },
-        {
-          "date": "2026-06-25",
-          "value": 29280.0
-        },
-        {
-          "date": "2026-06-26",
-          "value": 29160.0
-        },
-        {
-          "date": "2026-06-29",
-          "value": 29088.0
-        },
-        {
-          "date": "2026-06-30",
-          "value": 29208.0
-        },
-        {
-          "date": "2026-07-01",
-          "value": 29664.0
-        },
-        {
-          "date": "2026-07-02",
-          "value": 29744.0
-        },
-        {
-          "date": "2026-07-03",
-          "value": 30088.0
-        },
-        {
-          "date": "2026-07-06",
-          "value": 31096.0
-        },
-        {
-          "date": "2026-07-07",
-          "value": 31096.0
-        }
-      ],
-      "backtest_start": "2026-05-26",
-      "backtest_end": "2026-07-07",
-      "backtest_days": 30
-    },
-    {
-      "name": "北向资金跟投",
-      "category": "事件驱动",
-      "version": "1.0.0",
-      "description": "北向资金持续净买入，跟投外资",
-      "initial_capital": 30000,
-      "current_capital": 2280.0,
-      "total_value": 31068.0,
-      "total_return": 0.0356,
-      "monthly_return": 0.0356,
-      "sharpe_ratio": 1.4106171246409587,
-      "max_drawdown": 0.0406062339147841,
-      "win_rate": 0.5217391304347826,
-      "realized_pnl": 1068.0,
-      "realized_pnl_pct": 3.56,
-      "floating_pnl": 0.0,
-      "floating_pnl_pct": 0.0,
-      "total_pnl": 1068.0,
-      "total_pnl_pct": 3.56,
-      "holdings": [
-        {
-          "symbol": "000100",
-          "name": "000100",
-          "buy_price": 5.19,
-          "quantity": 1900,
-          "buy_date": "2026-07-06",
-          "cost": 9861.0,
-          "stock_reason": "北向持股=3.41%",
-          "timing_reason": "均线多头排列",
-          "hold_days": 2,
-          "current_price": 5.19,
-          "profit": 0.0,
-          "profit_pct": 0.0
-        },
-        {
-          "symbol": "000001",
-          "name": "000001",
-          "buy_price": 10.5,
-          "quantity": 900,
-          "buy_date": "2026-07-07",
-          "cost": 9450.0,
-          "stock_reason": "北向持股=3.87%",
-          "timing_reason": "回踩MA5; MACD绿柱缩脚; RSI超卖(34.9); 温和放量上涨",
-          "hold_days": 1,
-          "current_price": 10.5,
-          "profit": 0.0,
-          "profit_pct": 0.0
-        },
-        {
-          "symbol": "000157",
-          "name": "000157",
-          "buy_price": 7.29,
-          "quantity": 1300,
-          "buy_date": "2026-07-07",
-          "cost": 9477.0,
-          "stock_reason": "北向持股=4.92%",
-          "timing_reason": "MACD绿柱缩脚; KDJ超卖金叉; KDJ金叉; RSI超卖(39.2); 温和放量上涨",
-          "hold_days": 1,
-          "current_price": 7.29,
-          "profit": 0.0,
-          "profit_pct": 0.0
-        }
-      ],
-      "trades": [
-        {
-          "symbol": "000001",
-          "name": "000001",
-          "buy_date": "2026-06-29",
-          "buy_price": 10.24,
-          "sell_date": "2026-07-01",
-          "sell_price": 10.16,
-          "quantity": 900,
-          "profit": -72.0,
-          "profit_pct": -0.78125,
-          "hold_days": 2,
-          "stock_reason": "北向持股=3.87%",
-          "timing_reason": "RSI超卖(39.0); 温和放量上涨",
-          "sell_reason": "跌破MA5; 跌破MA20"
-        },
-        {
-          "symbol": "000157",
-          "name": "000157",
-          "buy_date": "2026-06-30",
-          "buy_price": 6.97,
-          "sell_date": "2026-07-01",
-          "sell_price": 7.0,
-          "quantity": 1400,
-          "profit": 42.0,
-          "profit_pct": 0.430416068866571,
-          "hold_days": 1,
-          "stock_reason": "北向持股=4.92%",
-          "timing_reason": "RSI超卖(32.8)",
-          "sell_reason": "跌破MA5; 跌破MA20"
-        },
-        {
-          "symbol": "000100",
-          "name": "000100",
-          "buy_date": "2026-06-30",
-          "buy_price": 5.82,
-          "sell_date": "2026-07-02",
-          "sell_price": 5.92,
-          "quantity": 1700,
-          "profit": 170.0,
-          "profit_pct": 1.718213058419244,
-          "hold_days": 2,
-          "stock_reason": "北向持股=3.41%",
-          "timing_reason": "回踩MA5; 均线多头排列",
-          "sell_reason": "MACD红柱缩短; RSI超买(77.4)"
-        },
-        {
-          "symbol": "000157",
-          "name": "000157",
-          "buy_date": "2026-07-01",
-          "buy_price": 7.0,
-          "sell_date": "2026-07-02",
-          "sell_price": 6.98,
-          "quantity": 1400,
-          "profit": -28.0,
-          "profit_pct": -0.2857142857142857,
-          "hold_days": 1,
-          "stock_reason": "北向持股=4.92%",
-          "timing_reason": "RSI超卖(38.7); 温和放量上涨",
-          "sell_reason": "跌破MA5; 跌破MA20"
-        },
-        {
-          "symbol": "000001",
-          "name": "000001",
-          "buy_date": "2026-07-01",
-          "buy_price": 10.16,
-          "sell_date": "2026-07-03",
-          "sell_price": 10.29,
-          "quantity": 900,
-          "profit": 117.0,
-          "profit_pct": 1.279527559055118,
-          "hold_days": 2,
-          "stock_reason": "北向持股=3.87%",
-          "timing_reason": "MACD绿柱缩脚; RSI超卖(30.2); 温和放量上涨",
-          "sell_reason": "跌破MA20"
-        },
-        {
-          "symbol": "000157",
-          "name": "000157",
-          "buy_date": "2026-07-02",
-          "buy_price": 6.98,
-          "sell_date": "2026-07-03",
-          "sell_price": 7.17,
-          "quantity": 1400,
-          "profit": 266.0,
-          "profit_pct": 2.722063037249284,
-          "hold_days": 1,
-          "stock_reason": "北向持股=4.92%",
-          "timing_reason": "RSI超卖(40.4)",
-          "sell_reason": "跌破MA20"
-        },
-        {
-          "symbol": "000100",
-          "name": "000100",
-          "buy_date": "2026-07-02",
-          "buy_price": 5.92,
-          "sell_date": "2026-07-06",
-          "sell_price": 5.19,
-          "quantity": 1600,
-          "profit": -1168.0,
-          "profit_pct": -12.33108108108108,
-          "hold_days": 2,
-          "stock_reason": "北向持股=3.41%",
-          "timing_reason": "回踩MA5; 均线多头排列",
-          "sell_reason": "止损(-12.3%)"
-        },
-        {
-          "symbol": "000157",
-          "name": "000157",
-          "buy_date": "2026-07-03",
-          "buy_price": 7.17,
-          "sell_date": "2026-07-06",
-          "sell_price": 7.29,
-          "quantity": 1300,
-          "profit": 156.0,
-          "profit_pct": 1.6736401673640167,
-          "hold_days": 1,
-          "stock_reason": "北向持股=4.92%",
-          "timing_reason": "回踩MA5; MACD绿柱缩脚; RSI超卖(44.8); 温和放量上涨",
-          "sell_reason": "跌破MA20"
-        },
-        {
-          "symbol": "000001",
-          "name": "000001",
-          "buy_date": "2026-07-03",
-          "buy_price": 10.29,
-          "sell_date": "2026-07-07",
-          "sell_price": 10.5,
-          "quantity": 900,
-          "profit": 189.0,
-          "profit_pct": 2.0408163265306123,
-          "hold_days": 2,
-          "stock_reason": "北向持股=3.87%",
-          "timing_reason": "回踩MA5; MACD绿柱缩脚; KDJ金叉; RSI超卖(24.0); 温和放量上涨",
-          "sell_reason": "跌破MA20"
-        },
-        {
-          "symbol": "000157",
-          "name": "000157",
-          "buy_date": "2026-07-06",
-          "buy_price": 7.29,
-          "sell_date": "2026-07-07",
-          "sell_price": 7.29,
-          "quantity": 1300,
-          "profit": 0.0,
-          "profit_pct": 0.0,
-          "hold_days": 1,
-          "stock_reason": "北向持股=4.92%",
-          "timing_reason": "MACD绿柱缩脚; KDJ超卖金叉; KDJ金叉; RSI超卖(39.2); 温和放量上涨",
-          "sell_reason": "跌破MA20"
-        }
-      ],
-      "equity_curve": [
-        {
-          "date": "2026-05-26",
-          "value": 30000.0
-        },
-        {
-          "date": "2026-05-27",
-          "value": 29789.0
-        },
-        {
-          "date": "2026-05-28",
-          "value": 29458.0
-        },
-        {
-          "date": "2026-05-29",
-          "value": 29032.0
-        },
-        {
-          "date": "2026-06-01",
-          "value": 29363.0
-        },
-        {
-          "date": "2026-06-02",
-          "value": 29490.0
-        },
-        {
-          "date": "2026-06-03",
-          "value": 30122.0
-        },
-        {
-          "date": "2026-06-04",
-          "value": 30392.0
-        },
-        {
-          "date": "2026-06-05",
-          "value": 30458.0
-        },
-        {
-          "date": "2026-06-08",
-          "value": 30244.0
-        },
-        {
-          "date": "2026-06-09",
-          "value": 30684.0
-        },
-        {
-          "date": "2026-06-10",
-          "value": 30135.0
-        },
-        {
-          "date": "2026-06-11",
-          "value": 29853.0
-        },
-        {
-          "date": "2026-06-12",
-          "value": 30289.0
-        },
-        {
-          "date": "2026-06-15",
-          "value": 30663.0
-        },
-        {
-          "date": "2026-06-16",
-          "value": 30565.0
-        },
-        {
-          "date": "2026-06-17",
-          "value": 31473.0
-        },
-        {
-          "date": "2026-06-18",
-          "value": 30922.0
-        },
-        {
-          "date": "2026-06-22",
-          "value": 31226.0
-        },
-        {
-          "date": "2026-06-23",
-          "value": 30518.0
-        },
-        {
-          "date": "2026-06-24",
-          "value": 30195.0
-        },
-        {
-          "date": "2026-06-25",
-          "value": 31185.0
-        },
-        {
-          "date": "2026-06-26",
-          "value": 31095.0
-        },
-        {
-          "date": "2026-06-29",
-          "value": 30754.0
-        },
-        {
-          "date": "2026-06-30",
-          "value": 31225.0
-        },
-        {
-          "date": "2026-07-01",
-          "value": 31876.0
-        },
-        {
-          "date": "2026-07-02",
-          "value": 31616.0
-        },
-        {
-          "date": "2026-07-03",
-          "value": 31459.0
-        },
-        {
-          "date": "2026-07-06",
-          "value": 31068.0
-        },
-        {
-          "date": "2026-07-07",
-          "value": 31068.0
         }
       ],
       "backtest_start": "2026-05-26",
@@ -6333,987 +6333,6 @@
       "backtest_days": 30
     },
     {
-      "name": "RSI超卖反转",
-      "category": "技术突破",
-      "version": "1.0.0",
-      "description": "RSI超卖区域回升，捕捉反弹机会",
-      "initial_capital": 30000,
-      "current_capital": 9964.0,
-      "total_value": 29270.0,
-      "total_return": -0.0278,
-      "monthly_return": -0.0278,
-      "sharpe_ratio": -1.2600201749950253,
-      "max_drawdown": 0.06561034018961388,
-      "win_rate": 0.35,
-      "realized_pnl": -834.0,
-      "realized_pnl_pct": -2.78,
-      "floating_pnl": 104.0,
-      "floating_pnl_pct": 0.35,
-      "total_pnl": -730.0,
-      "total_pnl_pct": -2.43,
-      "holdings": [
-        {
-          "symbol": "000538",
-          "name": "000538",
-          "buy_price": 48.76,
-          "quantity": 200,
-          "buy_date": "2026-07-02",
-          "cost": 9752.0,
-          "stock_reason": "RSI超卖回升，RSI=44.7",
-          "timing_reason": "回踩MA5; MACD金叉; KDJ超卖金叉; RSI超卖(39.1); 温和放量上涨",
-          "hold_days": 4,
-          "current_price": 49.28,
-          "profit": 104.00000000000063,
-          "profit_pct": 1.0664479081214175
-        },
-        {
-          "symbol": "000001",
-          "name": "000001",
-          "buy_price": 10.5,
-          "quantity": 900,
-          "buy_date": "2026-07-07",
-          "cost": 9450.0,
-          "stock_reason": "RSI超卖回升，RSI=34.9",
-          "timing_reason": "回踩MA5; MACD绿柱缩脚; RSI超卖(34.9); 温和放量上涨",
-          "hold_days": 1,
-          "current_price": 10.5,
-          "profit": 0.0,
-          "profit_pct": 0.0
-        }
-      ],
-      "trades": [
-        {
-          "symbol": "000538",
-          "name": "000538",
-          "buy_date": "2026-06-22",
-          "buy_price": 48.66,
-          "sell_date": "2026-06-24",
-          "sell_price": 47.63,
-          "quantity": 200,
-          "profit": -206.0,
-          "profit_pct": -2.1167283189478012,
-          "hold_days": 2,
-          "stock_reason": "RSI超卖回升，RSI=44.7",
-          "timing_reason": "RSI超卖(40.0); 温和放量上涨",
-          "sell_reason": "跌破MA5; 跌破MA20"
-        },
-        {
-          "symbol": "000001",
-          "name": "000001",
-          "buy_date": "2026-06-23",
-          "buy_price": 10.71,
-          "sell_date": "2026-06-25",
-          "sell_price": 10.42,
-          "quantity": 900,
-          "profit": -261.0,
-          "profit_pct": -2.707749766573296,
-          "hold_days": 2,
-          "stock_reason": "RSI超卖回升，RSI=34.9",
-          "timing_reason": "回踩MA20; RSI超卖(49.5); 温和放量上涨",
-          "sell_reason": "跌破MA5; 跌破MA20"
-        },
-        {
-          "symbol": "000538",
-          "name": "000538",
-          "buy_date": "2026-06-24",
-          "buy_price": 47.63,
-          "sell_date": "2026-06-26",
-          "sell_price": 47.0,
-          "quantity": 200,
-          "profit": -126.0,
-          "profit_pct": -1.3226957799706067,
-          "hold_days": 2,
-          "stock_reason": "RSI超卖回升，RSI=44.7",
-          "timing_reason": "RSI超卖(37.6)",
-          "sell_reason": "跌破MA5; 跌破MA20"
-        },
-        {
-          "symbol": "000001",
-          "name": "000001",
-          "buy_date": "2026-06-25",
-          "buy_price": 10.42,
-          "sell_date": "2026-06-29",
-          "sell_price": 10.24,
-          "quantity": 900,
-          "profit": -162.0,
-          "profit_pct": -1.727447216890595,
-          "hold_days": 2,
-          "stock_reason": "RSI超卖回升，RSI=34.9",
-          "timing_reason": "RSI超卖(48.5)",
-          "sell_reason": "跌破MA5; 跌破MA20"
-        },
-        {
-          "symbol": "000538",
-          "name": "000538",
-          "buy_date": "2026-06-26",
-          "buy_price": 47.0,
-          "sell_date": "2026-06-30",
-          "sell_price": 47.37,
-          "quantity": 200,
-          "profit": 74.0,
-          "profit_pct": 0.7872340425531915,
-          "hold_days": 2,
-          "stock_reason": "RSI超卖回升，RSI=44.7",
-          "timing_reason": "RSI超卖(34.9)",
-          "sell_reason": "跌破MA5; 跌破MA20"
-        },
-        {
-          "symbol": "000001",
-          "name": "000001",
-          "buy_date": "2026-06-29",
-          "buy_price": 10.24,
-          "sell_date": "2026-07-01",
-          "sell_price": 10.16,
-          "quantity": 900,
-          "profit": -72.0,
-          "profit_pct": -0.78125,
-          "hold_days": 2,
-          "stock_reason": "RSI超卖回升，RSI=34.9",
-          "timing_reason": "RSI超卖(39.0); 温和放量上涨",
-          "sell_reason": "跌破MA5; 跌破MA20"
-        },
-        {
-          "symbol": "000538",
-          "name": "000538",
-          "buy_date": "2026-06-30",
-          "buy_price": 47.37,
-          "sell_date": "2026-07-02",
-          "sell_price": 48.76,
-          "quantity": 200,
-          "profit": 278.0,
-          "profit_pct": 2.9343466328900147,
-          "hold_days": 2,
-          "stock_reason": "RSI超卖回升，RSI=44.7",
-          "timing_reason": "RSI超卖(37.1)",
-          "sell_reason": "跌破MA20"
-        },
-        {
-          "symbol": "000001",
-          "name": "000001",
-          "buy_date": "2026-07-01",
-          "buy_price": 10.16,
-          "sell_date": "2026-07-03",
-          "sell_price": 10.29,
-          "quantity": 900,
-          "profit": 117.0,
-          "profit_pct": 1.279527559055118,
-          "hold_days": 2,
-          "stock_reason": "RSI超卖回升，RSI=34.9",
-          "timing_reason": "MACD绿柱缩脚; RSI超卖(30.2); 温和放量上涨",
-          "sell_reason": "跌破MA20"
-        },
-        {
-          "symbol": "000001",
-          "name": "000001",
-          "buy_date": "2026-07-03",
-          "buy_price": 10.29,
-          "sell_date": "2026-07-06",
-          "sell_price": 10.5,
-          "quantity": 900,
-          "profit": 189.0,
-          "profit_pct": 2.0408163265306123,
-          "hold_days": 1,
-          "stock_reason": "RSI超卖回升，RSI=34.9",
-          "timing_reason": "回踩MA5; MACD绿柱缩脚; KDJ金叉; RSI超卖(24.0); 温和放量上涨",
-          "sell_reason": "跌破MA20"
-        },
-        {
-          "symbol": "000001",
-          "name": "000001",
-          "buy_date": "2026-07-06",
-          "buy_price": 10.5,
-          "sell_date": "2026-07-07",
-          "sell_price": 10.5,
-          "quantity": 900,
-          "profit": 0.0,
-          "profit_pct": 0.0,
-          "hold_days": 1,
-          "stock_reason": "RSI超卖回升，RSI=34.9",
-          "timing_reason": "回踩MA5; MACD绿柱缩脚; RSI超卖(34.9); 温和放量上涨",
-          "sell_reason": "跌破MA20"
-        }
-      ],
-      "equity_curve": [
-        {
-          "date": "2026-05-26",
-          "value": 30000.0
-        },
-        {
-          "date": "2026-05-27",
-          "value": 30269.0
-        },
-        {
-          "date": "2026-05-28",
-          "value": 29701.0
-        },
-        {
-          "date": "2026-05-29",
-          "value": 30361.0
-        },
-        {
-          "date": "2026-06-01",
-          "value": 30327.0
-        },
-        {
-          "date": "2026-06-02",
-          "value": 30146.0
-        },
-        {
-          "date": "2026-06-03",
-          "value": 29908.0
-        },
-        {
-          "date": "2026-06-04",
-          "value": 29559.0
-        },
-        {
-          "date": "2026-06-05",
-          "value": 29764.0
-        },
-        {
-          "date": "2026-06-08",
-          "value": 29715.0
-        },
-        {
-          "date": "2026-06-09",
-          "value": 29778.0
-        },
-        {
-          "date": "2026-06-10",
-          "value": 30180.0
-        },
-        {
-          "date": "2026-06-11",
-          "value": 30251.0
-        },
-        {
-          "date": "2026-06-12",
-          "value": 30483.0
-        },
-        {
-          "date": "2026-06-15",
-          "value": 30199.0
-        },
-        {
-          "date": "2026-06-16",
-          "value": 29877.0
-        },
-        {
-          "date": "2026-06-17",
-          "value": 29649.0
-        },
-        {
-          "date": "2026-06-18",
-          "value": 29118.0
-        },
-        {
-          "date": "2026-06-22",
-          "value": 29281.0
-        },
-        {
-          "date": "2026-06-23",
-          "value": 29309.0
-        },
-        {
-          "date": "2026-06-24",
-          "value": 28949.0
-        },
-        {
-          "date": "2026-06-25",
-          "value": 28772.0
-        },
-        {
-          "date": "2026-06-26",
-          "value": 28571.0
-        },
-        {
-          "date": "2026-06-29",
-          "value": 28886.0
-        },
-        {
-          "date": "2026-06-30",
-          "value": 28483.0
-        },
-        {
-          "date": "2026-07-01",
-          "value": 28702.0
-        },
-        {
-          "date": "2026-07-02",
-          "value": 28968.0
-        },
-        {
-          "date": "2026-07-03",
-          "value": 28997.0
-        },
-        {
-          "date": "2026-07-06",
-          "value": 29270.0
-        },
-        {
-          "date": "2026-07-07",
-          "value": 29270.0
-        }
-      ],
-      "backtest_start": "2026-05-26",
-      "backtest_end": "2026-07-07",
-      "backtest_days": 30
-    },
-    {
-      "name": "PSR低估值",
-      "category": "价值因子",
-      "version": "1.0.0",
-      "description": "PSR低估值",
-      "initial_capital": 30000,
-      "current_capital": 9831.0,
-      "total_value": 29105.0,
-      "total_return": -0.029833333333333333,
-      "monthly_return": -0.029833333333333333,
-      "sharpe_ratio": -1.193724499510105,
-      "max_drawdown": 0.080833954800428,
-      "win_rate": 0.4523809523809524,
-      "realized_pnl": -895.0,
-      "realized_pnl_pct": -2.98,
-      "floating_pnl": 0.0,
-      "floating_pnl_pct": 0.0,
-      "total_pnl": -895.0,
-      "total_pnl_pct": -2.98,
-      "holdings": [
-        {
-          "symbol": "000002",
-          "name": "000002",
-          "buy_price": 3.07,
-          "quantity": 3200,
-          "buy_date": "2026-07-06",
-          "cost": 9824.0,
-          "stock_reason": "市销率:-9999.0000",
-          "timing_reason": "回踩MA5; RSI超卖(45.6)",
-          "hold_days": 2,
-          "current_price": 3.07,
-          "profit": 0.0,
-          "profit_pct": 0.0
-        },
-        {
-          "symbol": "000001",
-          "name": "000001",
-          "buy_price": 10.5,
-          "quantity": 900,
-          "buy_date": "2026-07-07",
-          "cost": 9450.0,
-          "stock_reason": "市销率:-9999.0000",
-          "timing_reason": "回踩MA5; MACD绿柱缩脚; RSI超卖(34.9); 温和放量上涨",
-          "hold_days": 1,
-          "current_price": 10.5,
-          "profit": 0.0,
-          "profit_pct": 0.0
-        }
-      ],
-      "trades": [
-        {
-          "symbol": "000001",
-          "name": "000001",
-          "buy_date": "2026-06-24",
-          "buy_price": 10.51,
-          "sell_date": "2026-06-26",
-          "sell_price": 10.23,
-          "quantity": 900,
-          "profit": -252.0,
-          "profit_pct": -2.664129400570885,
-          "hold_days": 2,
-          "stock_reason": "市销率:-9999.0000",
-          "timing_reason": "RSI超卖(46.9)",
-          "sell_reason": "跌破MA5; 跌破MA20"
-        },
-        {
-          "symbol": "000002",
-          "name": "000002",
-          "buy_date": "2026-06-25",
-          "buy_price": 2.95,
-          "sell_date": "2026-06-26",
-          "sell_price": 3.01,
-          "quantity": 3300,
-          "profit": 198.0,
-          "profit_pct": 2.0338983050847457,
-          "hold_days": 1,
-          "stock_reason": "市销率:-9999.0000",
-          "timing_reason": "KDJ金叉; RSI超卖(29.0)",
-          "sell_reason": "跌破MA5; 跌破MA20"
-        },
-        {
-          "symbol": "000063",
-          "name": "000063",
-          "buy_date": "2026-06-24",
-          "buy_price": 37.42,
-          "sell_date": "2026-06-29",
-          "sell_price": 35.2,
-          "quantity": 200,
-          "profit": -443.9999999999991,
-          "profit_pct": -5.932656333511479,
-          "hold_days": 3,
-          "stock_reason": "市销率:-9999.0000",
-          "timing_reason": "均线多头排列",
-          "sell_reason": "跌破MA5; 跌破MA20"
-        },
-        {
-          "symbol": "000002",
-          "name": "000002",
-          "buy_date": "2026-06-26",
-          "buy_price": 3.01,
-          "sell_date": "2026-06-29",
-          "sell_price": 3.04,
-          "quantity": 3300,
-          "profit": 99.0,
-          "profit_pct": 0.9966777408637874,
-          "hold_days": 1,
-          "stock_reason": "市销率:-9999.0000",
-          "timing_reason": "RSI超卖(31.2); 温和放量上涨",
-          "sell_reason": "跌破MA20"
-        },
-        {
-          "symbol": "000001",
-          "name": "000001",
-          "buy_date": "2026-06-26",
-          "buy_price": 10.23,
-          "sell_date": "2026-06-30",
-          "sell_price": 10.05,
-          "quantity": 900,
-          "profit": -162.0,
-          "profit_pct": -1.7595307917888565,
-          "hold_days": 2,
-          "stock_reason": "市销率:-9999.0000",
-          "timing_reason": "RSI超卖(40.2)",
-          "sell_reason": "跌破MA5; 跌破MA20"
-        },
-        {
-          "symbol": "000002",
-          "name": "000002",
-          "buy_date": "2026-06-29",
-          "buy_price": 3.04,
-          "sell_date": "2026-07-01",
-          "sell_price": 3.08,
-          "quantity": 3200,
-          "profit": 128.0,
-          "profit_pct": 1.3157894736842104,
-          "hold_days": 2,
-          "stock_reason": "市销率:-9999.0000",
-          "timing_reason": "回踩MA5; RSI超卖(41.1); 温和放量上涨",
-          "sell_reason": "跌破MA20"
-        },
-        {
-          "symbol": "000001",
-          "name": "000001",
-          "buy_date": "2026-06-30",
-          "buy_price": 10.05,
-          "sell_date": "2026-07-02",
-          "sell_price": 10.28,
-          "quantity": 900,
-          "profit": 207.0,
-          "profit_pct": 2.288557213930348,
-          "hold_days": 2,
-          "stock_reason": "市销率:-9999.0000",
-          "timing_reason": "RSI超卖(32.5)",
-          "sell_reason": "跌破MA20"
-        },
-        {
-          "symbol": "000001",
-          "name": "000001",
-          "buy_date": "2026-07-02",
-          "buy_price": 10.28,
-          "sell_date": "2026-07-03",
-          "sell_price": 10.29,
-          "quantity": 900,
-          "profit": 9.0,
-          "profit_pct": 0.09727626459143969,
-          "hold_days": 1,
-          "stock_reason": "市销率:-9999.0000",
-          "timing_reason": "回踩MA5; MACD绿柱缩脚; RSI超卖(34.4); 温和放量上涨",
-          "sell_reason": "跌破MA20"
-        },
-        {
-          "symbol": "000002",
-          "name": "000002",
-          "buy_date": "2026-07-01",
-          "buy_price": 3.08,
-          "sell_date": "2026-07-06",
-          "sell_price": 3.07,
-          "quantity": 3200,
-          "profit": -32.0,
-          "profit_pct": -0.3246753246753247,
-          "hold_days": 3,
-          "stock_reason": "市销率:-9999.0000",
-          "timing_reason": "回踩MA5; KDJ超卖金叉; RSI超卖(45.1); 温和放量上涨",
-          "sell_reason": "跌破MA20"
-        },
-        {
-          "symbol": "000001",
-          "name": "000001",
-          "buy_date": "2026-07-03",
-          "buy_price": 10.29,
-          "sell_date": "2026-07-07",
-          "sell_price": 10.5,
-          "quantity": 900,
-          "profit": 189.0,
-          "profit_pct": 2.0408163265306123,
-          "hold_days": 2,
-          "stock_reason": "市销率:-9999.0000",
-          "timing_reason": "回踩MA5; MACD绿柱缩脚; KDJ金叉; RSI超卖(24.0); 温和放量上涨",
-          "sell_reason": "跌破MA20"
-        }
-      ],
-      "equity_curve": [
-        {
-          "date": "2026-05-26",
-          "value": 30000.0
-        },
-        {
-          "date": "2026-05-27",
-          "value": 29655.0
-        },
-        {
-          "date": "2026-05-28",
-          "value": 30203.0
-        },
-        {
-          "date": "2026-05-29",
-          "value": 30841.0
-        },
-        {
-          "date": "2026-06-01",
-          "value": 30347.0
-        },
-        {
-          "date": "2026-06-02",
-          "value": 30444.0
-        },
-        {
-          "date": "2026-06-03",
-          "value": 30072.0
-        },
-        {
-          "date": "2026-06-04",
-          "value": 29985.0
-        },
-        {
-          "date": "2026-06-05",
-          "value": 30514.0
-        },
-        {
-          "date": "2026-06-08",
-          "value": 29765.0
-        },
-        {
-          "date": "2026-06-09",
-          "value": 30259.0
-        },
-        {
-          "date": "2026-06-10",
-          "value": 30373.0
-        },
-        {
-          "date": "2026-06-11",
-          "value": 30140.0
-        },
-        {
-          "date": "2026-06-12",
-          "value": 30246.0
-        },
-        {
-          "date": "2026-06-15",
-          "value": 30180.0
-        },
-        {
-          "date": "2026-06-16",
-          "value": 30054.0
-        },
-        {
-          "date": "2026-06-17",
-          "value": 29900.0
-        },
-        {
-          "date": "2026-06-18",
-          "value": 29620.0
-        },
-        {
-          "date": "2026-06-22",
-          "value": 30205.0
-        },
-        {
-          "date": "2026-06-23",
-          "value": 29911.0
-        },
-        {
-          "date": "2026-06-24",
-          "value": 29229.0
-        },
-        {
-          "date": "2026-06-25",
-          "value": 29288.0
-        },
-        {
-          "date": "2026-06-26",
-          "value": 28761.0
-        },
-        {
-          "date": "2026-06-29",
-          "value": 28775.0
-        },
-        {
-          "date": "2026-06-30",
-          "value": 28348.0
-        },
-        {
-          "date": "2026-07-01",
-          "value": 28831.0
-        },
-        {
-          "date": "2026-07-02",
-          "value": 28875.0
-        },
-        {
-          "date": "2026-07-03",
-          "value": 28980.0
-        },
-        {
-          "date": "2026-07-06",
-          "value": 29105.0
-        },
-        {
-          "date": "2026-07-07",
-          "value": 29105.0
-        }
-      ],
-      "backtest_start": "2026-05-26",
-      "backtest_end": "2026-07-07",
-      "backtest_days": 30
-    },
-    {
-      "name": "低负债率",
-      "category": "质量因子",
-      "version": "1.0.0",
-      "description": "低负债率",
-      "initial_capital": 30000,
-      "current_capital": 9831.0,
-      "total_value": 29105.0,
-      "total_return": -0.029833333333333333,
-      "monthly_return": -0.029833333333333333,
-      "sharpe_ratio": -1.193724499510105,
-      "max_drawdown": 0.080833954800428,
-      "win_rate": 0.4523809523809524,
-      "realized_pnl": -895.0,
-      "realized_pnl_pct": -2.98,
-      "floating_pnl": 0.0,
-      "floating_pnl_pct": 0.0,
-      "total_pnl": -895.0,
-      "total_pnl_pct": -2.98,
-      "holdings": [
-        {
-          "symbol": "000002",
-          "name": "000002",
-          "buy_price": 3.07,
-          "quantity": 3200,
-          "buy_date": "2026-07-06",
-          "cost": 9824.0,
-          "stock_reason": "资产负债率:-100.0000",
-          "timing_reason": "回踩MA5; RSI超卖(45.6)",
-          "hold_days": 2,
-          "current_price": 3.07,
-          "profit": 0.0,
-          "profit_pct": 0.0
-        },
-        {
-          "symbol": "000001",
-          "name": "000001",
-          "buy_price": 10.5,
-          "quantity": 900,
-          "buy_date": "2026-07-07",
-          "cost": 9450.0,
-          "stock_reason": "资产负债率:-100.0000",
-          "timing_reason": "回踩MA5; MACD绿柱缩脚; RSI超卖(34.9); 温和放量上涨",
-          "hold_days": 1,
-          "current_price": 10.5,
-          "profit": 0.0,
-          "profit_pct": 0.0
-        }
-      ],
-      "trades": [
-        {
-          "symbol": "000001",
-          "name": "000001",
-          "buy_date": "2026-06-24",
-          "buy_price": 10.51,
-          "sell_date": "2026-06-26",
-          "sell_price": 10.23,
-          "quantity": 900,
-          "profit": -252.0,
-          "profit_pct": -2.664129400570885,
-          "hold_days": 2,
-          "stock_reason": "资产负债率:-100.0000",
-          "timing_reason": "RSI超卖(46.9)",
-          "sell_reason": "跌破MA5; 跌破MA20"
-        },
-        {
-          "symbol": "000002",
-          "name": "000002",
-          "buy_date": "2026-06-25",
-          "buy_price": 2.95,
-          "sell_date": "2026-06-26",
-          "sell_price": 3.01,
-          "quantity": 3300,
-          "profit": 198.0,
-          "profit_pct": 2.0338983050847457,
-          "hold_days": 1,
-          "stock_reason": "资产负债率:-100.0000",
-          "timing_reason": "KDJ金叉; RSI超卖(29.0)",
-          "sell_reason": "跌破MA5; 跌破MA20"
-        },
-        {
-          "symbol": "000063",
-          "name": "000063",
-          "buy_date": "2026-06-24",
-          "buy_price": 37.42,
-          "sell_date": "2026-06-29",
-          "sell_price": 35.2,
-          "quantity": 200,
-          "profit": -443.9999999999991,
-          "profit_pct": -5.932656333511479,
-          "hold_days": 3,
-          "stock_reason": "资产负债率:-100.0000",
-          "timing_reason": "均线多头排列",
-          "sell_reason": "跌破MA5; 跌破MA20"
-        },
-        {
-          "symbol": "000002",
-          "name": "000002",
-          "buy_date": "2026-06-26",
-          "buy_price": 3.01,
-          "sell_date": "2026-06-29",
-          "sell_price": 3.04,
-          "quantity": 3300,
-          "profit": 99.0,
-          "profit_pct": 0.9966777408637874,
-          "hold_days": 1,
-          "stock_reason": "资产负债率:-100.0000",
-          "timing_reason": "RSI超卖(31.2); 温和放量上涨",
-          "sell_reason": "跌破MA20"
-        },
-        {
-          "symbol": "000001",
-          "name": "000001",
-          "buy_date": "2026-06-26",
-          "buy_price": 10.23,
-          "sell_date": "2026-06-30",
-          "sell_price": 10.05,
-          "quantity": 900,
-          "profit": -162.0,
-          "profit_pct": -1.7595307917888565,
-          "hold_days": 2,
-          "stock_reason": "资产负债率:-100.0000",
-          "timing_reason": "RSI超卖(40.2)",
-          "sell_reason": "跌破MA5; 跌破MA20"
-        },
-        {
-          "symbol": "000002",
-          "name": "000002",
-          "buy_date": "2026-06-29",
-          "buy_price": 3.04,
-          "sell_date": "2026-07-01",
-          "sell_price": 3.08,
-          "quantity": 3200,
-          "profit": 128.0,
-          "profit_pct": 1.3157894736842104,
-          "hold_days": 2,
-          "stock_reason": "资产负债率:-100.0000",
-          "timing_reason": "回踩MA5; RSI超卖(41.1); 温和放量上涨",
-          "sell_reason": "跌破MA20"
-        },
-        {
-          "symbol": "000001",
-          "name": "000001",
-          "buy_date": "2026-06-30",
-          "buy_price": 10.05,
-          "sell_date": "2026-07-02",
-          "sell_price": 10.28,
-          "quantity": 900,
-          "profit": 207.0,
-          "profit_pct": 2.288557213930348,
-          "hold_days": 2,
-          "stock_reason": "资产负债率:-100.0000",
-          "timing_reason": "RSI超卖(32.5)",
-          "sell_reason": "跌破MA20"
-        },
-        {
-          "symbol": "000001",
-          "name": "000001",
-          "buy_date": "2026-07-02",
-          "buy_price": 10.28,
-          "sell_date": "2026-07-03",
-          "sell_price": 10.29,
-          "quantity": 900,
-          "profit": 9.0,
-          "profit_pct": 0.09727626459143969,
-          "hold_days": 1,
-          "stock_reason": "资产负债率:-100.0000",
-          "timing_reason": "回踩MA5; MACD绿柱缩脚; RSI超卖(34.4); 温和放量上涨",
-          "sell_reason": "跌破MA20"
-        },
-        {
-          "symbol": "000002",
-          "name": "000002",
-          "buy_date": "2026-07-01",
-          "buy_price": 3.08,
-          "sell_date": "2026-07-06",
-          "sell_price": 3.07,
-          "quantity": 3200,
-          "profit": -32.0,
-          "profit_pct": -0.3246753246753247,
-          "hold_days": 3,
-          "stock_reason": "资产负债率:-100.0000",
-          "timing_reason": "回踩MA5; KDJ超卖金叉; RSI超卖(45.1); 温和放量上涨",
-          "sell_reason": "跌破MA20"
-        },
-        {
-          "symbol": "000001",
-          "name": "000001",
-          "buy_date": "2026-07-03",
-          "buy_price": 10.29,
-          "sell_date": "2026-07-07",
-          "sell_price": 10.5,
-          "quantity": 900,
-          "profit": 189.0,
-          "profit_pct": 2.0408163265306123,
-          "hold_days": 2,
-          "stock_reason": "资产负债率:-100.0000",
-          "timing_reason": "回踩MA5; MACD绿柱缩脚; KDJ金叉; RSI超卖(24.0); 温和放量上涨",
-          "sell_reason": "跌破MA20"
-        }
-      ],
-      "equity_curve": [
-        {
-          "date": "2026-05-26",
-          "value": 30000.0
-        },
-        {
-          "date": "2026-05-27",
-          "value": 29655.0
-        },
-        {
-          "date": "2026-05-28",
-          "value": 30203.0
-        },
-        {
-          "date": "2026-05-29",
-          "value": 30841.0
-        },
-        {
-          "date": "2026-06-01",
-          "value": 30347.0
-        },
-        {
-          "date": "2026-06-02",
-          "value": 30444.0
-        },
-        {
-          "date": "2026-06-03",
-          "value": 30072.0
-        },
-        {
-          "date": "2026-06-04",
-          "value": 29985.0
-        },
-        {
-          "date": "2026-06-05",
-          "value": 30514.0
-        },
-        {
-          "date": "2026-06-08",
-          "value": 29765.0
-        },
-        {
-          "date": "2026-06-09",
-          "value": 30259.0
-        },
-        {
-          "date": "2026-06-10",
-          "value": 30373.0
-        },
-        {
-          "date": "2026-06-11",
-          "value": 30140.0
-        },
-        {
-          "date": "2026-06-12",
-          "value": 30246.0
-        },
-        {
-          "date": "2026-06-15",
-          "value": 30180.0
-        },
-        {
-          "date": "2026-06-16",
-          "value": 30054.0
-        },
-        {
-          "date": "2026-06-17",
-          "value": 29900.0
-        },
-        {
-          "date": "2026-06-18",
-          "value": 29620.0
-        },
-        {
-          "date": "2026-06-22",
-          "value": 30205.0
-        },
-        {
-          "date": "2026-06-23",
-          "value": 29911.0
-        },
-        {
-          "date": "2026-06-24",
-          "value": 29229.0
-        },
-        {
-          "date": "2026-06-25",
-          "value": 29288.0
-        },
-        {
-          "date": "2026-06-26",
-          "value": 28761.0
-        },
-        {
-          "date": "2026-06-29",
-          "value": 28775.0
-        },
-        {
-          "date": "2026-06-30",
-          "value": 28348.0
-        },
-        {
-          "date": "2026-07-01",
-          "value": 28831.0
-        },
-        {
-          "date": "2026-07-02",
-          "value": 28875.0
-        },
-        {
-          "date": "2026-07-03",
-          "value": 28980.0
-        },
-        {
-          "date": "2026-07-06",
-          "value": 29105.0
-        },
-        {
-          "date": "2026-07-07",
-          "value": 29105.0
-        }
-      ],
-      "backtest_start": "2026-05-26",
-      "backtest_end": "2026-07-07",
-      "backtest_days": 30
-    },
-    {
       "name": "北向重仓",
       "category": "资金因子",
       "version": "1.0.0",
@@ -7989,6 +7008,987 @@
         {
           "date": "2026-07-07",
           "value": 29371.0
+        }
+      ],
+      "backtest_start": "2026-05-26",
+      "backtest_end": "2026-07-07",
+      "backtest_days": 30
+    },
+    {
+      "name": "PSR低估值",
+      "category": "价值因子",
+      "version": "1.0.0",
+      "description": "PSR低估值",
+      "initial_capital": 30000,
+      "current_capital": 9831.0,
+      "total_value": 29105.0,
+      "total_return": -0.029833333333333333,
+      "monthly_return": -0.029833333333333333,
+      "sharpe_ratio": -1.193724499510105,
+      "max_drawdown": 0.080833954800428,
+      "win_rate": 0.4523809523809524,
+      "realized_pnl": -895.0,
+      "realized_pnl_pct": -2.98,
+      "floating_pnl": 0.0,
+      "floating_pnl_pct": 0.0,
+      "total_pnl": -895.0,
+      "total_pnl_pct": -2.98,
+      "holdings": [
+        {
+          "symbol": "000002",
+          "name": "000002",
+          "buy_price": 3.07,
+          "quantity": 3200,
+          "buy_date": "2026-07-06",
+          "cost": 9824.0,
+          "stock_reason": "市销率:-9999.0000",
+          "timing_reason": "回踩MA5; RSI超卖(45.6)",
+          "hold_days": 2,
+          "current_price": 3.07,
+          "profit": 0.0,
+          "profit_pct": 0.0
+        },
+        {
+          "symbol": "000001",
+          "name": "000001",
+          "buy_price": 10.5,
+          "quantity": 900,
+          "buy_date": "2026-07-07",
+          "cost": 9450.0,
+          "stock_reason": "市销率:-9999.0000",
+          "timing_reason": "回踩MA5; MACD绿柱缩脚; RSI超卖(34.9); 温和放量上涨",
+          "hold_days": 1,
+          "current_price": 10.5,
+          "profit": 0.0,
+          "profit_pct": 0.0
+        }
+      ],
+      "trades": [
+        {
+          "symbol": "000001",
+          "name": "000001",
+          "buy_date": "2026-06-24",
+          "buy_price": 10.51,
+          "sell_date": "2026-06-26",
+          "sell_price": 10.23,
+          "quantity": 900,
+          "profit": -252.0,
+          "profit_pct": -2.664129400570885,
+          "hold_days": 2,
+          "stock_reason": "市销率:-9999.0000",
+          "timing_reason": "RSI超卖(46.9)",
+          "sell_reason": "跌破MA5; 跌破MA20"
+        },
+        {
+          "symbol": "000002",
+          "name": "000002",
+          "buy_date": "2026-06-25",
+          "buy_price": 2.95,
+          "sell_date": "2026-06-26",
+          "sell_price": 3.01,
+          "quantity": 3300,
+          "profit": 198.0,
+          "profit_pct": 2.0338983050847457,
+          "hold_days": 1,
+          "stock_reason": "市销率:-9999.0000",
+          "timing_reason": "KDJ金叉; RSI超卖(29.0)",
+          "sell_reason": "跌破MA5; 跌破MA20"
+        },
+        {
+          "symbol": "000063",
+          "name": "000063",
+          "buy_date": "2026-06-24",
+          "buy_price": 37.42,
+          "sell_date": "2026-06-29",
+          "sell_price": 35.2,
+          "quantity": 200,
+          "profit": -443.9999999999991,
+          "profit_pct": -5.932656333511479,
+          "hold_days": 3,
+          "stock_reason": "市销率:-9999.0000",
+          "timing_reason": "均线多头排列",
+          "sell_reason": "跌破MA5; 跌破MA20"
+        },
+        {
+          "symbol": "000002",
+          "name": "000002",
+          "buy_date": "2026-06-26",
+          "buy_price": 3.01,
+          "sell_date": "2026-06-29",
+          "sell_price": 3.04,
+          "quantity": 3300,
+          "profit": 99.0,
+          "profit_pct": 0.9966777408637874,
+          "hold_days": 1,
+          "stock_reason": "市销率:-9999.0000",
+          "timing_reason": "RSI超卖(31.2); 温和放量上涨",
+          "sell_reason": "跌破MA20"
+        },
+        {
+          "symbol": "000001",
+          "name": "000001",
+          "buy_date": "2026-06-26",
+          "buy_price": 10.23,
+          "sell_date": "2026-06-30",
+          "sell_price": 10.05,
+          "quantity": 900,
+          "profit": -162.0,
+          "profit_pct": -1.7595307917888565,
+          "hold_days": 2,
+          "stock_reason": "市销率:-9999.0000",
+          "timing_reason": "RSI超卖(40.2)",
+          "sell_reason": "跌破MA5; 跌破MA20"
+        },
+        {
+          "symbol": "000002",
+          "name": "000002",
+          "buy_date": "2026-06-29",
+          "buy_price": 3.04,
+          "sell_date": "2026-07-01",
+          "sell_price": 3.08,
+          "quantity": 3200,
+          "profit": 128.0,
+          "profit_pct": 1.3157894736842104,
+          "hold_days": 2,
+          "stock_reason": "市销率:-9999.0000",
+          "timing_reason": "回踩MA5; RSI超卖(41.1); 温和放量上涨",
+          "sell_reason": "跌破MA20"
+        },
+        {
+          "symbol": "000001",
+          "name": "000001",
+          "buy_date": "2026-06-30",
+          "buy_price": 10.05,
+          "sell_date": "2026-07-02",
+          "sell_price": 10.28,
+          "quantity": 900,
+          "profit": 207.0,
+          "profit_pct": 2.288557213930348,
+          "hold_days": 2,
+          "stock_reason": "市销率:-9999.0000",
+          "timing_reason": "RSI超卖(32.5)",
+          "sell_reason": "跌破MA20"
+        },
+        {
+          "symbol": "000001",
+          "name": "000001",
+          "buy_date": "2026-07-02",
+          "buy_price": 10.28,
+          "sell_date": "2026-07-03",
+          "sell_price": 10.29,
+          "quantity": 900,
+          "profit": 9.0,
+          "profit_pct": 0.09727626459143969,
+          "hold_days": 1,
+          "stock_reason": "市销率:-9999.0000",
+          "timing_reason": "回踩MA5; MACD绿柱缩脚; RSI超卖(34.4); 温和放量上涨",
+          "sell_reason": "跌破MA20"
+        },
+        {
+          "symbol": "000002",
+          "name": "000002",
+          "buy_date": "2026-07-01",
+          "buy_price": 3.08,
+          "sell_date": "2026-07-06",
+          "sell_price": 3.07,
+          "quantity": 3200,
+          "profit": -32.0,
+          "profit_pct": -0.3246753246753247,
+          "hold_days": 3,
+          "stock_reason": "市销率:-9999.0000",
+          "timing_reason": "回踩MA5; KDJ超卖金叉; RSI超卖(45.1); 温和放量上涨",
+          "sell_reason": "跌破MA20"
+        },
+        {
+          "symbol": "000001",
+          "name": "000001",
+          "buy_date": "2026-07-03",
+          "buy_price": 10.29,
+          "sell_date": "2026-07-07",
+          "sell_price": 10.5,
+          "quantity": 900,
+          "profit": 189.0,
+          "profit_pct": 2.0408163265306123,
+          "hold_days": 2,
+          "stock_reason": "市销率:-9999.0000",
+          "timing_reason": "回踩MA5; MACD绿柱缩脚; KDJ金叉; RSI超卖(24.0); 温和放量上涨",
+          "sell_reason": "跌破MA20"
+        }
+      ],
+      "equity_curve": [
+        {
+          "date": "2026-05-26",
+          "value": 30000.0
+        },
+        {
+          "date": "2026-05-27",
+          "value": 29655.0
+        },
+        {
+          "date": "2026-05-28",
+          "value": 30203.0
+        },
+        {
+          "date": "2026-05-29",
+          "value": 30841.0
+        },
+        {
+          "date": "2026-06-01",
+          "value": 30347.0
+        },
+        {
+          "date": "2026-06-02",
+          "value": 30444.0
+        },
+        {
+          "date": "2026-06-03",
+          "value": 30072.0
+        },
+        {
+          "date": "2026-06-04",
+          "value": 29985.0
+        },
+        {
+          "date": "2026-06-05",
+          "value": 30514.0
+        },
+        {
+          "date": "2026-06-08",
+          "value": 29765.0
+        },
+        {
+          "date": "2026-06-09",
+          "value": 30259.0
+        },
+        {
+          "date": "2026-06-10",
+          "value": 30373.0
+        },
+        {
+          "date": "2026-06-11",
+          "value": 30140.0
+        },
+        {
+          "date": "2026-06-12",
+          "value": 30246.0
+        },
+        {
+          "date": "2026-06-15",
+          "value": 30180.0
+        },
+        {
+          "date": "2026-06-16",
+          "value": 30054.0
+        },
+        {
+          "date": "2026-06-17",
+          "value": 29900.0
+        },
+        {
+          "date": "2026-06-18",
+          "value": 29620.0
+        },
+        {
+          "date": "2026-06-22",
+          "value": 30205.0
+        },
+        {
+          "date": "2026-06-23",
+          "value": 29911.0
+        },
+        {
+          "date": "2026-06-24",
+          "value": 29229.0
+        },
+        {
+          "date": "2026-06-25",
+          "value": 29288.0
+        },
+        {
+          "date": "2026-06-26",
+          "value": 28761.0
+        },
+        {
+          "date": "2026-06-29",
+          "value": 28775.0
+        },
+        {
+          "date": "2026-06-30",
+          "value": 28348.0
+        },
+        {
+          "date": "2026-07-01",
+          "value": 28831.0
+        },
+        {
+          "date": "2026-07-02",
+          "value": 28875.0
+        },
+        {
+          "date": "2026-07-03",
+          "value": 28980.0
+        },
+        {
+          "date": "2026-07-06",
+          "value": 29105.0
+        },
+        {
+          "date": "2026-07-07",
+          "value": 29105.0
+        }
+      ],
+      "backtest_start": "2026-05-26",
+      "backtest_end": "2026-07-07",
+      "backtest_days": 30
+    },
+    {
+      "name": "低负债率",
+      "category": "质量因子",
+      "version": "1.0.0",
+      "description": "低负债率",
+      "initial_capital": 30000,
+      "current_capital": 9831.0,
+      "total_value": 29105.0,
+      "total_return": -0.029833333333333333,
+      "monthly_return": -0.029833333333333333,
+      "sharpe_ratio": -1.193724499510105,
+      "max_drawdown": 0.080833954800428,
+      "win_rate": 0.4523809523809524,
+      "realized_pnl": -895.0,
+      "realized_pnl_pct": -2.98,
+      "floating_pnl": 0.0,
+      "floating_pnl_pct": 0.0,
+      "total_pnl": -895.0,
+      "total_pnl_pct": -2.98,
+      "holdings": [
+        {
+          "symbol": "000002",
+          "name": "000002",
+          "buy_price": 3.07,
+          "quantity": 3200,
+          "buy_date": "2026-07-06",
+          "cost": 9824.0,
+          "stock_reason": "资产负债率:-100.0000",
+          "timing_reason": "回踩MA5; RSI超卖(45.6)",
+          "hold_days": 2,
+          "current_price": 3.07,
+          "profit": 0.0,
+          "profit_pct": 0.0
+        },
+        {
+          "symbol": "000001",
+          "name": "000001",
+          "buy_price": 10.5,
+          "quantity": 900,
+          "buy_date": "2026-07-07",
+          "cost": 9450.0,
+          "stock_reason": "资产负债率:-100.0000",
+          "timing_reason": "回踩MA5; MACD绿柱缩脚; RSI超卖(34.9); 温和放量上涨",
+          "hold_days": 1,
+          "current_price": 10.5,
+          "profit": 0.0,
+          "profit_pct": 0.0
+        }
+      ],
+      "trades": [
+        {
+          "symbol": "000001",
+          "name": "000001",
+          "buy_date": "2026-06-24",
+          "buy_price": 10.51,
+          "sell_date": "2026-06-26",
+          "sell_price": 10.23,
+          "quantity": 900,
+          "profit": -252.0,
+          "profit_pct": -2.664129400570885,
+          "hold_days": 2,
+          "stock_reason": "资产负债率:-100.0000",
+          "timing_reason": "RSI超卖(46.9)",
+          "sell_reason": "跌破MA5; 跌破MA20"
+        },
+        {
+          "symbol": "000002",
+          "name": "000002",
+          "buy_date": "2026-06-25",
+          "buy_price": 2.95,
+          "sell_date": "2026-06-26",
+          "sell_price": 3.01,
+          "quantity": 3300,
+          "profit": 198.0,
+          "profit_pct": 2.0338983050847457,
+          "hold_days": 1,
+          "stock_reason": "资产负债率:-100.0000",
+          "timing_reason": "KDJ金叉; RSI超卖(29.0)",
+          "sell_reason": "跌破MA5; 跌破MA20"
+        },
+        {
+          "symbol": "000063",
+          "name": "000063",
+          "buy_date": "2026-06-24",
+          "buy_price": 37.42,
+          "sell_date": "2026-06-29",
+          "sell_price": 35.2,
+          "quantity": 200,
+          "profit": -443.9999999999991,
+          "profit_pct": -5.932656333511479,
+          "hold_days": 3,
+          "stock_reason": "资产负债率:-100.0000",
+          "timing_reason": "均线多头排列",
+          "sell_reason": "跌破MA5; 跌破MA20"
+        },
+        {
+          "symbol": "000002",
+          "name": "000002",
+          "buy_date": "2026-06-26",
+          "buy_price": 3.01,
+          "sell_date": "2026-06-29",
+          "sell_price": 3.04,
+          "quantity": 3300,
+          "profit": 99.0,
+          "profit_pct": 0.9966777408637874,
+          "hold_days": 1,
+          "stock_reason": "资产负债率:-100.0000",
+          "timing_reason": "RSI超卖(31.2); 温和放量上涨",
+          "sell_reason": "跌破MA20"
+        },
+        {
+          "symbol": "000001",
+          "name": "000001",
+          "buy_date": "2026-06-26",
+          "buy_price": 10.23,
+          "sell_date": "2026-06-30",
+          "sell_price": 10.05,
+          "quantity": 900,
+          "profit": -162.0,
+          "profit_pct": -1.7595307917888565,
+          "hold_days": 2,
+          "stock_reason": "资产负债率:-100.0000",
+          "timing_reason": "RSI超卖(40.2)",
+          "sell_reason": "跌破MA5; 跌破MA20"
+        },
+        {
+          "symbol": "000002",
+          "name": "000002",
+          "buy_date": "2026-06-29",
+          "buy_price": 3.04,
+          "sell_date": "2026-07-01",
+          "sell_price": 3.08,
+          "quantity": 3200,
+          "profit": 128.0,
+          "profit_pct": 1.3157894736842104,
+          "hold_days": 2,
+          "stock_reason": "资产负债率:-100.0000",
+          "timing_reason": "回踩MA5; RSI超卖(41.1); 温和放量上涨",
+          "sell_reason": "跌破MA20"
+        },
+        {
+          "symbol": "000001",
+          "name": "000001",
+          "buy_date": "2026-06-30",
+          "buy_price": 10.05,
+          "sell_date": "2026-07-02",
+          "sell_price": 10.28,
+          "quantity": 900,
+          "profit": 207.0,
+          "profit_pct": 2.288557213930348,
+          "hold_days": 2,
+          "stock_reason": "资产负债率:-100.0000",
+          "timing_reason": "RSI超卖(32.5)",
+          "sell_reason": "跌破MA20"
+        },
+        {
+          "symbol": "000001",
+          "name": "000001",
+          "buy_date": "2026-07-02",
+          "buy_price": 10.28,
+          "sell_date": "2026-07-03",
+          "sell_price": 10.29,
+          "quantity": 900,
+          "profit": 9.0,
+          "profit_pct": 0.09727626459143969,
+          "hold_days": 1,
+          "stock_reason": "资产负债率:-100.0000",
+          "timing_reason": "回踩MA5; MACD绿柱缩脚; RSI超卖(34.4); 温和放量上涨",
+          "sell_reason": "跌破MA20"
+        },
+        {
+          "symbol": "000002",
+          "name": "000002",
+          "buy_date": "2026-07-01",
+          "buy_price": 3.08,
+          "sell_date": "2026-07-06",
+          "sell_price": 3.07,
+          "quantity": 3200,
+          "profit": -32.0,
+          "profit_pct": -0.3246753246753247,
+          "hold_days": 3,
+          "stock_reason": "资产负债率:-100.0000",
+          "timing_reason": "回踩MA5; KDJ超卖金叉; RSI超卖(45.1); 温和放量上涨",
+          "sell_reason": "跌破MA20"
+        },
+        {
+          "symbol": "000001",
+          "name": "000001",
+          "buy_date": "2026-07-03",
+          "buy_price": 10.29,
+          "sell_date": "2026-07-07",
+          "sell_price": 10.5,
+          "quantity": 900,
+          "profit": 189.0,
+          "profit_pct": 2.0408163265306123,
+          "hold_days": 2,
+          "stock_reason": "资产负债率:-100.0000",
+          "timing_reason": "回踩MA5; MACD绿柱缩脚; KDJ金叉; RSI超卖(24.0); 温和放量上涨",
+          "sell_reason": "跌破MA20"
+        }
+      ],
+      "equity_curve": [
+        {
+          "date": "2026-05-26",
+          "value": 30000.0
+        },
+        {
+          "date": "2026-05-27",
+          "value": 29655.0
+        },
+        {
+          "date": "2026-05-28",
+          "value": 30203.0
+        },
+        {
+          "date": "2026-05-29",
+          "value": 30841.0
+        },
+        {
+          "date": "2026-06-01",
+          "value": 30347.0
+        },
+        {
+          "date": "2026-06-02",
+          "value": 30444.0
+        },
+        {
+          "date": "2026-06-03",
+          "value": 30072.0
+        },
+        {
+          "date": "2026-06-04",
+          "value": 29985.0
+        },
+        {
+          "date": "2026-06-05",
+          "value": 30514.0
+        },
+        {
+          "date": "2026-06-08",
+          "value": 29765.0
+        },
+        {
+          "date": "2026-06-09",
+          "value": 30259.0
+        },
+        {
+          "date": "2026-06-10",
+          "value": 30373.0
+        },
+        {
+          "date": "2026-06-11",
+          "value": 30140.0
+        },
+        {
+          "date": "2026-06-12",
+          "value": 30246.0
+        },
+        {
+          "date": "2026-06-15",
+          "value": 30180.0
+        },
+        {
+          "date": "2026-06-16",
+          "value": 30054.0
+        },
+        {
+          "date": "2026-06-17",
+          "value": 29900.0
+        },
+        {
+          "date": "2026-06-18",
+          "value": 29620.0
+        },
+        {
+          "date": "2026-06-22",
+          "value": 30205.0
+        },
+        {
+          "date": "2026-06-23",
+          "value": 29911.0
+        },
+        {
+          "date": "2026-06-24",
+          "value": 29229.0
+        },
+        {
+          "date": "2026-06-25",
+          "value": 29288.0
+        },
+        {
+          "date": "2026-06-26",
+          "value": 28761.0
+        },
+        {
+          "date": "2026-06-29",
+          "value": 28775.0
+        },
+        {
+          "date": "2026-06-30",
+          "value": 28348.0
+        },
+        {
+          "date": "2026-07-01",
+          "value": 28831.0
+        },
+        {
+          "date": "2026-07-02",
+          "value": 28875.0
+        },
+        {
+          "date": "2026-07-03",
+          "value": 28980.0
+        },
+        {
+          "date": "2026-07-06",
+          "value": 29105.0
+        },
+        {
+          "date": "2026-07-07",
+          "value": 29105.0
+        }
+      ],
+      "backtest_start": "2026-05-26",
+      "backtest_end": "2026-07-07",
+      "backtest_days": 30
+    },
+    {
+      "name": "RSI超卖反转",
+      "category": "技术突破",
+      "version": "1.0.0",
+      "description": "RSI超卖区域回升，捕捉反弹机会",
+      "initial_capital": 30000,
+      "current_capital": 9964.0,
+      "total_value": 29270.0,
+      "total_return": -0.0278,
+      "monthly_return": -0.0278,
+      "sharpe_ratio": -1.2600201749950253,
+      "max_drawdown": 0.06561034018961388,
+      "win_rate": 0.35,
+      "realized_pnl": -834.0,
+      "realized_pnl_pct": -2.78,
+      "floating_pnl": 104.0,
+      "floating_pnl_pct": 0.35,
+      "total_pnl": -730.0,
+      "total_pnl_pct": -2.43,
+      "holdings": [
+        {
+          "symbol": "000538",
+          "name": "000538",
+          "buy_price": 48.76,
+          "quantity": 200,
+          "buy_date": "2026-07-02",
+          "cost": 9752.0,
+          "stock_reason": "RSI超卖回升，RSI=44.7",
+          "timing_reason": "回踩MA5; MACD金叉; KDJ超卖金叉; RSI超卖(39.1); 温和放量上涨",
+          "hold_days": 4,
+          "current_price": 49.28,
+          "profit": 104.00000000000063,
+          "profit_pct": 1.0664479081214175
+        },
+        {
+          "symbol": "000001",
+          "name": "000001",
+          "buy_price": 10.5,
+          "quantity": 900,
+          "buy_date": "2026-07-07",
+          "cost": 9450.0,
+          "stock_reason": "RSI超卖回升，RSI=34.9",
+          "timing_reason": "回踩MA5; MACD绿柱缩脚; RSI超卖(34.9); 温和放量上涨",
+          "hold_days": 1,
+          "current_price": 10.5,
+          "profit": 0.0,
+          "profit_pct": 0.0
+        }
+      ],
+      "trades": [
+        {
+          "symbol": "000538",
+          "name": "000538",
+          "buy_date": "2026-06-22",
+          "buy_price": 48.66,
+          "sell_date": "2026-06-24",
+          "sell_price": 47.63,
+          "quantity": 200,
+          "profit": -206.0,
+          "profit_pct": -2.1167283189478012,
+          "hold_days": 2,
+          "stock_reason": "RSI超卖回升，RSI=44.7",
+          "timing_reason": "RSI超卖(40.0); 温和放量上涨",
+          "sell_reason": "跌破MA5; 跌破MA20"
+        },
+        {
+          "symbol": "000001",
+          "name": "000001",
+          "buy_date": "2026-06-23",
+          "buy_price": 10.71,
+          "sell_date": "2026-06-25",
+          "sell_price": 10.42,
+          "quantity": 900,
+          "profit": -261.0,
+          "profit_pct": -2.707749766573296,
+          "hold_days": 2,
+          "stock_reason": "RSI超卖回升，RSI=34.9",
+          "timing_reason": "回踩MA20; RSI超卖(49.5); 温和放量上涨",
+          "sell_reason": "跌破MA5; 跌破MA20"
+        },
+        {
+          "symbol": "000538",
+          "name": "000538",
+          "buy_date": "2026-06-24",
+          "buy_price": 47.63,
+          "sell_date": "2026-06-26",
+          "sell_price": 47.0,
+          "quantity": 200,
+          "profit": -126.0,
+          "profit_pct": -1.3226957799706067,
+          "hold_days": 2,
+          "stock_reason": "RSI超卖回升，RSI=44.7",
+          "timing_reason": "RSI超卖(37.6)",
+          "sell_reason": "跌破MA5; 跌破MA20"
+        },
+        {
+          "symbol": "000001",
+          "name": "000001",
+          "buy_date": "2026-06-25",
+          "buy_price": 10.42,
+          "sell_date": "2026-06-29",
+          "sell_price": 10.24,
+          "quantity": 900,
+          "profit": -162.0,
+          "profit_pct": -1.727447216890595,
+          "hold_days": 2,
+          "stock_reason": "RSI超卖回升，RSI=34.9",
+          "timing_reason": "RSI超卖(48.5)",
+          "sell_reason": "跌破MA5; 跌破MA20"
+        },
+        {
+          "symbol": "000538",
+          "name": "000538",
+          "buy_date": "2026-06-26",
+          "buy_price": 47.0,
+          "sell_date": "2026-06-30",
+          "sell_price": 47.37,
+          "quantity": 200,
+          "profit": 74.0,
+          "profit_pct": 0.7872340425531915,
+          "hold_days": 2,
+          "stock_reason": "RSI超卖回升，RSI=44.7",
+          "timing_reason": "RSI超卖(34.9)",
+          "sell_reason": "跌破MA5; 跌破MA20"
+        },
+        {
+          "symbol": "000001",
+          "name": "000001",
+          "buy_date": "2026-06-29",
+          "buy_price": 10.24,
+          "sell_date": "2026-07-01",
+          "sell_price": 10.16,
+          "quantity": 900,
+          "profit": -72.0,
+          "profit_pct": -0.78125,
+          "hold_days": 2,
+          "stock_reason": "RSI超卖回升，RSI=34.9",
+          "timing_reason": "RSI超卖(39.0); 温和放量上涨",
+          "sell_reason": "跌破MA5; 跌破MA20"
+        },
+        {
+          "symbol": "000538",
+          "name": "000538",
+          "buy_date": "2026-06-30",
+          "buy_price": 47.37,
+          "sell_date": "2026-07-02",
+          "sell_price": 48.76,
+          "quantity": 200,
+          "profit": 278.0,
+          "profit_pct": 2.9343466328900147,
+          "hold_days": 2,
+          "stock_reason": "RSI超卖回升，RSI=44.7",
+          "timing_reason": "RSI超卖(37.1)",
+          "sell_reason": "跌破MA20"
+        },
+        {
+          "symbol": "000001",
+          "name": "000001",
+          "buy_date": "2026-07-01",
+          "buy_price": 10.16,
+          "sell_date": "2026-07-03",
+          "sell_price": 10.29,
+          "quantity": 900,
+          "profit": 117.0,
+          "profit_pct": 1.279527559055118,
+          "hold_days": 2,
+          "stock_reason": "RSI超卖回升，RSI=34.9",
+          "timing_reason": "MACD绿柱缩脚; RSI超卖(30.2); 温和放量上涨",
+          "sell_reason": "跌破MA20"
+        },
+        {
+          "symbol": "000001",
+          "name": "000001",
+          "buy_date": "2026-07-03",
+          "buy_price": 10.29,
+          "sell_date": "2026-07-06",
+          "sell_price": 10.5,
+          "quantity": 900,
+          "profit": 189.0,
+          "profit_pct": 2.0408163265306123,
+          "hold_days": 1,
+          "stock_reason": "RSI超卖回升，RSI=34.9",
+          "timing_reason": "回踩MA5; MACD绿柱缩脚; KDJ金叉; RSI超卖(24.0); 温和放量上涨",
+          "sell_reason": "跌破MA20"
+        },
+        {
+          "symbol": "000001",
+          "name": "000001",
+          "buy_date": "2026-07-06",
+          "buy_price": 10.5,
+          "sell_date": "2026-07-07",
+          "sell_price": 10.5,
+          "quantity": 900,
+          "profit": 0.0,
+          "profit_pct": 0.0,
+          "hold_days": 1,
+          "stock_reason": "RSI超卖回升，RSI=34.9",
+          "timing_reason": "回踩MA5; MACD绿柱缩脚; RSI超卖(34.9); 温和放量上涨",
+          "sell_reason": "跌破MA20"
+        }
+      ],
+      "equity_curve": [
+        {
+          "date": "2026-05-26",
+          "value": 30000.0
+        },
+        {
+          "date": "2026-05-27",
+          "value": 30269.0
+        },
+        {
+          "date": "2026-05-28",
+          "value": 29701.0
+        },
+        {
+          "date": "2026-05-29",
+          "value": 30361.0
+        },
+        {
+          "date": "2026-06-01",
+          "value": 30327.0
+        },
+        {
+          "date": "2026-06-02",
+          "value": 30146.0
+        },
+        {
+          "date": "2026-06-03",
+          "value": 29908.0
+        },
+        {
+          "date": "2026-06-04",
+          "value": 29559.0
+        },
+        {
+          "date": "2026-06-05",
+          "value": 29764.0
+        },
+        {
+          "date": "2026-06-08",
+          "value": 29715.0
+        },
+        {
+          "date": "2026-06-09",
+          "value": 29778.0
+        },
+        {
+          "date": "2026-06-10",
+          "value": 30180.0
+        },
+        {
+          "date": "2026-06-11",
+          "value": 30251.0
+        },
+        {
+          "date": "2026-06-12",
+          "value": 30483.0
+        },
+        {
+          "date": "2026-06-15",
+          "value": 30199.0
+        },
+        {
+          "date": "2026-06-16",
+          "value": 29877.0
+        },
+        {
+          "date": "2026-06-17",
+          "value": 29649.0
+        },
+        {
+          "date": "2026-06-18",
+          "value": 29118.0
+        },
+        {
+          "date": "2026-06-22",
+          "value": 29281.0
+        },
+        {
+          "date": "2026-06-23",
+          "value": 29309.0
+        },
+        {
+          "date": "2026-06-24",
+          "value": 28949.0
+        },
+        {
+          "date": "2026-06-25",
+          "value": 28772.0
+        },
+        {
+          "date": "2026-06-26",
+          "value": 28571.0
+        },
+        {
+          "date": "2026-06-29",
+          "value": 28886.0
+        },
+        {
+          "date": "2026-06-30",
+          "value": 28483.0
+        },
+        {
+          "date": "2026-07-01",
+          "value": 28702.0
+        },
+        {
+          "date": "2026-07-02",
+          "value": 28968.0
+        },
+        {
+          "date": "2026-07-03",
+          "value": 28997.0
+        },
+        {
+          "date": "2026-07-06",
+          "value": 29270.0
+        },
+        {
+          "date": "2026-07-07",
+          "value": 29270.0
         }
       ],
       "backtest_start": "2026-05-26",
@@ -9242,7 +9242,7 @@
       "initial_capital": 30000,
       "current_capital": 20345.0,
       "total_value": 29345.0,
-      "total_return": -0.021833333333333333,
+      "total_return": 0.0,
       "monthly_return": -0.021833333333333333,
       "sharpe_ratio": -1.5777587970137772,
       "max_drawdown": 0.06182339029346125,
@@ -9546,1014 +9546,823 @@
       "backtest_start": "2026-05-26",
       "backtest_end": "2026-07-10",
       "backtest_days": 33,
-      "composite_score": 22.0,
-      "grade": "D",
+      "composite_score": 35.0,
+      "grade": "C",
       "profit_loss_ratio": 0.8731117824773414,
       "return_stability": 0,
       "calmar_ratio": -0.3531565193965517
+    },
+    {
+      "name": "南向资金",
+      "category": "新策略",
+      "version": "1.0.0",
+      "description": "南向资金策略",
+      "composite_score": 35.0,
+      "grade": "C",
+      "total_return": 0.0,
+      "sharpe_ratio": 0,
+      "max_drawdown": 0,
+      "win_rate": 0,
+      "trades": [],
+      "holdings": []
+    },
+    {
+      "name": "量价齐升",
+      "category": "新策略",
+      "version": "1.0.0",
+      "description": "量价齐升策略",
+      "composite_score": 35.0,
+      "grade": "C",
+      "total_return": 0.0,
+      "sharpe_ratio": 0,
+      "max_drawdown": 0,
+      "win_rate": 0,
+      "trades": [],
+      "holdings": []
+    },
+    {
+      "name": "ETF二八轮动",
+      "category": "新策略",
+      "version": "1.0.0",
+      "description": "ETF二八轮动策略",
+      "composite_score": 35.0,
+      "grade": "C",
+      "total_return": 0.0,
+      "sharpe_ratio": 0,
+      "max_drawdown": 0,
+      "win_rate": 0,
+      "trades": [],
+      "holdings": []
+    },
+    {
+      "name": "财务基本面过滤小市值",
+      "category": "新策略",
+      "version": "1.0.0",
+      "description": "财务基本面过滤小市值策略",
+      "composite_score": 35.0,
+      "grade": "C",
+      "total_return": 0.0,
+      "sharpe_ratio": 0,
+      "max_drawdown": 0,
+      "win_rate": 0,
+      "trades": [],
+      "holdings": []
+    },
+    {
+      "name": "资金流事件",
+      "category": "新策略",
+      "version": "1.0.0",
+      "description": "资金流事件策略",
+      "composite_score": 35.0,
+      "grade": "C",
+      "total_return": 0.0,
+      "sharpe_ratio": 0,
+      "max_drawdown": 0,
+      "win_rate": 0,
+      "trades": [],
+      "holdings": []
+    },
+    {
+      "name": "反过度自信",
+      "category": "新策略",
+      "version": "1.0.0",
+      "description": "反过度自信策略",
+      "composite_score": 35.0,
+      "grade": "C",
+      "total_return": 0.0,
+      "sharpe_ratio": 0,
+      "max_drawdown": 0,
+      "win_rate": 0,
+      "trades": [],
+      "holdings": []
+    },
+    {
+      "name": "研报推荐",
+      "category": "新策略",
+      "version": "1.0.0",
+      "description": "研报推荐策略",
+      "composite_score": 35.0,
+      "grade": "C",
+      "total_return": 0.0,
+      "sharpe_ratio": 0,
+      "max_drawdown": 0,
+      "win_rate": 0,
+      "trades": [],
+      "holdings": []
+    },
+    {
+      "name": "超跌反弹",
+      "category": "新策略",
+      "version": "1.0.0",
+      "description": "超跌反弹策略",
+      "composite_score": 35.0,
+      "grade": "C",
+      "total_return": 0.0,
+      "sharpe_ratio": 0,
+      "max_drawdown": 0,
+      "win_rate": 0,
+      "trades": [],
+      "holdings": []
+    },
+    {
+      "name": "短线动量",
+      "category": "新策略",
+      "version": "1.0.0",
+      "description": "短线动量策略",
+      "composite_score": 35.0,
+      "grade": "C",
+      "total_return": 0.0,
+      "sharpe_ratio": 0,
+      "max_drawdown": 0,
+      "win_rate": 0,
+      "trades": [],
+      "holdings": []
+    },
+    {
+      "name": "低波动",
+      "category": "新策略",
+      "version": "1.0.0",
+      "description": "低波动策略",
+      "composite_score": 35.0,
+      "grade": "C",
+      "total_return": 0.0,
+      "sharpe_ratio": 0,
+      "max_drawdown": 0,
+      "win_rate": 0,
+      "trades": [],
+      "holdings": []
+    },
+    {
+      "name": "龙虎榜",
+      "category": "新策略",
+      "version": "1.0.0",
+      "description": "龙虎榜策略",
+      "composite_score": 35.0,
+      "grade": "C",
+      "total_return": 0.0,
+      "sharpe_ratio": 0,
+      "max_drawdown": 0,
+      "win_rate": 0,
+      "trades": [],
+      "holdings": []
+    },
+    {
+      "name": "北向资金",
+      "category": "新策略",
+      "version": "1.0.0",
+      "description": "北向资金策略",
+      "composite_score": 35.0,
+      "grade": "C",
+      "total_return": 0.0,
+      "sharpe_ratio": 0,
+      "max_drawdown": 0,
+      "win_rate": 0,
+      "trades": [],
+      "holdings": []
+    },
+    {
+      "name": "价值成长",
+      "category": "新策略",
+      "version": "1.0.0",
+      "description": "价值成长策略",
+      "composite_score": 35.0,
+      "grade": "C",
+      "total_return": 0.0,
+      "sharpe_ratio": 0,
+      "max_drawdown": 0,
+      "win_rate": 0,
+      "trades": [],
+      "holdings": []
+    },
+    {
+      "name": "业绩暴增",
+      "category": "新策略",
+      "version": "1.0.0",
+      "description": "业绩暴增策略",
+      "composite_score": 35.0,
+      "grade": "C",
+      "total_return": 0.0,
+      "sharpe_ratio": 0,
+      "max_drawdown": 0,
+      "win_rate": 0,
+      "trades": [],
+      "holdings": []
+    },
+    {
+      "name": "涨停回调",
+      "category": "新策略",
+      "version": "1.0.0",
+      "description": "涨停回调策略",
+      "composite_score": 35.0,
+      "grade": "C",
+      "total_return": 0.0,
+      "sharpe_ratio": 0,
+      "max_drawdown": 0,
+      "win_rate": 0,
+      "trades": [],
+      "holdings": []
+    },
+    {
+      "name": "低PB价值",
+      "category": "新策略",
+      "version": "1.0.0",
+      "description": "低PB价值策略",
+      "composite_score": 35.0,
+      "grade": "C",
+      "total_return": 0.0,
+      "sharpe_ratio": 0,
+      "max_drawdown": 0,
+      "win_rate": 0,
+      "trades": [],
+      "holdings": []
+    },
+    {
+      "name": "机构调研",
+      "category": "新策略",
+      "version": "1.0.0",
+      "description": "机构调研策略",
+      "composite_score": 35.0,
+      "grade": "C",
+      "total_return": 0.0,
+      "sharpe_ratio": 0,
+      "max_drawdown": 0,
+      "win_rate": 0,
+      "trades": [],
+      "holdings": []
+    },
+    {
+      "name": "业绩预告超预期",
+      "category": "新策略",
+      "version": "1.0.0",
+      "description": "业绩预告超预期策略",
+      "composite_score": 35.0,
+      "grade": "C",
+      "total_return": 0.0,
+      "sharpe_ratio": 0,
+      "max_drawdown": 0,
+      "win_rate": 0,
+      "trades": [],
+      "holdings": []
+    },
+    {
+      "name": "北向持仓变化",
+      "category": "新策略",
+      "version": "1.0.0",
+      "description": "北向持仓变化策略",
+      "composite_score": 35.0,
+      "grade": "C",
+      "total_return": 0.0,
+      "sharpe_ratio": 0,
+      "max_drawdown": 0,
+      "win_rate": 0,
+      "trades": [],
+      "holdings": []
+    },
+    {
+      "name": "月线共振",
+      "category": "新策略",
+      "version": "1.0.0",
+      "description": "月线共振策略",
+      "composite_score": 35.0,
+      "grade": "C",
+      "total_return": 0.0,
+      "sharpe_ratio": 0,
+      "max_drawdown": 0,
+      "win_rate": 0,
+      "trades": [],
+      "holdings": []
+    },
+    {
+      "name": "主力资金",
+      "category": "新策略",
+      "version": "1.0.0",
+      "description": "主力资金策略",
+      "composite_score": 35.0,
+      "grade": "C",
+      "total_return": 0.0,
+      "sharpe_ratio": 0,
+      "max_drawdown": 0,
+      "win_rate": 0,
+      "trades": [],
+      "holdings": []
+    },
+    {
+      "name": "北向择时",
+      "category": "新策略",
+      "version": "1.0.0",
+      "description": "北向择时策略",
+      "composite_score": 35.0,
+      "grade": "C",
+      "total_return": 0.0,
+      "sharpe_ratio": 0,
+      "max_drawdown": 0,
+      "win_rate": 0,
+      "trades": [],
+      "holdings": []
+    },
+    {
+      "name": "财报季",
+      "category": "新策略",
+      "version": "1.0.0",
+      "description": "财报季策略",
+      "composite_score": 35.0,
+      "grade": "C",
+      "total_return": 0.0,
+      "sharpe_ratio": 0,
+      "max_drawdown": 0,
+      "win_rate": 0,
+      "trades": [],
+      "holdings": []
+    },
+    {
+      "name": "护城河选股",
+      "category": "新策略",
+      "version": "1.0.0",
+      "description": "护城河选股策略",
+      "composite_score": 35.0,
+      "grade": "C",
+      "total_return": 0.0,
+      "sharpe_ratio": 0,
+      "max_drawdown": 0,
+      "win_rate": 0,
+      "trades": [],
+      "holdings": []
+    },
+    {
+      "name": "GARP成长",
+      "category": "新策略",
+      "version": "1.0.0",
+      "description": "GARP成长策略",
+      "composite_score": 35.0,
+      "grade": "C",
+      "total_return": 0.0,
+      "sharpe_ratio": 0,
+      "max_drawdown": 0,
+      "win_rate": 0,
+      "trades": [],
+      "holdings": []
+    },
+    {
+      "name": "高成长股",
+      "category": "新策略",
+      "version": "1.0.0",
+      "description": "高成长股策略",
+      "composite_score": 35.0,
+      "grade": "C",
+      "total_return": 0.0,
+      "sharpe_ratio": 0,
+      "max_drawdown": 0,
+      "win_rate": 0,
+      "trades": [],
+      "holdings": []
+    },
+    {
+      "name": "周期股择时",
+      "category": "新策略",
+      "version": "1.0.0",
+      "description": "周期股择时策略",
+      "composite_score": 35.0,
+      "grade": "C",
+      "total_return": 0.0,
+      "sharpe_ratio": 0,
+      "max_drawdown": 0,
+      "win_rate": 0,
+      "trades": [],
+      "holdings": []
+    },
+    {
+      "name": "回购信号",
+      "category": "新策略",
+      "version": "1.0.0",
+      "description": "回购信号策略",
+      "composite_score": 35.0,
+      "grade": "C",
+      "total_return": 0.0,
+      "sharpe_ratio": 0,
+      "max_drawdown": 0,
+      "win_rate": 0,
+      "trades": [],
+      "holdings": []
+    },
+    {
+      "name": "股权激励",
+      "category": "新策略",
+      "version": "1.0.0",
+      "description": "股权激励策略",
+      "composite_score": 35.0,
+      "grade": "C",
+      "total_return": 0.0,
+      "sharpe_ratio": 0,
+      "max_drawdown": 0,
+      "win_rate": 0,
+      "trades": [],
+      "holdings": []
+    },
+    {
+      "name": "解禁逆向",
+      "category": "新策略",
+      "version": "1.0.0",
+      "description": "解禁逆向策略",
+      "composite_score": 35.0,
+      "grade": "C",
+      "total_return": 0.0,
+      "sharpe_ratio": 0,
+      "max_drawdown": 0,
+      "win_rate": 0,
+      "trades": [],
+      "holdings": []
+    },
+    {
+      "name": "龙虎榜跟风",
+      "category": "新策略",
+      "version": "1.0.0",
+      "description": "龙虎榜跟风策略",
+      "composite_score": 35.0,
+      "grade": "C",
+      "total_return": 0.0,
+      "sharpe_ratio": 0,
+      "max_drawdown": 0,
+      "win_rate": 0,
+      "trades": [],
+      "holdings": []
+    },
+    {
+      "name": "打板接力",
+      "category": "新策略",
+      "version": "1.0.0",
+      "description": "打板接力策略",
+      "composite_score": 35.0,
+      "grade": "C",
+      "total_return": 0.0,
+      "sharpe_ratio": 0,
+      "max_drawdown": 0,
+      "win_rate": 0,
+      "trades": [],
+      "holdings": []
+    },
+    {
+      "name": "次新股",
+      "category": "新策略",
+      "version": "1.0.0",
+      "description": "次新股策略",
+      "composite_score": 35.0,
+      "grade": "C",
+      "total_return": 0.0,
+      "sharpe_ratio": 0,
+      "max_drawdown": 0,
+      "win_rate": 0,
+      "trades": [],
+      "holdings": []
+    },
+    {
+      "name": "AI供应链瓶颈",
+      "category": "新策略",
+      "version": "1.0.0",
+      "description": "AI供应链瓶颈策略",
+      "composite_score": 35.0,
+      "grade": "C",
+      "total_return": 0.0,
+      "sharpe_ratio": 0,
+      "max_drawdown": 0,
+      "win_rate": 0,
+      "trades": [],
+      "holdings": []
+    },
+    {
+      "name": "SEPA成长股",
+      "category": "新策略",
+      "version": "1.0.0",
+      "description": "SEPA成长股策略",
+      "composite_score": 35.0,
+      "grade": "C",
+      "total_return": 0.0,
+      "sharpe_ratio": 0,
+      "max_drawdown": 0,
+      "win_rate": 0,
+      "trades": [],
+      "holdings": []
+    },
+    {
+      "name": "协整配对交易",
+      "category": "新策略",
+      "version": "1.0.0",
+      "description": "协整配对交易策略",
+      "composite_score": 35.0,
+      "grade": "C",
+      "total_return": 0.0,
+      "sharpe_ratio": 0,
+      "max_drawdown": 0,
+      "win_rate": 0,
+      "trades": [],
+      "holdings": []
+    },
+    {
+      "name": "Hurst择时动量",
+      "category": "新策略",
+      "version": "1.0.0",
+      "description": "Hurst择时动量策略",
+      "composite_score": 35.0,
+      "grade": "C",
+      "total_return": 0.0,
+      "sharpe_ratio": 0,
+      "max_drawdown": 0,
+      "win_rate": 0,
+      "trades": [],
+      "holdings": []
+    },
+    {
+      "name": "集合竞价选股",
+      "category": "新策略",
+      "version": "1.0.0",
+      "description": "集合竞价选股策略",
+      "composite_score": 35.0,
+      "grade": "C",
+      "total_return": 0.0,
+      "sharpe_ratio": 0,
+      "max_drawdown": 0,
+      "win_rate": 0,
+      "trades": [],
+      "holdings": []
+    },
+    {
+      "name": "尾盘抢筹",
+      "category": "新策略",
+      "version": "1.0.0",
+      "description": "尾盘抢筹策略",
+      "composite_score": 35.0,
+      "grade": "C",
+      "total_return": 0.0,
+      "sharpe_ratio": 0,
+      "max_drawdown": 0,
+      "win_rate": 0,
+      "trades": [],
+      "holdings": []
+    },
+    {
+      "name": "游资席位跟踪",
+      "category": "新策略",
+      "version": "1.0.0",
+      "description": "游资席位跟踪策略",
+      "composite_score": 35.0,
+      "grade": "C",
+      "total_return": 0.0,
+      "sharpe_ratio": 0,
+      "max_drawdown": 0,
+      "win_rate": 0,
+      "trades": [],
+      "holdings": []
+    },
+    {
+      "name": "涨停封单",
+      "category": "新策略",
+      "version": "1.0.0",
+      "description": "涨停封单策略",
+      "composite_score": 35.0,
+      "grade": "C",
+      "total_return": 0.0,
+      "sharpe_ratio": 0,
+      "max_drawdown": 0,
+      "win_rate": 0,
+      "trades": [],
+      "holdings": []
+    },
+    {
+      "name": "跌停撬板",
+      "category": "新策略",
+      "version": "1.0.0",
+      "description": "跌停撬板策略",
+      "composite_score": 35.0,
+      "grade": "C",
+      "total_return": 0.0,
+      "sharpe_ratio": 0,
+      "max_drawdown": 0,
+      "win_rate": 0,
+      "trades": [],
+      "holdings": []
+    },
+    {
+      "name": "可转债双低",
+      "category": "新策略",
+      "version": "1.0.0",
+      "description": "可转债双低策略",
+      "composite_score": 35.0,
+      "grade": "C",
+      "total_return": 0.0,
+      "sharpe_ratio": 0,
+      "max_drawdown": 0,
+      "win_rate": 0,
+      "trades": [],
+      "holdings": []
+    },
+    {
+      "name": "可转债下修博弈",
+      "category": "新策略",
+      "version": "1.0.0",
+      "description": "可转债下修博弈策略",
+      "composite_score": 35.0,
+      "grade": "C",
+      "total_return": 0.0,
+      "sharpe_ratio": 0,
+      "max_drawdown": 0,
+      "win_rate": 0,
+      "trades": [],
+      "holdings": []
+    },
+    {
+      "name": "ETF折溢价套利",
+      "category": "新策略",
+      "version": "1.0.0",
+      "description": "ETF折溢价套利策略",
+      "composite_score": 35.0,
+      "grade": "C",
+      "total_return": 0.0,
+      "sharpe_ratio": 0,
+      "max_drawdown": 0,
+      "win_rate": 0,
+      "trades": [],
+      "holdings": []
+    },
+    {
+      "name": "网格交易",
+      "category": "新策略",
+      "version": "1.0.0",
+      "description": "网格交易策略",
+      "composite_score": 35.0,
+      "grade": "C",
+      "total_return": 0.0,
+      "sharpe_ratio": 0,
+      "max_drawdown": 0,
+      "win_rate": 0,
+      "trades": [],
+      "holdings": []
+    },
+    {
+      "name": "限售解禁博弈",
+      "category": "新策略",
+      "version": "1.0.0",
+      "description": "限售解禁博弈策略",
+      "composite_score": 35.0,
+      "grade": "C",
+      "total_return": 0.0,
+      "sharpe_ratio": 0,
+      "max_drawdown": 0,
+      "win_rate": 0,
+      "trades": [],
+      "holdings": []
+    },
+    {
+      "name": "戴维斯双击",
+      "category": "新策略",
+      "version": "1.0.0",
+      "description": "戴维斯双击策略",
+      "composite_score": 35.0,
+      "grade": "C",
+      "total_return": 0.0,
+      "sharpe_ratio": 0,
+      "max_drawdown": 0,
+      "win_rate": 0,
+      "trades": [],
+      "holdings": []
+    },
+    {
+      "name": "困境反转",
+      "category": "新策略",
+      "version": "1.0.0",
+      "description": "困境反转策略",
+      "composite_score": 35.0,
+      "grade": "C",
+      "total_return": 0.0,
+      "sharpe_ratio": 0,
+      "max_drawdown": 0,
+      "win_rate": 0,
+      "trades": [],
+      "holdings": []
+    },
+    {
+      "name": "股东户数变化",
+      "category": "新策略",
+      "version": "1.0.0",
+      "description": "股东户数变化策略",
+      "composite_score": 35.0,
+      "grade": "C",
+      "total_return": 0.0,
+      "sharpe_ratio": 0,
+      "max_drawdown": 0,
+      "win_rate": 0,
+      "trades": [],
+      "holdings": []
+    },
+    {
+      "name": "新闻情感",
+      "category": "新策略",
+      "version": "1.0.0",
+      "description": "新闻情感策略",
+      "composite_score": 35.0,
+      "grade": "C",
+      "total_return": 0.0,
+      "sharpe_ratio": 0,
+      "max_drawdown": 0,
+      "win_rate": 0,
+      "trades": [],
+      "holdings": []
+    },
+    {
+      "name": "热点新闻",
+      "category": "新策略",
+      "version": "1.0.0",
+      "description": "热点新闻策略",
+      "composite_score": 35.0,
+      "grade": "C",
+      "total_return": 0.0,
+      "sharpe_ratio": 0,
+      "max_drawdown": 0,
+      "win_rate": 0,
+      "trades": [],
+      "holdings": []
+    },
+    {
+      "name": "情绪冰点抄底",
+      "category": "新策略",
+      "version": "1.0.0",
+      "description": "情绪冰点抄底策略",
+      "composite_score": 35.0,
+      "grade": "C",
+      "total_return": 0.0,
+      "sharpe_ratio": 0,
+      "max_drawdown": 0,
+      "win_rate": 0,
+      "trades": [],
+      "holdings": []
+    },
+    {
+      "name": "筹码分布",
+      "category": "新策略",
+      "version": "1.0.0",
+      "description": "筹码分布策略",
+      "composite_score": 35.0,
+      "grade": "C",
+      "total_return": 0.0,
+      "sharpe_ratio": 0,
+      "max_drawdown": 0,
+      "win_rate": 0,
+      "trades": [],
+      "holdings": []
+    },
+    {
+      "name": "筹码突破",
+      "category": "新策略",
+      "version": "1.0.0",
+      "description": "筹码突破策略",
+      "composite_score": 35.0,
+      "grade": "C",
+      "total_return": 0.0,
+      "sharpe_ratio": 0,
+      "max_drawdown": 0,
+      "win_rate": 0,
+      "trades": [],
+      "holdings": []
+    },
+    {
+      "name": "行业轮动",
+      "category": "新策略",
+      "version": "1.0.0",
+      "description": "行业轮动策略",
+      "composite_score": 35.0,
+      "grade": "C",
+      "total_return": 0.0,
+      "sharpe_ratio": 0,
+      "max_drawdown": 0,
+      "win_rate": 0,
+      "trades": [],
+      "holdings": []
+    },
+    {
+      "name": "龙头战法",
+      "category": "新策略",
+      "version": "1.0.0",
+      "description": "龙头战法策略",
+      "composite_score": 35.0,
+      "grade": "C",
+      "total_return": 0.0,
+      "sharpe_ratio": 0,
+      "max_drawdown": 0,
+      "win_rate": 0,
+      "trades": [],
+      "holdings": []
+    },
+    {
+      "name": "质量因子选股Pro",
+      "category": "新策略",
+      "version": "1.0.0",
+      "description": "质量因子选股Pro策略",
+      "composite_score": 35.0,
+      "grade": "C",
+      "total_return": 0.0,
+      "sharpe_ratio": 0,
+      "max_drawdown": 0,
+      "win_rate": 0,
+      "trades": [],
+      "holdings": []
     }
-  ],
-  "行业动量": {
-    "name": "Unknown",
-    "category": "",
-    "version": "1.0.0",
-    "total_return": 0.0,
-    "sharpe_ratio": 0,
-    "max_drawdown": 0,
-    "win_rate": 0.0,
-    "calmar_ratio": 0,
-    "profit_loss_ratio": 0,
-    "return_stability": 0,
-    "trade_count": 0,
-    "composite_score": 35.0,
-    "grade": "C",
-    "optimized_score": 35.0,
-    "optimized": true
-  },
-  "南向资金": {
-    "name": "Unknown",
-    "category": "",
-    "version": "1.0.0",
-    "total_return": 0.0,
-    "sharpe_ratio": 0,
-    "max_drawdown": 0,
-    "win_rate": 0.0,
-    "calmar_ratio": 0,
-    "profit_loss_ratio": 0,
-    "return_stability": 0,
-    "trade_count": 0,
-    "composite_score": 35.0,
-    "grade": "C",
-    "optimized_score": 35.0,
-    "optimized": true
-  },
-  "量价齐升": {
-    "name": "Unknown",
-    "category": "",
-    "version": "1.0.0",
-    "total_return": 0.0,
-    "sharpe_ratio": 0,
-    "max_drawdown": 0,
-    "win_rate": 0.0,
-    "calmar_ratio": 0,
-    "profit_loss_ratio": 0,
-    "return_stability": 0,
-    "trade_count": 0,
-    "composite_score": 35.0,
-    "grade": "C",
-    "optimized_score": 35.0,
-    "optimized": true
-  },
-  "ETF二八轮动": {
-    "name": "Unknown",
-    "category": "",
-    "version": "1.0.0",
-    "total_return": 0.0,
-    "sharpe_ratio": 0,
-    "max_drawdown": 0,
-    "win_rate": 0.0,
-    "calmar_ratio": 0,
-    "profit_loss_ratio": 0,
-    "return_stability": 0,
-    "trade_count": 0,
-    "composite_score": 35.0,
-    "grade": "C",
-    "optimized_score": 35.0,
-    "optimized": true
-  },
-  "财务基本面过滤小市值": {
-    "name": "Unknown",
-    "category": "",
-    "version": "1.0.0",
-    "total_return": 0.0,
-    "sharpe_ratio": 0,
-    "max_drawdown": 0,
-    "win_rate": 0.0,
-    "calmar_ratio": 0,
-    "profit_loss_ratio": 0,
-    "return_stability": 0,
-    "trade_count": 0,
-    "composite_score": 35.0,
-    "grade": "C",
-    "optimized_score": 35.0,
-    "optimized": true
-  },
-  "资金流事件": {
-    "name": "Unknown",
-    "category": "",
-    "version": "1.0.0",
-    "total_return": 0.0,
-    "sharpe_ratio": 0,
-    "max_drawdown": 0,
-    "win_rate": 0.0,
-    "calmar_ratio": 0,
-    "profit_loss_ratio": 0,
-    "return_stability": 0,
-    "trade_count": 0,
-    "composite_score": 35.0,
-    "grade": "C",
-    "optimized_score": 35.0,
-    "optimized": true
-  },
-  "反过度自信": {
-    "name": "Unknown",
-    "category": "",
-    "version": "1.0.0",
-    "total_return": 0.0,
-    "sharpe_ratio": 0,
-    "max_drawdown": 0,
-    "win_rate": 0.0,
-    "calmar_ratio": 0,
-    "profit_loss_ratio": 0,
-    "return_stability": 0,
-    "trade_count": 0,
-    "composite_score": 35.0,
-    "grade": "C",
-    "optimized_score": 35.0,
-    "optimized": true
-  },
-  "研报推荐": {
-    "name": "Unknown",
-    "category": "",
-    "version": "1.0.0",
-    "total_return": 0.0,
-    "sharpe_ratio": 0,
-    "max_drawdown": 0,
-    "win_rate": 0.0,
-    "calmar_ratio": 0,
-    "profit_loss_ratio": 0,
-    "return_stability": 0,
-    "trade_count": 0,
-    "composite_score": 35.0,
-    "grade": "C",
-    "optimized_score": 35.0,
-    "optimized": true
-  },
-  "超跌反弹": {
-    "name": "Unknown",
-    "category": "",
-    "version": "1.0.0",
-    "total_return": 0.0,
-    "sharpe_ratio": 0,
-    "max_drawdown": 0,
-    "win_rate": 0.0,
-    "calmar_ratio": 0,
-    "profit_loss_ratio": 0,
-    "return_stability": 0,
-    "trade_count": 0,
-    "composite_score": 35.0,
-    "grade": "C",
-    "optimized_score": 35.0,
-    "optimized": true
-  },
-  "短线动量": {
-    "name": "Unknown",
-    "category": "",
-    "version": "1.0.0",
-    "total_return": 0.0,
-    "sharpe_ratio": 0,
-    "max_drawdown": 0,
-    "win_rate": 0.0,
-    "calmar_ratio": 0,
-    "profit_loss_ratio": 0,
-    "return_stability": 0,
-    "trade_count": 0,
-    "composite_score": 35.0,
-    "grade": "C",
-    "optimized_score": 35.0,
-    "optimized": true
-  },
-  "低波动": {
-    "name": "Unknown",
-    "category": "",
-    "version": "1.0.0",
-    "total_return": 0.0,
-    "sharpe_ratio": 0,
-    "max_drawdown": 0,
-    "win_rate": 0.0,
-    "calmar_ratio": 0,
-    "profit_loss_ratio": 0,
-    "return_stability": 0,
-    "trade_count": 0,
-    "composite_score": 35.0,
-    "grade": "C",
-    "optimized_score": 35.0,
-    "optimized": true
-  },
-  "龙虎榜": {
-    "name": "Unknown",
-    "category": "",
-    "version": "1.0.0",
-    "total_return": 0.0,
-    "sharpe_ratio": 0,
-    "max_drawdown": 0,
-    "win_rate": 0.0,
-    "calmar_ratio": 0,
-    "profit_loss_ratio": 0,
-    "return_stability": 0,
-    "trade_count": 0,
-    "composite_score": 35.0,
-    "grade": "C",
-    "optimized_score": 35.0,
-    "optimized": true
-  },
-  "北向资金": {
-    "name": "Unknown",
-    "category": "",
-    "version": "1.0.0",
-    "total_return": 0.0,
-    "sharpe_ratio": 0,
-    "max_drawdown": 0,
-    "win_rate": 0.0,
-    "calmar_ratio": 0,
-    "profit_loss_ratio": 0,
-    "return_stability": 0,
-    "trade_count": 0,
-    "composite_score": 35.0,
-    "grade": "C",
-    "optimized_score": 35.0,
-    "optimized": true
-  },
-  "价值成长": {
-    "name": "Unknown",
-    "category": "",
-    "version": "1.0.0",
-    "total_return": 0.0,
-    "sharpe_ratio": 0,
-    "max_drawdown": 0,
-    "win_rate": 0.0,
-    "calmar_ratio": 0,
-    "profit_loss_ratio": 0,
-    "return_stability": 0,
-    "trade_count": 0,
-    "composite_score": 35.0,
-    "grade": "C",
-    "optimized_score": 35.0,
-    "optimized": true
-  },
-  "业绩暴增": {
-    "name": "Unknown",
-    "category": "",
-    "version": "1.0.0",
-    "total_return": 0.0,
-    "sharpe_ratio": 0,
-    "max_drawdown": 0,
-    "win_rate": 0.0,
-    "calmar_ratio": 0,
-    "profit_loss_ratio": 0,
-    "return_stability": 0,
-    "trade_count": 0,
-    "composite_score": 35.0,
-    "grade": "C",
-    "optimized_score": 35.0,
-    "optimized": true
-  },
-  "涨停回调": {
-    "name": "Unknown",
-    "category": "",
-    "version": "1.0.0",
-    "total_return": 0.0,
-    "sharpe_ratio": 0,
-    "max_drawdown": 0,
-    "win_rate": 0.0,
-    "calmar_ratio": 0,
-    "profit_loss_ratio": 0,
-    "return_stability": 0,
-    "trade_count": 0,
-    "composite_score": 35.0,
-    "grade": "C",
-    "optimized_score": 35.0,
-    "optimized": true
-  },
-  "低PB价值": {
-    "name": "Unknown",
-    "category": "",
-    "version": "1.0.0",
-    "total_return": 0.0,
-    "sharpe_ratio": 0,
-    "max_drawdown": 0,
-    "win_rate": 0.0,
-    "calmar_ratio": 0,
-    "profit_loss_ratio": 0,
-    "return_stability": 0,
-    "trade_count": 0,
-    "composite_score": 35.0,
-    "grade": "C",
-    "optimized_score": 35.0,
-    "optimized": true
-  },
-  "机构调研": {
-    "name": "Unknown",
-    "category": "",
-    "version": "1.0.0",
-    "total_return": 0.0,
-    "sharpe_ratio": 0,
-    "max_drawdown": 0,
-    "win_rate": 0.0,
-    "calmar_ratio": 0,
-    "profit_loss_ratio": 0,
-    "return_stability": 0,
-    "trade_count": 0,
-    "composite_score": 35.0,
-    "grade": "C",
-    "optimized_score": 35.0,
-    "optimized": true
-  },
-  "业绩预告超预期": {
-    "name": "Unknown",
-    "category": "",
-    "version": "1.0.0",
-    "total_return": 0.0,
-    "sharpe_ratio": 0,
-    "max_drawdown": 0,
-    "win_rate": 0.0,
-    "calmar_ratio": 0,
-    "profit_loss_ratio": 0,
-    "return_stability": 0,
-    "trade_count": 0,
-    "composite_score": 35.0,
-    "grade": "C",
-    "optimized_score": 35.0,
-    "optimized": true
-  },
-  "北向持仓变化": {
-    "name": "Unknown",
-    "category": "",
-    "version": "1.0.0",
-    "total_return": 0.0,
-    "sharpe_ratio": 0,
-    "max_drawdown": 0,
-    "win_rate": 0.0,
-    "calmar_ratio": 0,
-    "profit_loss_ratio": 0,
-    "return_stability": 0,
-    "trade_count": 0,
-    "composite_score": 35.0,
-    "grade": "C",
-    "optimized_score": 35.0,
-    "optimized": true
-  },
-  "月线共振": {
-    "name": "Unknown",
-    "category": "",
-    "version": "1.0.0",
-    "total_return": 0.0,
-    "sharpe_ratio": 0,
-    "max_drawdown": 0,
-    "win_rate": 0.0,
-    "calmar_ratio": 0,
-    "profit_loss_ratio": 0,
-    "return_stability": 0,
-    "trade_count": 0,
-    "composite_score": 35.0,
-    "grade": "C",
-    "optimized_score": 35.0,
-    "optimized": true
-  },
-  "主力资金": {
-    "name": "Unknown",
-    "category": "",
-    "version": "1.0.0",
-    "total_return": 0.0,
-    "sharpe_ratio": 0,
-    "max_drawdown": 0,
-    "win_rate": 0.0,
-    "calmar_ratio": 0,
-    "profit_loss_ratio": 0,
-    "return_stability": 0,
-    "trade_count": 0,
-    "composite_score": 35.0,
-    "grade": "C",
-    "optimized_score": 35.0,
-    "optimized": true
-  },
-  "北向择时": {
-    "name": "Unknown",
-    "category": "",
-    "version": "1.0.0",
-    "total_return": 0.0,
-    "sharpe_ratio": 0,
-    "max_drawdown": 0,
-    "win_rate": 0.0,
-    "calmar_ratio": 0,
-    "profit_loss_ratio": 0,
-    "return_stability": 0,
-    "trade_count": 0,
-    "composite_score": 35.0,
-    "grade": "C",
-    "optimized_score": 35.0,
-    "optimized": true
-  },
-  "财报季": {
-    "name": "Unknown",
-    "category": "",
-    "version": "1.0.0",
-    "total_return": 0.0,
-    "sharpe_ratio": 0,
-    "max_drawdown": 0,
-    "win_rate": 0.0,
-    "calmar_ratio": 0,
-    "profit_loss_ratio": 0,
-    "return_stability": 0,
-    "trade_count": 0,
-    "composite_score": 35.0,
-    "grade": "C",
-    "optimized_score": 35.0,
-    "optimized": true
-  },
-  "护城河选股": {
-    "name": "Unknown",
-    "category": "",
-    "version": "1.0.0",
-    "total_return": 0.0,
-    "sharpe_ratio": 0,
-    "max_drawdown": 0,
-    "win_rate": 0.0,
-    "calmar_ratio": 0,
-    "profit_loss_ratio": 0,
-    "return_stability": 0,
-    "trade_count": 0,
-    "composite_score": 35.0,
-    "grade": "C",
-    "optimized_score": 35.0,
-    "optimized": true
-  },
-  "GARP成长": {
-    "name": "Unknown",
-    "category": "",
-    "version": "1.0.0",
-    "total_return": 0.0,
-    "sharpe_ratio": 0,
-    "max_drawdown": 0,
-    "win_rate": 0.0,
-    "calmar_ratio": 0,
-    "profit_loss_ratio": 0,
-    "return_stability": 0,
-    "trade_count": 0,
-    "composite_score": 35.0,
-    "grade": "C",
-    "optimized_score": 35.0,
-    "optimized": true
-  },
-  "高成长股": {
-    "name": "Unknown",
-    "category": "",
-    "version": "1.0.0",
-    "total_return": 0.0,
-    "sharpe_ratio": 0,
-    "max_drawdown": 0,
-    "win_rate": 0.0,
-    "calmar_ratio": 0,
-    "profit_loss_ratio": 0,
-    "return_stability": 0,
-    "trade_count": 0,
-    "composite_score": 35.0,
-    "grade": "C",
-    "optimized_score": 35.0,
-    "optimized": true
-  },
-  "周期股择时": {
-    "name": "Unknown",
-    "category": "",
-    "version": "1.0.0",
-    "total_return": 0.0,
-    "sharpe_ratio": 0,
-    "max_drawdown": 0,
-    "win_rate": 0.0,
-    "calmar_ratio": 0,
-    "profit_loss_ratio": 0,
-    "return_stability": 0,
-    "trade_count": 0,
-    "composite_score": 35.0,
-    "grade": "C",
-    "optimized_score": 35.0,
-    "optimized": true
-  },
-  "回购信号": {
-    "name": "Unknown",
-    "category": "",
-    "version": "1.0.0",
-    "total_return": 0.0,
-    "sharpe_ratio": 0,
-    "max_drawdown": 0,
-    "win_rate": 0.0,
-    "calmar_ratio": 0,
-    "profit_loss_ratio": 0,
-    "return_stability": 0,
-    "trade_count": 0,
-    "composite_score": 35.0,
-    "grade": "C",
-    "optimized_score": 35.0,
-    "optimized": true
-  },
-  "股权激励": {
-    "name": "Unknown",
-    "category": "",
-    "version": "1.0.0",
-    "total_return": 0.0,
-    "sharpe_ratio": 0,
-    "max_drawdown": 0,
-    "win_rate": 0.0,
-    "calmar_ratio": 0,
-    "profit_loss_ratio": 0,
-    "return_stability": 0,
-    "trade_count": 0,
-    "composite_score": 35.0,
-    "grade": "C",
-    "optimized_score": 35.0,
-    "optimized": true
-  },
-  "解禁逆向": {
-    "name": "Unknown",
-    "category": "",
-    "version": "1.0.0",
-    "total_return": 0.0,
-    "sharpe_ratio": 0,
-    "max_drawdown": 0,
-    "win_rate": 0.0,
-    "calmar_ratio": 0,
-    "profit_loss_ratio": 0,
-    "return_stability": 0,
-    "trade_count": 0,
-    "composite_score": 35.0,
-    "grade": "C",
-    "optimized_score": 35.0,
-    "optimized": true
-  },
-  "龙虎榜跟风": {
-    "name": "Unknown",
-    "category": "",
-    "version": "1.0.0",
-    "total_return": 0.0,
-    "sharpe_ratio": 0,
-    "max_drawdown": 0,
-    "win_rate": 0.0,
-    "calmar_ratio": 0,
-    "profit_loss_ratio": 0,
-    "return_stability": 0,
-    "trade_count": 0,
-    "composite_score": 35.0,
-    "grade": "C",
-    "optimized_score": 35.0,
-    "optimized": true
-  },
-  "打板接力": {
-    "name": "Unknown",
-    "category": "",
-    "version": "1.0.0",
-    "total_return": 0.0,
-    "sharpe_ratio": 0,
-    "max_drawdown": 0,
-    "win_rate": 0.0,
-    "calmar_ratio": 0,
-    "profit_loss_ratio": 0,
-    "return_stability": 0,
-    "trade_count": 0,
-    "composite_score": 35.0,
-    "grade": "C",
-    "optimized_score": 35.0,
-    "optimized": true
-  },
-  "次新股": {
-    "name": "Unknown",
-    "category": "",
-    "version": "1.0.0",
-    "total_return": 0.0,
-    "sharpe_ratio": 0,
-    "max_drawdown": 0,
-    "win_rate": 0.0,
-    "calmar_ratio": 0,
-    "profit_loss_ratio": 0,
-    "return_stability": 0,
-    "trade_count": 0,
-    "composite_score": 35.0,
-    "grade": "C",
-    "optimized_score": 35.0,
-    "optimized": true
-  },
-  "AI供应链瓶颈": {
-    "name": "Unknown",
-    "category": "",
-    "version": "1.0.0",
-    "total_return": 0.0,
-    "sharpe_ratio": 0,
-    "max_drawdown": 0,
-    "win_rate": 0.0,
-    "calmar_ratio": 0,
-    "profit_loss_ratio": 0,
-    "return_stability": 0,
-    "trade_count": 0,
-    "composite_score": 35.0,
-    "grade": "C",
-    "optimized_score": 35.0,
-    "optimized": true
-  },
-  "SEPA成长股": {
-    "name": "Unknown",
-    "category": "",
-    "version": "1.0.0",
-    "total_return": 0.0,
-    "sharpe_ratio": 0,
-    "max_drawdown": 0,
-    "win_rate": 0.0,
-    "calmar_ratio": 0,
-    "profit_loss_ratio": 0,
-    "return_stability": 0,
-    "trade_count": 0,
-    "composite_score": 35.0,
-    "grade": "C",
-    "optimized_score": 35.0,
-    "optimized": true
-  },
-  "协整配对交易": {
-    "name": "Unknown",
-    "category": "",
-    "version": "1.0.0",
-    "total_return": 0.0,
-    "sharpe_ratio": 0,
-    "max_drawdown": 0,
-    "win_rate": 0.0,
-    "calmar_ratio": 0,
-    "profit_loss_ratio": 0,
-    "return_stability": 0,
-    "trade_count": 0,
-    "composite_score": 35.0,
-    "grade": "C",
-    "optimized_score": 35.0,
-    "optimized": true
-  },
-  "Hurst择时动量": {
-    "name": "Unknown",
-    "category": "",
-    "version": "1.0.0",
-    "total_return": 0.0,
-    "sharpe_ratio": 0,
-    "max_drawdown": 0,
-    "win_rate": 0.0,
-    "calmar_ratio": 0,
-    "profit_loss_ratio": 0,
-    "return_stability": 0,
-    "trade_count": 0,
-    "composite_score": 35.0,
-    "grade": "C",
-    "optimized_score": 35.0,
-    "optimized": true
-  },
-  "集合竞价选股": {
-    "name": "Unknown",
-    "category": "",
-    "version": "1.0.0",
-    "total_return": 0.0,
-    "sharpe_ratio": 0,
-    "max_drawdown": 0,
-    "win_rate": 0.0,
-    "calmar_ratio": 0,
-    "profit_loss_ratio": 0,
-    "return_stability": 0,
-    "trade_count": 0,
-    "composite_score": 35.0,
-    "grade": "C",
-    "optimized_score": 35.0,
-    "optimized": true
-  },
-  "尾盘抢筹": {
-    "name": "Unknown",
-    "category": "",
-    "version": "1.0.0",
-    "total_return": 0.0,
-    "sharpe_ratio": 0,
-    "max_drawdown": 0,
-    "win_rate": 0.0,
-    "calmar_ratio": 0,
-    "profit_loss_ratio": 0,
-    "return_stability": 0,
-    "trade_count": 0,
-    "composite_score": 35.0,
-    "grade": "C",
-    "optimized_score": 35.0,
-    "optimized": true
-  },
-  "游资席位跟踪": {
-    "name": "Unknown",
-    "category": "",
-    "version": "1.0.0",
-    "total_return": 0.0,
-    "sharpe_ratio": 0,
-    "max_drawdown": 0,
-    "win_rate": 0.0,
-    "calmar_ratio": 0,
-    "profit_loss_ratio": 0,
-    "return_stability": 0,
-    "trade_count": 0,
-    "composite_score": 35.0,
-    "grade": "C",
-    "optimized_score": 35.0,
-    "optimized": true
-  },
-  "涨停封单": {
-    "name": "Unknown",
-    "category": "",
-    "version": "1.0.0",
-    "total_return": 0.0,
-    "sharpe_ratio": 0,
-    "max_drawdown": 0,
-    "win_rate": 0.0,
-    "calmar_ratio": 0,
-    "profit_loss_ratio": 0,
-    "return_stability": 0,
-    "trade_count": 0,
-    "composite_score": 35.0,
-    "grade": "C",
-    "optimized_score": 35.0,
-    "optimized": true
-  },
-  "跌停撬板": {
-    "name": "Unknown",
-    "category": "",
-    "version": "1.0.0",
-    "total_return": 0.0,
-    "sharpe_ratio": 0,
-    "max_drawdown": 0,
-    "win_rate": 0.0,
-    "calmar_ratio": 0,
-    "profit_loss_ratio": 0,
-    "return_stability": 0,
-    "trade_count": 0,
-    "composite_score": 35.0,
-    "grade": "C",
-    "optimized_score": 35.0,
-    "optimized": true
-  },
-  "可转债双低": {
-    "name": "Unknown",
-    "category": "",
-    "version": "1.0.0",
-    "total_return": 0.0,
-    "sharpe_ratio": 0,
-    "max_drawdown": 0,
-    "win_rate": 0.0,
-    "calmar_ratio": 0,
-    "profit_loss_ratio": 0,
-    "return_stability": 0,
-    "trade_count": 0,
-    "composite_score": 35.0,
-    "grade": "C",
-    "optimized_score": 35.0,
-    "optimized": true
-  },
-  "可转债下修博弈": {
-    "name": "Unknown",
-    "category": "",
-    "version": "1.0.0",
-    "total_return": 0.0,
-    "sharpe_ratio": 0,
-    "max_drawdown": 0,
-    "win_rate": 0.0,
-    "calmar_ratio": 0,
-    "profit_loss_ratio": 0,
-    "return_stability": 0,
-    "trade_count": 0,
-    "composite_score": 35.0,
-    "grade": "C",
-    "optimized_score": 35.0,
-    "optimized": true
-  },
-  "ETF折溢价套利": {
-    "name": "Unknown",
-    "category": "",
-    "version": "1.0.0",
-    "total_return": 0.0,
-    "sharpe_ratio": 0,
-    "max_drawdown": 0,
-    "win_rate": 0.0,
-    "calmar_ratio": 0,
-    "profit_loss_ratio": 0,
-    "return_stability": 0,
-    "trade_count": 0,
-    "composite_score": 35.0,
-    "grade": "C",
-    "optimized_score": 35.0,
-    "optimized": true
-  },
-  "网格交易": {
-    "name": "Unknown",
-    "category": "",
-    "version": "1.0.0",
-    "total_return": 0.0,
-    "sharpe_ratio": 0,
-    "max_drawdown": 0,
-    "win_rate": 0.0,
-    "calmar_ratio": 0,
-    "profit_loss_ratio": 0,
-    "return_stability": 0,
-    "trade_count": 0,
-    "composite_score": 35.0,
-    "grade": "C",
-    "optimized_score": 35.0,
-    "optimized": true
-  },
-  "限售解禁博弈": {
-    "name": "Unknown",
-    "category": "",
-    "version": "1.0.0",
-    "total_return": 0.0,
-    "sharpe_ratio": 0,
-    "max_drawdown": 0,
-    "win_rate": 0.0,
-    "calmar_ratio": 0,
-    "profit_loss_ratio": 0,
-    "return_stability": 0,
-    "trade_count": 0,
-    "composite_score": 35.0,
-    "grade": "C",
-    "optimized_score": 35.0,
-    "optimized": true
-  },
-  "戴维斯双击": {
-    "name": "Unknown",
-    "category": "",
-    "version": "1.0.0",
-    "total_return": 0.0,
-    "sharpe_ratio": 0,
-    "max_drawdown": 0,
-    "win_rate": 0.0,
-    "calmar_ratio": 0,
-    "profit_loss_ratio": 0,
-    "return_stability": 0,
-    "trade_count": 0,
-    "composite_score": 35.0,
-    "grade": "C",
-    "optimized_score": 35.0,
-    "optimized": true
-  },
-  "困境反转": {
-    "name": "Unknown",
-    "category": "",
-    "version": "1.0.0",
-    "total_return": 0.0,
-    "sharpe_ratio": 0,
-    "max_drawdown": 0,
-    "win_rate": 0.0,
-    "calmar_ratio": 0,
-    "profit_loss_ratio": 0,
-    "return_stability": 0,
-    "trade_count": 0,
-    "composite_score": 35.0,
-    "grade": "C",
-    "optimized_score": 35.0,
-    "optimized": true
-  },
-  "股东户数变化": {
-    "name": "Unknown",
-    "category": "",
-    "version": "1.0.0",
-    "total_return": 0.0,
-    "sharpe_ratio": 0,
-    "max_drawdown": 0,
-    "win_rate": 0.0,
-    "calmar_ratio": 0,
-    "profit_loss_ratio": 0,
-    "return_stability": 0,
-    "trade_count": 0,
-    "composite_score": 35.0,
-    "grade": "C",
-    "optimized_score": 35.0,
-    "optimized": true
-  },
-  "新闻情感": {
-    "name": "Unknown",
-    "category": "",
-    "version": "1.0.0",
-    "total_return": 0.0,
-    "sharpe_ratio": 0,
-    "max_drawdown": 0,
-    "win_rate": 0.0,
-    "calmar_ratio": 0,
-    "profit_loss_ratio": 0,
-    "return_stability": 0,
-    "trade_count": 0,
-    "composite_score": 35.0,
-    "grade": "C",
-    "optimized_score": 35.0,
-    "optimized": true
-  },
-  "热点新闻": {
-    "name": "Unknown",
-    "category": "",
-    "version": "1.0.0",
-    "total_return": 0.0,
-    "sharpe_ratio": 0,
-    "max_drawdown": 0,
-    "win_rate": 0.0,
-    "calmar_ratio": 0,
-    "profit_loss_ratio": 0,
-    "return_stability": 0,
-    "trade_count": 0,
-    "composite_score": 35.0,
-    "grade": "C",
-    "optimized_score": 35.0,
-    "optimized": true
-  },
-  "情绪冰点抄底": {
-    "name": "Unknown",
-    "category": "",
-    "version": "1.0.0",
-    "total_return": 0.0,
-    "sharpe_ratio": 0,
-    "max_drawdown": 0,
-    "win_rate": 0.0,
-    "calmar_ratio": 0,
-    "profit_loss_ratio": 0,
-    "return_stability": 0,
-    "trade_count": 0,
-    "composite_score": 35.0,
-    "grade": "C",
-    "optimized_score": 35.0,
-    "optimized": true
-  },
-  "筹码分布": {
-    "name": "Unknown",
-    "category": "",
-    "version": "1.0.0",
-    "total_return": 0.0,
-    "sharpe_ratio": 0,
-    "max_drawdown": 0,
-    "win_rate": 0.0,
-    "calmar_ratio": 0,
-    "profit_loss_ratio": 0,
-    "return_stability": 0,
-    "trade_count": 0,
-    "composite_score": 35.0,
-    "grade": "C",
-    "optimized_score": 35.0,
-    "optimized": true
-  },
-  "筹码突破": {
-    "name": "Unknown",
-    "category": "",
-    "version": "1.0.0",
-    "total_return": 0.0,
-    "sharpe_ratio": 0,
-    "max_drawdown": 0,
-    "win_rate": 0.0,
-    "calmar_ratio": 0,
-    "profit_loss_ratio": 0,
-    "return_stability": 0,
-    "trade_count": 0,
-    "composite_score": 35.0,
-    "grade": "C",
-    "optimized_score": 35.0,
-    "optimized": true
-  },
-  "行业轮动": {
-    "name": "Unknown",
-    "category": "",
-    "version": "1.0.0",
-    "total_return": 0.0,
-    "sharpe_ratio": 0,
-    "max_drawdown": 0,
-    "win_rate": 0.0,
-    "calmar_ratio": 0,
-    "profit_loss_ratio": 0,
-    "return_stability": 0,
-    "trade_count": 0,
-    "composite_score": 35.0,
-    "grade": "C",
-    "optimized_score": 35.0,
-    "optimized": true
-  },
-  "龙头战法": {
-    "name": "Unknown",
-    "category": "",
-    "version": "1.0.0",
-    "total_return": 0.0,
-    "sharpe_ratio": 0,
-    "max_drawdown": 0,
-    "win_rate": 0.0,
-    "calmar_ratio": 0,
-    "profit_loss_ratio": 0,
-    "return_stability": 0,
-    "trade_count": 0,
-    "composite_score": 35.0,
-    "grade": "C",
-    "optimized_score": 35.0,
-    "optimized": true
-  },
-  "质量因子选股Pro": {
-    "name": "Unknown",
-    "category": "",
-    "version": "1.0.0",
-    "total_return": 0.0,
-    "sharpe_ratio": 0,
-    "max_drawdown": 0,
-    "win_rate": 0.0,
-    "calmar_ratio": 0,
-    "profit_loss_ratio": 0,
-    "return_stability": 0,
-    "trade_count": 0,
-    "composite_score": 35.0,
-    "grade": "C",
-    "optimized_score": 35.0,
-    "optimized": true
-  }
+  ]
 }
