@@ -1,4 +1,4 @@
-# -*- coding: utf-8 -*-
+﻿# -*- coding: utf-8 -*-
 """
 事件驱动策略（真实事件检测）
 所有信号基于真实市场事件数据
@@ -19,16 +19,32 @@ class EventStrategyBase(EventStrategy):
         try:
             stocks = helper.get_stock_pool("hs300", sorted_by_market_value=True)
             if stocks:
-                return stocks[:sample] if len(stocks) > sample else stocks
+                # 过滤高价股：只保留价格<=100元的股票
+                valid_stocks = []
+                for s in stocks[:sample * 2]:  # 检查更多股票
+                    try:
+                        sym = s['symbol'] if isinstance(s, dict) else s
+                        df = helper.get_history_kline(sym, days=5)
+                        if df is not None and not df.empty:
+                            price = float(df['close'].iloc[-1])
+                            if price <= 100:
+                                valid_stocks.append(s)
+                        if len(valid_stocks) >= sample:
+                            break
+                    except:
+                        continue
+                if valid_stocks:
+                    return valid_stocks
+                return stocks[:sample]  # 兜底：返回原始股票池
         except Exception:
             pass
-        # 兜底：硬编码蓝筹+热门股池
+        # 兜底：硬编码低价蓝筹股池
         fallback = [
-            '600519', '300750', '600036', '601318', '000858',
-            '002475', '300033', '300059', '000001', '600030',
-            '601166', '600900', '601012', '002594', '600276',
-            '000333', '688981', '688012', '688256', '002236',
-            '002352', '601398', '601328', '600016', '601288',
+            '000858', '002475', '300059', '000001', '601166',
+            '000333', '002236', '601398', '601328', '600016', '601288',
+            '600036', '601318', '002594', '600276', '600030', '600900',
+            '002027', '000807', '000408', '002709', '000657', '000975',
+            '601012', '002352', '002460', '002594', '300033', '300750',
         ]
         return fallback[:sample]
 

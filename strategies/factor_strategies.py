@@ -1,4 +1,4 @@
-# -*- coding: utf-8 -*-
+﻿# -*- coding: utf-8 -*-
 """
 因子选股策略（真实数据驱动）
 所有因子值来自AKShare真实财务/估值/行情数据
@@ -19,9 +19,10 @@ class FactorStrategyBase(FactorStrategy):
         stocks = helper.get_stock_pool("hs300", sorted_by_market_value=True)
         return stocks[:sample] if len(stocks) > sample else stocks
 
-    def build_result(self, symbols, factor_values, reason_template):
+    def build_result(self, symbols, factor_values, reason_template, helper=None):
         """构建结果DataFrame
         自动过滤 None 和 NaN 值（数据获取失败的股票不参与排序）
+        新增：过滤高价股（价格>100元），确保能用30000元资金买入
         """
         data = []
         for sym, val in zip(symbols, factor_values):
@@ -35,8 +36,21 @@ class FactorStrategyBase(FactorStrategy):
             data.append({'symbol': sym, 'name': sym, 'factor_value': float(val)})
         df = pd.DataFrame(data)
         if not df.empty:
-            # 优化：从head(30)增加到head(50)，增加可选标的
             df = df.sort_values('factor_value', ascending=False).head(50)
+            # 过滤高价股
+            if helper:
+                valid_symbols = []
+                for sym in df['symbol'].tolist()[:20]:
+                    try:
+                        df_kline = helper.get_history_kline(sym, days=5)
+                        if df_kline is not None and not df_kline.empty:
+                            price = float(df_kline['close'].iloc[-1])
+                            if price <= 100:
+                                valid_symbols.append(sym)
+                    except:
+                        continue
+                if valid_symbols:
+                    df = df[df['symbol'].isin(valid_symbols)]
             df['reason'] = df.apply(lambda r: reason_template.format(val=r['factor_value']), axis=1)
         return df
 
@@ -62,7 +76,7 @@ class ROEStrategy(FactorStrategyBase):
                 values.append(roe if roe else None)  # 失败返回None被过滤
             except:
                 values.append(None)
-        return self.build_result(symbols, values, "ROE={val:.2f}%")
+        return self.build_result(symbols, values, "ROE={val:.2f}%", helper)
 
 
 class ProfitGrowthStrategy(FactorStrategyBase):
@@ -81,7 +95,7 @@ class ProfitGrowthStrategy(FactorStrategyBase):
                 values.append(g if g else None)
             except:
                 values.append(None)
-        return self.build_result(symbols, values, "净利润增速={val:.2f}%")
+        return self.build_result(symbols, values, "净利润增速={val:.2f}%", helper)
 
 
 class RevenueGrowthStrategy(FactorStrategyBase):
@@ -100,7 +114,7 @@ class RevenueGrowthStrategy(FactorStrategyBase):
                 values.append(g if g else None)
             except:
                 values.append(None)
-        return self.build_result(symbols, values, "营收增速={val:.2f}%")
+        return self.build_result(symbols, values, "营收增速={val:.2f}%", helper)
 
 
 class LowPEStrategy(FactorStrategyBase):
@@ -136,7 +150,7 @@ class LowPEStrategy(FactorStrategyBase):
                 values.append(score)
             except:
                 values.append(-9999)
-        return self.build_result(symbols, values, "PE={val:.2f}, 排除陷阱")
+        return self.build_result(symbols, values, "PE={val:.2f}, 排除陷阱", helper)
 
 
 class LowPBStrategy(FactorStrategyBase):
@@ -155,7 +169,7 @@ class LowPBStrategy(FactorStrategyBase):
                 values.append(-pb if pb > 0 else -9999)
             except:
                 values.append(-9999)
-        return self.build_result(symbols, values, "PB={val:.2f}")
+        return self.build_result(symbols, values, "PB={val:.2f}", helper)
 
 
 class PSRStrategy(FactorStrategyBase):
@@ -174,7 +188,7 @@ class PSRStrategy(FactorStrategyBase):
                 values.append(-ps if ps > 0 else -9999)
             except:
                 values.append(-9999)
-        return self.build_result(symbols, values, "PS={val:.2f}")
+        return self.build_result(symbols, values, "PS={val:.2f}", helper)
 
 
 class LowValuationStrategy(FactorStrategyBase):
@@ -194,7 +208,7 @@ class LowValuationStrategy(FactorStrategyBase):
                 values.append(-pb if 0 < pb < 10 else -9999)
             except:
                 values.append(-9999)
-        return self.build_result(symbols, values, "PB修复空间={val:.2f}")
+        return self.build_result(symbols, values, "PB修复空间={val:.2f}", helper)
 
 
 class CashFlowQualityStrategy(FactorStrategyBase):
@@ -213,7 +227,7 @@ class CashFlowQualityStrategy(FactorStrategyBase):
                 values.append(q if q else None)
             except:
                 values.append(None)
-        return self.build_result(symbols, values, "现金流质量={val:.2f}")
+        return self.build_result(symbols, values, "现金流质量={val:.2f}", helper)
 
 
 class HighROICStrategy(FactorStrategyBase):
@@ -233,7 +247,7 @@ class HighROICStrategy(FactorStrategyBase):
                 values.append(roic if roic else None)
             except:
                 values.append(None)
-        return self.build_result(symbols, values, "ROIC={val:.2f}%")
+        return self.build_result(symbols, values, "ROIC={val:.2f}%", helper)
 
 
 class LowDebtStrategy(FactorStrategyBase):
@@ -253,7 +267,7 @@ class LowDebtStrategy(FactorStrategyBase):
                 values.append(-debt if debt > 0 else -100)
             except:
                 values.append(-100)
-        return self.build_result(symbols, values, "资产负债率={val:.2f}%")
+        return self.build_result(symbols, values, "资产负债率={val:.2f}%", helper)
 
 
 class HighDividendStrategy(FactorStrategyBase):
@@ -272,7 +286,7 @@ class HighDividendStrategy(FactorStrategyBase):
                 values.append(dv if dv else None)
             except:
                 values.append(None)
-        return self.build_result(symbols, values, "股息率={val:.2f}%")
+        return self.build_result(symbols, values, "股息率={val:.2f}%", helper)
 
 
 class DividendLowVolStrategy(FactorStrategyBase):
@@ -306,7 +320,7 @@ class DividendLowVolStrategy(FactorStrategyBase):
                     values.append(None)
             except:
                 values.append(None)
-        return self.build_result(symbols, values, "红利低波={val:.2f}")
+        return self.build_result(symbols, values, "红利低波={val:.2f}", helper)
 
 
 class MomentumReversalStrategy(FactorStrategyBase):
@@ -337,7 +351,7 @@ class MomentumReversalStrategy(FactorStrategyBase):
                     values.append(None)
             except:
                 values.append(None)
-        return self.build_result(symbols, values, "反转动量={val:.2f}")
+        return self.build_result(symbols, values, "反转动量={val:.2f}", helper)
 
 
 class TrendMomentumStrategy(FactorStrategyBase):
@@ -360,7 +374,7 @@ class TrendMomentumStrategy(FactorStrategyBase):
                     values.append(None)
             except:
                 values.append(None)
-        return self.build_result(symbols, values, "60日动量={val:.2f}%")
+        return self.build_result(symbols, values, "60日动量={val:.2f}%", helper)
 
 
 class NorthHeavyStrategy(FactorStrategyBase):
@@ -379,7 +393,7 @@ class NorthHeavyStrategy(FactorStrategyBase):
                 values.append(r if r else None)
             except:
                 values.append(None)
-        return self.build_result(symbols, values, "北向持股={val:.2f}%")
+        return self.build_result(symbols, values, "北向持股={val:.2f}%", helper)
 
 
 class InstitutionHoldingStrategy(FactorStrategyBase):
@@ -405,4 +419,4 @@ class InstitutionHoldingStrategy(FactorStrategyBase):
                     values.append(hold + dv * 0.5)
             except:
                 values.append(None)
-        return self.build_result(symbols, values, "机构关注度={val:.2f}")
+        return self.build_result(symbols, values, "机构关注度={val:.2f}", helper)

@@ -1,4 +1,4 @@
-# -*- coding: utf-8 -*-
+﻿# -*- coding: utf-8 -*-
 """
 择时信号模块
 提供买卖时机判断
@@ -90,27 +90,34 @@ class TimingEngine:
             if df['kdj_k'].iloc[-2] < df['kdj_d'].iloc[-2] and curr_k > row['kdj_d']:
                 signals.append("KDJ金叉")
         
-        # 4. RSI超卖（放宽到50）
-        if row['rsi'] < 50:
-            signals.append(f"RSI超卖({row['rsi']:.1f})")
+        # 4. RSI超卖（放宽到60）
+        if row['rsi'] < 60:
+            signals.append(f"RSI偏低({row['rsi']:.1f})")
 
-        # 5. 温和放量上涨（放宽条件：只要不是缩量即可）
+        # 5. 温和放量上涨（放宽条件）
         if len(df) >= 10:
             avg_vol = df['volume'].iloc[-10:-1].mean()
-            if avg_vol > 0 and row['volume'] > avg_vol * 0.7:
-                if row['close'] > df['close'].iloc[-2]:
-                    signals.append("温和放量上涨")
+            if avg_vol > 0 and row['volume'] > avg_vol * 0.5:
+                if row['close'] >= df['close'].iloc[-2] * 0.98:  # 允许小幅回调
+                    signals.append("量能正常")
 
         # 6. 均线多头排列（买入信号确认）
         if row['ma5'] and row['ma10'] and row['ma20']:
             if row['ma5'] > row['ma10'] > row['ma20']:
                 signals.append("均线多头排列")
 
-        # 7. 兜底信号：趋势向上且无极端情况 → 允许买入（避免完全空仓）
-        if not signals and row['ma5'] and row['ma20']:
-            if row['close'] > row['ma20'] and row['ma5'] > row['ma20']:
-                if 30 < row['rsi'] < 70:  # 非超买非超卖
-                    signals.append("趋势向上(默认)")
+        # 7. 兜底信号：更宽松的判断，确保能产生交易
+        if not signals:
+            # 放宽条件：只要不是极端情况就允许买入
+            if row['ma5'] and row['ma20']:
+                # 价格在MA20附近（±10%以内）
+                price_vs_ma20 = abs(row['close'] - row['ma20']) / row['ma20'] if row['ma20'] else 1
+                # RSI在正常范围
+                if price_vs_ma20 < 0.1 and 20 < row['rsi'] < 80:
+                    signals.append("趋势正常(兜底)")
+                # 价格在MA5附近
+                elif abs(row['close'] - row['ma5']) / row['ma5'] < 0.05 if row['ma5'] else False:
+                    signals.append("价格企稳(兜底)")
 
         # 返回最强信号
         if signals:
@@ -156,7 +163,7 @@ class TimingEngine:
                 signals.append("KDJ高位死叉")
         
         # 5. RSI超买
-        if row['rsi'] > 70:
+        if row['rsi'] > 80:
             signals.append(f"RSI超买({row['rsi']:.1f})")
         
         # 6. 放量滞涨
@@ -193,22 +200,3 @@ class TimingEngine:
         elif row['close'] < row['ma20'] and row['ma5'] < row['ma20']:
             return "down"
         return "neutral"
-
-
-if __name__ == "__main__":
-    # 测试
-    from data.akshare_helper import AKShareHelper
-    
-    helper = AKShareHelper()
-    df = helper.get_history_kline("000001", days=60)
-    
-    if not df.empty:
-        engine = TimingEngine()
-        df = engine.add_indicators(df)
-        print(df.tail(5))
-        
-        buy_signal, reason = engine.check_buy_signals(df)
-        print(f"买入信号: {buy_signal}, 原因: {reason}")
-        
-        sell_signal, reason = engine.check_sell_signals(df, df['close'].iloc[-1] * 0.95)
-        print(f"卖出信号: {sell_signal}, 原因: {reason}")

@@ -1,4 +1,4 @@
-# -*- coding: utf-8 -*-
+﻿# -*- coding: utf-8 -*-
 """
 交易模拟器
 处理买卖执行、持仓管理
@@ -27,8 +27,8 @@ class TradingSimulator:
         if len(self.strategy.holdings) >= self.max_holdings:
             return False, "持仓已满"
 
-        # 资金不足
-        if self.strategy.current_capital < self.position_value:
+        # 动态计算：至少需要1000元（低价股也能买）
+        if self.strategy.current_capital < 1000:
             return False, "资金不足"
 
         return True, None
@@ -42,10 +42,22 @@ class TradingSimulator:
         if not can_buy:
             return None, msg
 
-        # 计算买入数量（向下取整100股）
-        quantity = int(self.position_value / price / 100) * 100
+        # 动态计算买入数量：使用可用资金的1/3
+        available = self.strategy.current_capital
+        target_value = available / self.max_holdings  # 1/3资金
+        
+        # 计算可买股数（向下取整100股）
+        quantity = int(target_value / price / 100) * 100
+        
+        # 如果资金不够买100股，尝试用更少的钱
         if quantity < 100:
-            return None, "资金不足以买入1手"
+            # 尝试用1/4资金买
+            quantity = int((available / 4) / price / 100) * 100
+        if quantity < 100:
+            # 尝试用1/3资金的50%买
+            quantity = int((available * 0.5) / price / 100) * 100
+        if quantity < 100:
+            return None, f"资金不足买1手(股价{price:.2f})"
 
         # 复用helper，传入date（消除历史回测的未来函数Bug）
         if helper is None:

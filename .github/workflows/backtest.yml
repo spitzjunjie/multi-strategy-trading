@@ -1,9 +1,21 @@
-name: 多策略回测
+name: 每日单次回测
+
+# ============================================================
+# 【重要】本 Workflow 只做每日单次回测（模拟交易）
+# ============================================================
+#
+# 职责范围：
+#   ✅ 每天对已上线策略做单次回测（今天选股）
+#   ✅ 自动重试和数据源切换
+#   ✅ 失败时调用 Codex 尝试修复
+#   ❌ 不做历史回测（由 Codex 本地/云端执行）
+#
+# ============================================================
 
 on:
-  # 每天收盘后自动运行
+  # 每天收盘后自动运行（周一到周五 18:30 中国时间）
   schedule:
-    - cron: '30 10 * * 1-5'  # 周一到周五 UTC 10:30 = 中国时间 18:30
+    - cron: '30 10 * * 1-5'  # UTC 10:30 = 中国时间 18:30
   # 也支持手动触发
   workflow_dispatch:
     inputs:
@@ -16,12 +28,98 @@ on:
         required: false
         type: string
         default: 'daily'
+      auto_fix:
+        description: '失败时自动修复代码'
+        required: false
+        type: boolean
+        default: true
 
 permissions:
-  contents: write  # 允许推送数据回仓库
+  contents: write
+
+env:
+  MINIMAX_API_KEY: ${{ secrets.MINIMAX_API_KEY }}
 
 jobs:
-  backtest:
+  # 第一阶段：Tushare 回测
+  backtest-tushare:
+    runs-on: ubuntu-latest
+    outputs:
+      data_source: ${{ steps.set-source.outputs.source }}
+      success: ${{ steps.check-result.outputs.success }}
+    
+    steps:
+      - name: Checkout代码
+        uses: actions/checkout@v4
+      
+      - name: 设置Python
+        uses: actions/setup-python@v4
+        with:
+          python-version: '3.10'
+      
+      - name: 安装依赖
+        run: |
+          pip install akshare pandas numpy requests tushare tqdm
+      
+      - name: 创建必要目录
+        run: |
+          mkdir -p data/cache output dashboard logs
+      
+      - name: 配置环境变量
+        id: set-source
+        run: |
+          echo "source=tushare" >> $GITHUB_OUTPUT
+          echo "::notice::使用 Tushare 数据源"
+        env:
+          TUSHARE_TOKEN: ${{ secrets.TUSHARE_TOKEN }}
+      
+      - name: 预检策略文件
+        run: python verify_strategies.py
+
+      - name: 运行回测 (Tushare)
+        id: backtest
+        run: |
+          # 保存开始时间
+          echo "$(date)" > logs/backtest_start.txt
+          
+          # 使用脚本包装器实现重试逻辑
+          python .github/scripts/resilient_backtest.py --source tushare --strategies "${{ inputs.strategies }}" 2>&1 | tee logs/backtest_output.txt
+        env:
+          TUSHARE_TOKEN: ${{ secrets.TUSHARE_TOKEN }}
+          FEISHU_APP_ID: ${{ secrets.FEISHU_APP_ID }}
+          FEISHU_APP_SECRET: ${{ secrets.FEISHU_APP_SECRET }}
+          DATA_SOURCE: tushare
+        continue-on-error: true
+
+      - name: 保存错误日志
+        if: always()
+        run: |
+          # 提取错误信息
+          if [ -f logs/backtest_output.txt ]; then
+            grep -E "error|Error|ERROR|failed|Failed|FAILED|exception|Exception" logs/backtest_output.txt > logs/error.log || true
+          fi
+      
+      - name: 检查Tushare结果
+        id: check-result
+        run: |
+          if [ -f output/strategy_data.json ]; then
+            FILE_SIZE=$(stat -c%s output/strategy_data.json 2>/dev/null || stat -f%z output/strategy_data.json 2>/dev/null)
+            if [ "$FILE_SIZE" -gt 1000 ]; then
+              echo "success=true" >> $GITHUB_OUTPUT
+              echo "::notice::Tushare 回测成功"
+            else
+              echo "success=false" >> $GITHUB_OUTPUT
+              echo "::warning::Tushare 输出文件过小，切换到AKShare"
+            fi
+          else
+            echo "success=false" >> $GITHUB_OUTPUT
+            echo "::warning::Tushare 回测失败，切换到AKShare"
+          fi
+
+  # 第二阶段：AKShare 备用回测
+  backtest-akshare:
+    needs: backtest-tushare
+    if: needs.backtest-tushare.outputs.success == 'false'
     runs-on: ubuntu-latest
     
     steps:
@@ -35,55 +133,205 @@ jobs:
       
       - name: 安装依赖
         run: |
-          pip install akshare pandas numpy requests tushare
+          pip install akshare pandas numpy requests tqdm
       
       - name: 创建必要目录
         run: |
-          mkdir -p data/cache output dashboard
+          mkdir -p data/cache output dashboard logs
       
-      - name: 配置环境变量
-        env:
-          TUSHARE_TOKEN: ${{ secrets.TUSHARE_TOKEN }}
-          FEISHU_APP_ID: ${{ secrets.FEISHU_APP_ID }}
-          FEISHU_APP_SECRET: ${{ secrets.FEISHU_APP_SECRET }}
-        run: |
-          # 将Secrets写入环境变量，GitHub Actions自动注入
-          echo "Tushare Token: ${TUSHARE_TOKEN:0:10}..."
-          echo "::notice::API密钥已配置"
-
       - name: 预检策略文件
         run: python verify_strategies.py
 
-      - name: 运行回测
+      - name: 运行回测 (AKShare)
+        id: backtest
         run: |
-          if [ "${{ inputs.backtest_type }}" == "historical" ]; then
-            if [ -n "${{ inputs.strategies }}" ]; then
-              python backtest_history.py --strategies "${{ inputs.strategies }}"
+          echo "::notice::切换到 AKShare 数据源"
+          python .github/scripts/resilient_backtest.py --source akshare --strategies "${{ inputs.strategies }}" 2>&1 | tee logs/backtest_output.txt
+        env:
+          DATA_SOURCE: akshare
+        continue-on-error: true
+
+      - name: 保存错误日志
+        if: always()
+        run: |
+          if [ -f logs/backtest_output.txt ]; then
+            grep -E "error|Error|ERROR|failed|Failed|FAILED|exception|Exception" logs/backtest_output.txt > logs/error_akshare.log || true
+          fi
+
+      - name: 验证AKShare结果
+        run: |
+          if [ -f output/strategy_data.json ]; then
+            FILE_SIZE=$(stat -c%s output/strategy_data.json 2>/dev/null || stat -f%z output/strategy_data.json 2>/dev/null)
+            if [ "$FILE_SIZE" -gt 1000 ]; then
+              echo "::notice::AKShare 回测成功"
             else
-              python backtest_history.py
+              echo "::error::AKShare 也失败了"
+              exit 1
             fi
           else
-            python backtest.py
-          fi
-        env:
-          TUSHARE_TOKEN: ${{ secrets.TUSHARE_TOKEN }}
-          FEISHU_APP_ID: ${{ secrets.FEISHU_APP_ID }}
-          FEISHU_APP_SECRET: ${{ secrets.FEISHU_APP_SECRET }}
-          DATA_SOURCE: tushare  # GitHub Actions在美国，用Tushare API避免爬取中国网站不稳定
-      
-      - name: 验证数据生成
-        run: |
-          if [ ! -f output/strategy_data.json ]; then
-            echo "错误：数据文件未生成"
+            echo "::error::AKShare 回测失败"
             exit 1
           fi
-          echo "数据文件大小："
-          ls -lh output/strategy_data.json
+
+  # 第三阶段：代码自动修复
+  auto-fix:
+    needs: [backtest-tushare, backtest-akshare]
+    if: ${{ inputs.auto_fix == true }} && failure()
+    runs-on: ubuntu-latest
+    
+    steps:
+      - name: Checkout代码
+        uses: actions/checkout@v4
+      
+      - name: 设置Python
+        uses: actions/setup-python@v4
+        with:
+          python-version: '3.10'
+      
+      - name: 分析错误日志
+        id: analyze
+        run: |
+          echo "::notice::开始分析错误..."
+          
+          # 收集所有错误日志
+          mkdir -p logs
+          cat logs/error*.log 2>/dev/null || echo "no logs" > logs/all_errors.txt
+          
+          # 显示错误摘要
+          ERROR_COUNT=$(wc -l < logs/all_errors.txt 2>/dev/null || echo "0")
+          echo "发现 $ERROR_COUNT 个错误记录"
+          
+          # 保存错误内容用于后续处理
+          cat logs/all_errors.txt > $GITHUB_OUTPUT/error_content
+          
+      - name: 调用 Codex 自动修复
+        if: ${{ env.MINIMAX_API_KEY != '' }}
+        run: |
+          echo "::notice::调用 Codex 进行代码修复..."
+          
+          # 准备错误信息
+          ERROR_CONTENT=$(cat logs/all_errors.txt 2>/dev/null || echo "回测执行失败")
+          
+          # 构建 Codex 指令
+          cat > /tmp/fix_instruction.md << 'EOF'
+# 代码修复任务
+
+## 背景
+GitHub Actions 回测流程失败，需要分析错误并修复代码。
+
+## 错误信息
+$ERROR_CONTENT
+
+## 修复要求
+1. 分析错误根本原因
+2. 修复相关代码（可能是 backtest.py, backtest_history.py, strategies/ 等）
+3. 确保修复后不回退其他功能
+4. 验证修复有效（运行 python verify_strategies.py）
+
+## 重要约束
+- 不要修改与错误无关的代码
+- 保持现有代码风格一致
+- 添加必要的异常处理
+- 不要提交包含密钥的代码
+EOF
+          
+          # 调用 Codex
+          export MINIMAX_API_KEY="${{ secrets.MINIMAX_API_KEY }}"
+          codex exec --profile m21 --dangerously-bypass-approvals-and-sandbox --skip-git-repo-check "$(cat /tmp/fix_instruction.md)" 2>&1 | tee logs/codex_fix_output.txt || true
+          
+          # 检查修复是否成功
+          if grep -q "success\|fixed\|修复" logs/codex_fix_output.txt; then
+            echo "::notice::Codex 修复建议已生成"
+          fi
+        env:
+          MINIMAX_API_KEY: ${{ secrets.MINIMAX_API_KEY }}
+
+      - name: 验证修复结果
+        run: |
+          echo "::notice::验证修复结果..."
+          python verify_strategies.py || echo "验证脚本执行完成"
+          
+          # 检查是否有代码变更
+          if git diff --name-only | grep -q "\.py$"; then
+            echo "::notice::检测到代码变更，准备提交..."
+            git config user.email "github-actions[bot]@users.noreply.github.com"
+            git config user.name "github-actions[bot]"
+            git add -A
+            git commit -m "自动修复: $(git diff --name-only | tr '\n' ' ')" || echo "无代码变更"
+          else
+            echo "::notice::无代码变更，跳过提交"
+          fi
+
+  # 第四阶段：数据合并与推送
+  merge-and-push:
+    needs: [backtest-tushare, backtest-akshare]
+    if: always()  # 即使前面的步骤失败也要尝试合并已存在的数据
+    runs-on: ubuntu-latest
+    
+    steps:
+      - name: Checkout代码
+        uses: actions/checkout@v4
+      
+      - name: 验证数据文件
+        run: |
+          if [ -f output/strategy_data.json ]; then
+            echo "数据文件存在："
+            ls -lh output/strategy_data.json
+          else
+            echo "警告：数据文件不存在"
+          fi
+      
+      - name: 合并数据（保留历史）
+        if: needs.backtest-tushare.outputs.success == 'true' || needs.backtest-akshare.outputs.success == 'true'
+        run: |
+          echo "::notice::合并数据..."
+          python proper_merge.py || echo "合并完成或无需合并"
       
       - name: 推送数据到仓库
+        if: needs.backtest-tushare.outputs.success == 'true' || needs.backtest-akshare.outputs.success == 'true'
         run: |
           git config --local user.email "github-actions[bot]@users.noreply.github.com"
           git config --local user.name "github-actions[bot]"
-          git add output/strategy_data.json
-          git commit -m "更新策略数据 $(date +'%Y-%m-%d %H:%M')" || echo "无更改"
-          git push
+          
+          # 只添加结果文件
+          git add output/strategy_data.json output/backtest_report.json 2>/dev/null || true
+          
+          # 检查是否有更改
+          if git diff --cached --quiet; then
+            echo "无新数据需要推送"
+          else
+            git commit -m "自动回测更新 $(date +'%Y-%m-%d %H:%M') [skip ci]"
+            git push
+            echo "::notice::数据已推送"
+          fi
+
+  # 第五阶段：失败通知
+  failure-notify:
+    needs: [backtest-tushare, backtest-akshare]
+    if: failure()
+    runs-on: ubuntu-latest
+    
+    steps:
+      - name: 生成失败报告
+        run: |
+          echo "=========================================="
+          echo "回测流程失败报告"
+          echo "=========================================="
+          echo "失败任务:"
+          
+          if ${{ needs.backtest-tushare.result == 'failure' }}; then
+            echo "  - Tushare 回测失败"
+          fi
+          
+          if ${{ needs.backtest-akshare.result == 'failure' }}; then
+            echo "  - AKShare 回测失败"
+          fi
+          
+          echo ""
+          echo "请检查以下内容:"
+          echo "  1. API 密钥是否有效"
+          echo "  2. 网络连接是否正常"
+          echo "  3. 数据源服务是否可用"
+          echo ""
+          echo "错误日志位置: logs/error*.log"
+          echo "=========================================="

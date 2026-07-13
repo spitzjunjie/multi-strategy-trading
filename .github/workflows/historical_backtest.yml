@@ -1,102 +1,53 @@
-name: 历史回测 (批量)
-
-on:
-  workflow_dispatch:
-    inputs:
-      batch:
-        description: '回测批次 (1=基本面5策略, 2=事件短线5策略, 3=短线5策略, 4=剩余7策略, all=全部)'
-        required: false
-        type: choice
-        default: '1'
-        options:
-          - '1'
-          - '2'
-          - '3'
-          - '4'
-          - 'all'
-
-permissions:
-  contents: write
-
-jobs:
-  historical-backtest:
-    runs-on: ubuntu-latest
-    
-    steps:
-      - name: Checkout代码
-        uses: actions/checkout@v4
-      
-      - name: 设置Python
-        uses: actions/setup-python@v4
-        with:
-          python-version: '3.10'
-      
-      - name: 安装依赖
-        run: pip install akshare pandas numpy requests tushare tqdm
-      
-      - name: 创建目录
-        run: mkdir -p data/cache output dashboard
-      
-      - name: 预检策略
-        run: python verify_strategies.py
-      
-      - name: 运行历史回测批次
-        run: |
-          BATCH="${{ inputs.batch }}"
-          
-          if [ "$BATCH" = "1" ]; then
-            # 基本面5策略
-            STRATS="护城河选股,质量因子选股,GARP成长,股权激励,周期股择时"
-          elif [ "$BATCH" = "2" ]; then
-            # 事件驱动5策略
-            STRATS="回购信号,龙虎榜跟风,打板接力,次新股,尾盘抢筹"
-          elif [ "$BATCH" = "3" ]; then
-            # 短线5策略
-            STRATS="集合竞价,戴维斯双击,股东户数变化,困境反转,涨停封单"
-          elif [ "$BATCH" = "4" ]; then
-            # 剩余7策略
-            STRATS="跌停撬板,限售解禁博弈,游资席位跟踪,ETF折溢价套利,网格交易,可转债双低,可转债下修博弈"
-          else
-            # 全部新策略
-            STRATS=""
-          fi
-          
-          echo "回测批次: $BATCH"
-          echo "策略列表: ${STRATS:-全部NEW_STRATEGIES}"
-          echo ""
-          
-          if [ -n "$STRATS" ]; then
-            python backtest_history.py --source tushare --strategies "$STRATS"
-          else
-            python backtest_history.py --source tushare
-          fi
-        env:
-          TUSHARE_TOKEN: ${{ secrets.TUSHARE_TOKEN }}
-          DATA_SOURCE: tushare
-      
-      - name: 检查结果
-        run: |
-          echo "=== 回测结果 ==="
-          ls -lh output/new_strategy_results.json
-          python -c "
-import json
-with open('output/new_strategy_results.json') as f:
-    d = json.load(f)
-print(f'更新时间: {d.get(\"update_time\", \"N/A\")}')
-print(f'策略数: {d.get(\"strategy_count\", 0)}')
-for s in d.get('strategies', []):
-    trades = len(s.get('trades', []))
-    ret = s.get('total_return', 0) * 100
-    print(f'  {s.get(\"name\", \"N/A\")}: {ret:.2f}%, {trades}笔交易')
-"
-      
-      - name: 合并到主数据
-        run: python proper_merge.py || echo "合并完成或无需合并"
-      
-      - name: 推送结果
-        run: |
-          git config --local user.email "github-actions[bot]@users.noreply.github.com"
-          git config --local user.name "github-actions[bot]"
-          git add output/strategy_data.json output/new_strategy_results.json
-          git commit -m "历史回测批次${{ inputs.batch }} $(date +'%Y-%m-%d %H:%M')" || echo "无更改"
-          git push
+# ============================================================
+# 历史回测说明
+# ============================================================
+#
+# 【重要】本文件已不再使用 GitHub Actions 运行历史回测！
+#
+# 原因：
+# 1. 历史回测耗时长，超出 GitHub Actions 6小时限制
+# 2. 历史回测应在 Codex 本地/云端沙箱运行
+#
+# ============================================================
+# 
+# 任务分工：
+# ┌─────────────────────────────────────────────────────────┐
+# │  GitHub Actions        │  Codex 本地/云端                │
+# ├─────────────────────────────────────────────────────────┤
+# │  每日单次回测          │  历史回测（多日）              │
+# │  （已上线策略）        │  新策略开发                    │
+# │  ~5分钟               │  按需执行                      │
+# └─────────────────────────────────────────────────────────┘
+#
+# ============================================================
+#
+# Codex 本地/云端运行历史回测命令：
+#
+# 【方式1】Codex 执行（推荐）
+#   cd stock_intelligence/multi_strategy_trading
+#   codex exec --profile m21 --dangerously-bypass-approvals-and-sandbox --skip-git-repo-check "运行历史回测"
+#
+# 【方式2】批处理脚本
+#   python .github/scripts/codex_batch_backtest.py --batch all
+#   python .github/scripts/codex_batch_backtest.py --batch 1
+#
+# 【方式3】直接运行
+#   python backtest_history.py --source tushare
+#   python backtest_history.py --source akshare
+#
+# ============================================================
+#
+# 策略批次定义：
+#   批次1: 护城河选股,质量因子选股,GARP成长,股权激励,周期股择时
+#   批次2: 回购信号,龙虎榜跟风,打板接力,次新股,尾盘抢筹
+#   批次3: 集合竞价,戴维斯双击,股东户数变化,困境反转,涨停封单
+#   批次4: 跌停撬板,限售解禁博弈,游资席位跟踪,ETF折溢价套利,网格交易,可转债双低,可转债下修博弈
+#   批次all: 全部新策略
+#
+# ============================================================
+#
+# 回测完成后操作：
+#   1. 合并数据: python proper_merge.py
+#   2. 推送到 GitHub: git add output/ && git commit -m "历史回测完成" && git push
+#
+# ============================================================
